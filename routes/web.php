@@ -22,6 +22,9 @@ Auth::routes(['register'=>false]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/miembros', [MiembroController::class, 'index']);
-// Route::get('/miembros', function () {return view('miembros.index');})->middleware('auth');
-Route::get('/miembros/create', function () {return view('miembros.create');})->middleware('auth');
+Route::resource('/miembros', MiembroController::class);
+
+// Route::get('/miembros', [MiembroController::class, 'index']);
+// Route::post('/miembros/create', [MiembroController::class, 'create']);
+
+// Route::get('/miembros/create', function () {return view('miembros.create');})->middleware('auth');

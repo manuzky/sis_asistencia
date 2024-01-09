@@ -14,15 +14,15 @@ return new class extends Migration
         Schema::create('miembros', function (Blueprint $table) {
             $table->id();
             $table->string('nombre_apellido');
-            $table->string('cedula');
-            $table->string('direccion');
-            $table->string('telefono');
+            $table->string('cedula')->unique();
             $table->string('fecha_nacimiento');
-            $table->string('genero');
             $table->string('email')->unique();
-            $table->string('estado');
+            $table->string('telefono');
+            $table->string('genero');
             $table->string('cargo');
-            $table->text('foto');
+            $table->string('direccion');
+            $table->text('foto')->nullable();
+            $table->string('estado');
             $table->string('fecha_ingreso');
             $table->timestamps();
         });

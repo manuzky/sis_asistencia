@@ -14,7 +14,7 @@ class MiembroSeeder extends Seeder
     public function run(): void
     {
         Miembro::create([
-            'nombre_apellido' => 'José Manuel Carrasquel Pérez',
+            'nombre_apellido' => 'José Carrasquel',
             'cedula' => '30205553',
             'direccion' => 'Barcelona, Guamachito, Calle Libertad, Vereda Libertad, casa S/N.',
             'telefono' => '04248534449',
@@ -23,11 +23,11 @@ class MiembroSeeder extends Seeder
             'email' => 'josem.zky@gmail.com',
             'estado' => '1',
             'cargo' => 'DESARROLLADOR',
-            'foto' => 'JMCP.jpg',
+            'foto' => 'joseC.jpg',
             'fecha_ingreso' => '2024-01-04',
         ]);
         Miembro::create([
-            'nombre_apellido' => 'Diego Alonso Albino León',
+            'nombre_apellido' => 'Diego Albino',
             'cedula' => '30141723',
             'direccion' => 'Fundación Mendoza, Av. Raúl Leoni, Conjunto Residencial Alto Guaica.',
             'telefono' => '04248172330',
@@ -36,7 +36,7 @@ class MiembroSeeder extends Seeder
             'email' => 'diegoalbino0606@gmail.com',
             'estado' => '1',
             'cargo' => 'DESARROLLADOR',
-            'foto' => 'diego.jpg',
+            'foto' => 'diegoA.jpg',
             'fecha_ingreso' => '2024-01-04',
         ]);
         Miembro::create([
@@ -49,7 +49,7 @@ class MiembroSeeder extends Seeder
             'email' => 'guaremacacerescesaraugusto@gmail.com',
             'estado' => '1',
             'cargo' => 'DESARROLLADOR',
-            'foto' => 'cesar.jpg',
+            'foto' => 'cesarG.jpg',
             'fecha_ingreso' => '2024-01-04',
         ]);
         Miembro::create([
@@ -62,9 +62,8 @@ class MiembroSeeder extends Seeder
             'email' => 'eduardo.liendo27@gmail.com',
             'estado' => '1',
             'cargo' => 'DESARROLLADOR',
-            'foto' => 'carlos.jpg',
+            'foto' => 'carlosL.jpg',
             'fecha_ingreso' => '2024-01-04',
         ]);
-
     }
 }

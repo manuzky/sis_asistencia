@@ -15,9 +15,13 @@ class MiembroController extends Controller
         return view('miembros.index', ['miembros'=>$miembros]);
     }
 
+/* ---------------------------------------------------------------------------------------------------------------- */
+
     public function create(){
         return view('miembros.create');
     }
+
+/* ---------------------------------------------------------------------------------------------------------------- */
 
     public function store(Request $request){
         $miembro = new Miembro();
@@ -42,9 +46,65 @@ class MiembroController extends Controller
             $miembro->foto = $request->file('foto')->store('foto_miembro', 'public');
         }
         $miembro->estado = '1';
-        $miembro->fecha_ingreso = '2023-01-09';
+        $miembro->fecha_ingreso = date($format = 'Y-m-d');
         
         $miembro->save();
-        return redirect('/miembros');
+        return redirect()->route('miembros.index')->with('mensaje', 'El miembro fue registrado correctamente.');
+    }
+
+/* ---------------------------------------------------------------------------------------------------------------- */
+
+    public function show($id){
+        $miembro = Miembro::findOrFail($id);
+
+        return view('miembros.show', ['miembro'=>$miembro]);
+    }
+
+/* ---------------------------------------------------------------------------------------------------------------- */
+
+    public function edit($id){
+        $miembro = Miembro::findOrFail($id);
+
+        return view('miembros.edit', ['miembro'=>$miembro]);
+    }
+
+/* ------------------------------------------------------------------------------------------------------------------ */
+
+
+    public function update(Request $request, $id){
+        $request->validate([
+            'nombre_apellido' => 'required',
+            'cedula' => 'required',
+            'fecha_nacimiento' => 'required',
+            'email' => 'required',
+            'genero' => 'required',
+            'cargo' => 'required',
+        ]);
+
+        $miembro = Miembro::find($id);
+
+        $miembro->nombre_apellido = $request->nombre_apellido;
+        $miembro->cedula = $request->cedula;
+        $miembro->fecha_nacimiento = $request->fecha_nacimiento;
+        $miembro->email = $request->email;
+        $miembro->telefono = $request->telefono;
+        $miembro->genero = $request->genero;
+        $miembro->cargo = $request->cargo;
+        $miembro->direccion = $request->direccion;
+        if ($request->hasFile('foto')){
+            Storage::delete('public/'.$miembro->foto);
+            $miembro->foto = $request->file('foto')->store('foto_miembro', 'public');
+        }
+
+        $miembro->save();
+        return redirect()->route('miembros.index')->with('mensaje', 'Se actualizó el registro correctamente.');
+    }
+
+/* ---------------------------------------------------------------------------------------------------------------- */
+
+    public function destroy($id){
+        Miembro::destroy($id);
+
+        return redirect()->route('miembros.index')->with('mensaje', 'Se eliminó el registro correctamente.');
     }
 }

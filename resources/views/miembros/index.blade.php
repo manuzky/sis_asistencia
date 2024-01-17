@@ -38,7 +38,21 @@
                                         <td>{{substr_replace(substr_replace($miembro->telefono, '-', 4, 0), '.', 8, 0)}}</td>
                                         <td>{{$miembro->email}}</td>
                                         <td>{{$miembro->estado}}</td>
-                                        <td></td>
+                                        <td style="text-align: center">
+                                            <div class="btn-group" role="group">
+                                                <a href="{{url('miembros', $miembro->id)}}" type="button" class="btn btn-info"><i class="bi bi-eye"></i></a>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <a href="{{route('miembros.edit', $miembro->id)}}" type="button" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <form action="{{url('miembros', $miembro->id)}}" method="POST">
+                                                    @csrf
+                                                    {{method_field('DELETE')}}
+                                                    <button type="submit" class="btn btn-danger" value=""><i class="bi bi-trash"></i></button>
+                                                </form>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -47,6 +61,7 @@
                                 $(function () {
                                 $("#example1").DataTable({
                                     "pageLength": 10,
+                                    "order": [[0, 'desc']],
                                     "language": {
                                         "emptyTable": "No hay información",
                                         "info": "Mostrando _START_ a _END_ de _TOTAL_ Miembros",
@@ -85,6 +100,16 @@
                 </div>  
             </div>
         </div>
+
+        @if($message = Session::get('mensaje'))
+        <script>
+            Swal.fire({
+                title: "¡Felicidades!",
+                text: "{{$message}}",
+                icon: "success"
+            });
+        </script>
+        @endif
 
     </div>
 @endsection

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
     <div class="content" style="margin-left: 2%">
-        <h1>Creación de un nuevo miembro</h1>
+        <h1>Editar datos del miembro</h1>
         @foreach($errors->all() as $error)
             <div class="alert alert-danger">
                 <li>{{$error}}</li>
@@ -16,61 +16,66 @@
                     </div>
                     
                     <div class="card-body" style="display: block;">
-                        <form action="{{url('/miembros')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{url('/miembros', $miembro->id)}}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            {{method_field('PATCH')}}
                             <div class="row">
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">Nombre y apellido</label><b style="color:red"> *</b>
-                                                <input type="text" name="nombre_apellido" value="{{old('nombre_apellido')}}" class="form-control">
+                                                <input type="text" name="nombre_apellido" value="{{$miembro->nombre_apellido}}" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">Cédula</label><b style="color:red"> *</b>
-                                                <input type="text" name="cedula" value="{{old('cedula')}}" class="form-control">
+                                                <input type="text" name="cedula" value="{{$miembro->cedula}}" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">Fecha de nacimiento</label><b style="color:red"> *</b>
-                                                <input type="date" name="fecha_nacimiento" value="{{old('fecha_nacimiento')}}" class="form-control">
+                                                <input type="date" name="fecha_nacimiento" value="{{$miembro->fecha_nacimiento}}" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">E-mail</label><b style="color:red"> *</b>
-                                                <input type="email" name="email" value="{{old('email')}}" class="form-control">
+                                                <input type="email" name="email" value="{{$miembro->email}}" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">Teléfono</label>
-                                                <input type="number" name="telefono" value="{{old('telefono')}}" class="form-control">
+                                                <input type="number" name="telefono" value="{{$miembro->telefono}}" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">Genero</label><b style="color:red"> *</b>
-                                                <select name="genero" value="{{old('genero')}}" class="form-control">
-                                                    <option value="">--SELECCIONE EL GENERO--</option>
-                                                    <option value="MASCULINO" @if(old('genero') == 'MASCULINO') selected @endif>MASCULINO</option>
-                                                    <option value="FEMENINO" @if(old('genero') == 'FEMENINO') selected @endif>FEMENINO</option>
+                                                <select name="genero" id="" class="form-control">
+                                                    @if($miembro->genero == 'MASCULINO')
+                                                        <option value="MASCULINO">MASCULINO</option>
+                                                        <option value="FEMENINO">FEMENINO</option>
+                                                    @else
+                                                        <option value="FEMENINO">FEMENINO</option>
+                                                        <option value="MASCULINO">MASCULINO</option>
+                                                    @endif
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">Cargo</label><b style="color:red"> *</b>
-                                                <input type="text" name="cargo" value="{{old('cargo')}}" class="form-control">
+                                                <input type="text" name="cargo" value="{{$miembro->cargo}}" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label for="">Dirección</label>
-                                                <input type="text" name="direccion" value="{{old('direccion')}}" class="form-control">
+                                                <input type="text" name="direccion" value="{{$miembro->direccion}}" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -81,7 +86,19 @@
                                         <label for="">Fotografía</label>
                                         <input type="file" id="file" name="foto" class="form-control">
                                         <br>
-                                        <center><output id="list"></output></center>
+                                        <center>
+                                            <output id="list">
+                                                @if($miembro->foto == '')
+                                                    @if($miembro->genero == 'MASCULINO')
+                                                        <center><img src="{{url('images/hombre.png')}}" width="90%"></center>
+                                                    @else
+                                                        <center><img src="{{url('images/mujer.png')}}" width="90%"></center>
+                                                    @endif
+                                                @else
+                                                    <center><img src="{{asset('storage').'/'.$miembro->foto}}" width="90%"></center>
+                                                @endif
+                                            </output>
+                                        </center>
                                         <script>
                                             function archivo(evt){
                                                 var files = evt.target.files;
@@ -113,7 +130,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <a href="{{url('miembros')}}" class="btn btn-danger">Cancelar</a>
-                                        <button type="submit" class="btn btn-success">Guardar Registro</button>
+                                        <button type="submit" class="btn btn-success">Actualizar Registro</button>
                                     </div>
                                 </div>
                             </div>

@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('cedula')->unique();
             $table->string('fecha_nacimiento');
             $table->string('email')->unique();
-            $table->string('telefono');
+            $table->string('telefono')->nullable();
             $table->string('genero');
             $table->string('cargo');
-            $table->string('direccion');
+            $table->string('direccion')->nullable();
             $table->text('foto')->nullable();
             $table->string('estado');
             $table->string('fecha_ingreso');

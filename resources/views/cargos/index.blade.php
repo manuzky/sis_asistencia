@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 @section('content')
     <div class="content" style="margin-left: 2%">
-        <h1>Listado de miembros</h1>
+        <h1>Listado de cargos</h1>
 
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-primary shadow">
                     <div class="card-header">
-                        <h3 class="card-title text-center">Miembros registrados</h3>
+                        <h3 class="card-title text-center">Cargos registrados</h3>
                         <div class="card-tools">
-                            <a href="{{url('/miembros/create')}}" class="btn btn-primary">
-                                <i class="bi bi-person-plus" style="font-size: 112%;"> Agregar nuevo miembro</i>
+                            <a href="{{url('/cargos/create')}}" class="btn btn-primary">
+                                <i class="bi bi-person-plus" style="font-size: 112%;"> Agregar nuevo cargo</i>
                             </a>
                         </div>
                     </div>
@@ -20,38 +20,36 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Nombres y apellidos</th>
-                                    <th>Cédula</th>
-                                    <th>Teléfono</th>
-                                    <th>E-mail</th>
+                                    <th>Cargo</th>
+                                    <th>Descripción</th>
+                                    <th>Fecha de ingreso</th>
                                     <th>Estado</th>
                                     <th>Acción</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @foreach($miembros as $miembro)
+                                @foreach($cargos as $cargo)
                                     <tr>
-                                        <td>{{ str_pad($miembro->id, 4, '0', STR_PAD_LEFT) }}</td>
-                                        <td>{{$miembro->nombre_apellido}}</td>
-                                        <td>{{ number_format($miembro->cedula, 0, '.', '.') }}</td>
-                                        <td>{{substr_replace(substr_replace($miembro->telefono, '-', 4, 0), '.', 8, 0)}}</td>
-                                        <td>{{$miembro->email}}</td>
+                                        <td>{{ str_pad($cargo->id, 4, '0', STR_PAD_LEFT) }}</td>
+                                        <td>{{$cargo->nombre_cargo}}</td>
+                                        <td>{{$cargo->descripcion_cargo}}</td>
+                                        <td>{{$cargo->fecha_ingreso_cargo}}</td>
                                         <td style="text-align: center">
                                             <button class="btn btn-success btn-sm" style="border-radius: 20px">Activo</button>
                                         </td>
                                         <td style="text-align: center">
                                             <div class="btn-group" role="group">
-                                                <a href="{{url('miembros', $miembro->id)}}" type="button" class="btn btn-info"><i class="bi bi-eye"></i></a>
+                                                <a href="{{url('cargos', $cargo->id)}}" type="button" class="btn btn-info"><i class="bi bi-eye"></i></a>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <a href="{{route('miembros.edit', $miembro->id)}}" type="button" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
+                                                <a href="{{route('cargos.edit', $cargo->id)}}" type="button" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
                                             </div>
                                             <div class="btn-group" role="group">
-                                                <form action="{{url('miembros', $miembro->id)}}" method="POST">
+                                                <form action="{{url('cargos', $cargo->id)}}" method="POST">
                                                     @csrf
                                                     {{method_field('DELETE')}}
-                                                    <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar el registro de: {{$miembro->nombre_apellido}}?')" class="btn btn-danger" value=""><i class="bi bi-trash"></i></button>
+                                                    <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar el cargo: {{$cargo->nombre_cargo}}?')" class="btn btn-danger" value=""><i class="bi bi-trash"></i></button>
                                                 </form>
                                             </div>
                                         </td>
@@ -72,12 +70,12 @@
         "order": [[0, 'desc']],
         "language": {
             "emptyTable": "No hay información",
-            "info": "Mostrando _START_ a _END_ de _TOTAL_ Miembros",
-            "infoEmpty": "Mostrando 0 a 0 de 0 Miembros",
-            "infoFiltered": "(Filtrado de _MAX_ total Miembros)",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ Cargos",
+            "infoEmpty": "Mostrando 0 a 0 de 0 Cargos",
+            "infoFiltered": "(Filtrado de _MAX_ total Cargos)",
             "infoPostFix": "",
             "thousands": ",",
-            "lengthMenu": "Mostrar _MENU_ Miembros",
+            "lengthMenu": "Mostrar _MENU_ Cargos",
             "loadingRecords": "Cargando...",
             "processing": "Procesando...",
             "search": "Buscador:",
@@ -103,13 +101,14 @@
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
 </script>
+
 @if($message = Session::get('mensaje'))
 <script>
-    Swal.fire({
-        title: "¡Felicidades!",
-        text: "{{$message}}",
-        icon: "success"
-    });
+        Swal.fire({
+            title: "¡Felicidades!",
+            text: "{{$message}}",
+            icon: "success"
+        });
 </script>
 @endif
 

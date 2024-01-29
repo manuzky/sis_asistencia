@@ -103,6 +103,8 @@ class MiembroController extends Controller
 /* ---------------------------------------------------------------------------------------------------------------- */
 
     public function destroy($id){
+        $miembro = Miembro::find($id);
+        Storage::delete('public/'.$miembro->foto);
         Miembro::destroy($id);
 
         return redirect()->route('miembros.index')->with('mensaje', 'Se eliminó el registro correctamente.');

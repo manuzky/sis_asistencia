@@ -24,25 +24,25 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">Nombre y apellido</label><b style="color:red"> *</b>
-                                                <input type="text" name="nombre_apellido" value="{{old('nombre_apellido')}}" class="form-control">
+                                                <input type="text" name="nombre_apellido" value="{{old('nombre_apellido')}}" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">Cédula</label><b style="color:red"> *</b>
-                                                <input type="text" name="cedula" value="{{old('cedula')}}" class="form-control">
+                                                <input type="number" name="cedula" value="{{old('cedula')}}" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">Fecha de nacimiento</label><b style="color:red"> *</b>
-                                                <input type="date" name="fecha_nacimiento" value="{{old('fecha_nacimiento')}}" class="form-control">
+                                                <input type="date" name="fecha_nacimiento" value="{{old('fecha_nacimiento')}}" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">E-mail</label><b style="color:red"> *</b>
-                                                <input type="email" name="email" value="{{old('email')}}" class="form-control">
+                                                <input type="email" name="email" value="{{old('email')}}" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -54,7 +54,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">Genero</label><b style="color:red"> *</b>
-                                                <select name="genero" value="{{old('genero')}}" class="form-control">
+                                                <select name="genero" value="{{old('genero')}}" class="form-control" required>
                                                     <option value="">--SELECCIONE EL GENERO--</option>
                                                     <option value="MASCULINO" @if(old('genero') == 'MASCULINO') selected @endif>MASCULINO</option>
                                                     <option value="FEMENINO" @if(old('genero') == 'FEMENINO') selected @endif>FEMENINO</option>
@@ -64,7 +64,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">Cargo</label><b style="color:red"> *</b>
-                                                <input type="text" name="cargo" value="{{old('cargo')}}" class="form-control">
+                                                <input type="text" name="cargo" value="{{old('cargo')}}" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-md-8">
@@ -82,27 +82,6 @@
                                         <input type="file" id="file" name="foto" class="form-control">
                                         <br>
                                         <center><output id="list"></output></center>
-                                        <script>
-                                            function archivo(evt){
-                                                var files = evt.target.files;
-                                                //obtenemos la imagen del campo "file".
-                                                for (var i=0, f; f = files[i]; i++){
-                                                    //solo admitimos imagenes.
-                                                    if (!f.type.match('image.*')){
-                                                        continue;
-                                                    }
-                                                    var reader = new FileReader();
-                                                    reader.onload = (function (theFile){
-                                                        return function (e){
-                                                            //insertamos la imagen
-                                                            document.getElementById("list").innerHTML = ['<img class="thumb thumbnail" src="',e.target.result,'"width="50%" title="', escape(theFile.name),'"/>'].join('');
-                                                        };
-                                                    }) (f);
-                                                    reader.readAsDataURL(f);
-                                                }
-                                            }
-                                            document.getElementById('file').addEventListener('change',archivo, false);
-                                        </script>
                                     </div>
                                 </div>
                             </div>
@@ -123,4 +102,26 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function archivo(evt){
+            var files = evt.target.files;
+            //obtenemos la imagen del campo "file".
+            for (var i=0, f; f = files[i]; i++){
+                //solo admitimos imagenes.
+                if (!f.type.match('image.*')){
+                    continue;
+                }
+                var reader = new FileReader();
+                reader.onload = (function (theFile){
+                    return function (e){
+                        //insertamos la imagen
+                        document.getElementById("list").innerHTML = ['<img class="thumb thumbnail" src="',e.target.result,'"width="50%" title="', escape(theFile.name),'"/>'].join('');
+                    };
+                }) (f);
+                reader.readAsDataURL(f);
+            }
+        }
+        document.getElementById('file').addEventListener('change',archivo, false);
+    </script>
 @endsection

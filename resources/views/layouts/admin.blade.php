@@ -25,6 +25,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
   {{-- Sweet Alert 2 --}}
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  {{-- CKEDITOR PARA EL TEXTAREA --}}
+  <script src="https://cdn.ckeditor.com/4.20.1/standard/ckeditor.js"></script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -215,6 +217,34 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas">
+                <i class="bi bi-person-vcard-fill"></i>
+              </i>
+              <p>
+                Cargos
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url('cargos/create')}}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Nuevo cargo</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('cargos')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Listado de cargos</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
           <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}"
                 onclick="event.preventDefault();

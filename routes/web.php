@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MiembroController;
+use App\Http\Controllers\CargoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,13 +19,9 @@ use App\Http\Controllers\MiembroController;
 
 Route::get('/', function () {return view('index');})->middleware('auth');
 
-Auth::routes(['register'=>false]);
+Auth::routes(['register']);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::resource('/miembros', MiembroController::class);
-
-// Route::get('/miembros', [MiembroController::class, 'index']);
-// Route::post('/miembros/create', [MiembroController::class, 'create']);
-
-// Route::get('/miembros/create', function () {return view('miembros.create');})->middleware('auth');
+Route::resource('/cargos', CargoController::class);

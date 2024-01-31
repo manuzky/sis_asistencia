@@ -48,7 +48,7 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <a href="{{url('miembros')}}" class="btn btn-danger">Cancelar</a>
+                                        <a href="{{url('cargos')}}" class="btn btn-danger">Cancelar</a>
                                         <button type="submit" class="btn btn-success">Guardar cargo</button>
                                     </div>
                                 </div>

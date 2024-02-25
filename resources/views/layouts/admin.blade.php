@@ -148,6 +148,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
+
+          <li class="nav-item" >
+            <a href="#" class="nav-link active" style="background-color: rgba(245, 149, 24, 0.856);">
+              <i class="nav-icon fas">
+                <i class="bi bi-calendar2-week"></i>
+              </i>
+              <p>
+                Asistencias
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url('asistencias/create')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Nueva asistencia</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('asistencias')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Listado de asistencias</p>
+                </a>
+              </li>
+            </ul>
+          </li>
           
           <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}"

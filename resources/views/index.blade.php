@@ -55,6 +55,23 @@
                 </div>
             </div>
 
+            <div class="col-lg-3">
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                            <?php $contador_asistencias = 0 ?>
+                            @foreach($asistencias as $asistencia)
+                                <?php $contador_asistencias = $contador_asistencias + 1; ?>
+                            @endforeach
+                        <h3><?=$contador_asistencias?></h3>
+                        <p>Asistencias</p>
+                    </div>
+                    <div class="icon">
+                        <i class="bi bi-calendar2-week"></i>
+                    </div>
+                <a href="{{url('asistencias')}}" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
         </div>
     </div>
 @endsection

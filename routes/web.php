@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AsistenciaController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
@@ -29,3 +30,4 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::resource('/miembros', MiembroController::class);
 Route::resource('/cargos', CargoController::class);
 Route::resource('/usuarios', UserController::class);
+Route::resource('/asistencias', AsistenciaController::class);

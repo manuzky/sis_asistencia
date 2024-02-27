@@ -7,7 +7,7 @@
             <div class="col-md-6">
                 <div class="card card-primary shadow">
                     <div class="card-header">
-                        <h3 class="card-title text-center"></h3>
+                        <h3 class="card-title text-center">Datos del registro</h3>
                     </div>
                     <div class="card">        
                         <div class="card-body">
@@ -55,13 +55,12 @@
                                         @enderror
                                     </div>
                                 </div>
-        
-                                <div class="row mb-0">
-                                    <div class="col-md-6 offset-md-4">
-                                        <a href="{{url('usuarios')}}" class="btn btn-danger">Cancelar</a>
-                                    </div>
-                                </div>
                             </form>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-6 offset-md-4">
+                            <a href="{{url('usuarios')}}" class="btn btn-danger">Volver</a>
                         </div>
                     </div>
                 </div>  
@@ -69,53 +68,6 @@
         </div>
     </div>
 
-<script>
-    $(function () {
-    $("#example1").DataTable({
-        "pageLength": 10,
-        "order": [[0, 'desc']],
-        "language": {
-            "emptyTable": "No hay información",
-            "info": "Mostrando _START_ a _END_ de _TOTAL_ Usuarios",
-            "infoEmpty": "Mostrando 0 a 0 de 0 Usuarios",
-            "infoFiltered": "(Filtrado de _MAX_ total Usuarios)",
-            "infoPostFix": "",
-            "thousands": ",",
-            "lengthMenu": "Mostrar _MENU_ Usuarios",
-            "loadingRecords": "Cargando...",
-            "processing": "Procesando...",
-            "search": "Buscador:",
-            "zeroRecords": "Sin resultados encontrados",
-            "paginate": {
-                "first": "Primero",
-                "last": "Ultimo",
-                "next": "Siguiente",
-                "previous": "Anterior"
-            }
-        },
-        "responsive": true, "lengthChange": true, "autoWidth": false,
-        buttons: [{
-            extend: 'collection',
-            text: 'Reportes',
-            orientation: 'landscape',
-            buttons: [
-                { text: 'Imprimir como PDF', extend: 'pdf', exportOptions: { columns: ':not(:last-child, :nth-last-child(2))' } },
-                { text: 'Imprimir como EXCEL',extend: 'excel', exportOptions: { columns: ':not(:last-child, :nth-last-child(2))' } },
-            ]
-        },
-        ],
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    });
-</script>
-@if($message = Session::get('mensaje'))
-    <script>
-            Swal.fire({
-                title: "¡Felicidades!",
-                text: "{{$message}}",
-                icon: "success"
-            });
-    </script>
-@endif
 
 @endsection
 

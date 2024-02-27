@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Asistencia;
+use App\Models\Asistencia;
 use App\Models\Miembro;
 use Illuminate\Http\Request;
 
@@ -33,8 +33,7 @@ class AsistenciaController extends Controller
 
         $asistencia = Asistencia::create($request->all());
 
-        return redirect()->route('asistencias.index')
-            ->with('success', 'Asistencia created successfully.');
+        return redirect()->route('asistencias.index')->with('mensaje', 'Asistencia añadida correctamente.');
     }
 
 /* ---------------------------------------------------------------------------------------------------------------- */
@@ -63,8 +62,7 @@ class AsistenciaController extends Controller
 
         $asistencia->update($request->all());
 
-        return redirect()->route('asistencias.index')
-            ->with('success', 'Asistencia updated successfully');
+        return redirect()->route('asistencias.index')->with('mensaje', 'Asistencia actualizada correctamente');
     }
 
 /* ---------------------------------------------------------------------------------------------------------------- */
@@ -73,7 +71,6 @@ class AsistenciaController extends Controller
     {
         $asistencia = Asistencia::find($id)->delete();
         $miembro = Miembro::find($id);
-        return redirect()->route('asistencias.index')
-            ->with('success', 'Asistencia deleted successfully');
+        return redirect()->route('asistencias.index')->with('mensaje', 'Asistencia eliminada correctamente');
     }
 }

@@ -1,39 +1,29 @@
 @extends('layouts.admin')
 @section('content')
     <div class="container-fluid">
+        <h1>Listado de asistencias</h1>
+
         <div class="row">
             <div class="col-sm-12">
-                <div class="card">
+                <div class="card card-primary shadow">
                     <div class="card-header">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-
-                            <span id="card_title">
-                                Listado de asistencias
-                            </span>
-
-                             <div class="float-right">
-                                <a href="{{ route('asistencias.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  Crear nueva asistencia
-                                </a>
-                              </div>
+                        <h3 class="card-title text-center">Asistencias registradas</h3>
+                        <div class="card-tools">
+                            <a href="{{url('/asistencias/create')}}" class="btn btn-primary">
+                                <i class="bi bi-person-plus" style="font-size: 112%;"> Agregar nueva asistencia</i>
+                            </a>
                         </div>
                     </div>
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
 
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
-                                        
-										<th>Fecha</th>
+                                        <th>Nº</th>
+                                        <th>ID</th>
 										<th>Nombres y Apellidos</th>
-
+										<th>Fecha</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -41,18 +31,23 @@
                                     @foreach ($asistencias as $asistencia)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-                                            
-											<td>{{ $asistencia->fecha }}</td>
+                                            <td>{{ str_pad($asistencia->miembro->id, 4, '0', STR_PAD_LEFT) }}</td>
 											<td>{{ $asistencia->miembro->nombre_apellido }}</td>
-
-                                            <td>
-                                                <form action="{{ route('asistencias.destroy',$asistencia->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('asistencias.show',$asistencia->id) }}"><i class="fa fa-fw fa-eye"></i></a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('asistencias.edit',$asistencia->id) }}"><i class="fa fa-fw fa-edit"></i></a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar la asistencia?')" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
-                                                </form>
+											<td>{{ $asistencia->fecha }}</td>
+                                            <td style="text-align: center">
+                                                <div class="btn-group" role="group">
+                                                    <a href="{{route('asistencias.show', $asistencia->id)}}" type="button" class="btn btn-info"><i class="bi bi-eye"></i></a>
+                                                </div>
+                                                <div class="btn-group" role="group">
+                                                    <a href="{{route('asistencias.edit', $asistencia->id)}}" type="button" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
+                                                </div>
+                                                <div class="btn-group" role="group">
+                                                    <form action="{{route('asistencias.destroy', $asistencia->id)}}" method="POST">
+                                                        @csrf
+                                                        {{method_field('DELETE')}}
+                                                        <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar la asistencia de {{$asistencia->miembro->nombre_apellido}}?')" class="btn btn-danger" value=""><i class="bi bi-trash"></i></button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -104,4 +99,15 @@
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>
+    
+    @if($message = Session::get('mensaje'))
+    <script>
+            Swal.fire({
+                title: "¡Felicidades!",
+                text: "{{$message}}",
+                icon: "success"
+            });
+    </script>
+    @endif
+
 @endsection

@@ -1,15 +1,14 @@
 @extends('layouts.admin')
 @section('content')
     <section class="content container-fluid">
+        <h1>Datos de la asistencia</h1>
+
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card card-primary shadow">
                     <div class="card-header">
                         <div class="float-left">
                             <span class="card-title">Detalle de la Asistencia</span>
-                        </div>
-                        <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('asistencias.index') }}"> Atrás</a>
                         </div>
                     </div>
 
@@ -24,6 +23,9 @@
                             {{ $asistencia->miembro_id }}
                         </div>
 
+                        <div class="col-md-6 ">
+                            <a href="{{url('asistencias')}}" class="btn btn-danger">Volver</a>
+                        </div>
                     </div>
                 </div>
             </div>

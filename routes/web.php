@@ -20,12 +20,13 @@ use App\Http\Controllers\UserController;
 |
 */
 
-// Route::get('/', function () {return view('index');})->middleware('auth');
 Route::get('/', [AdminController::class, 'index'])->middleware('auth');
+Route::get('/asistencias/reportes', [AsistenciaController::class, 'reportes']);
+Route::get('/asistencia/pdf', [AsistenciaController::class, 'pdf']);
+Route::get('/asistencias/pdf_fechas', [AsistenciaController::class, 'pdf_fechas']);
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Auth::routes(['register'=>false]);
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::resource('/miembros', MiembroController::class);
 Route::resource('/cargos', CargoController::class);

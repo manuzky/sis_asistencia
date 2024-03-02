@@ -71,58 +71,63 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item" >
-            <a href="#" class="nav-link active" style="background-color: rgba(245, 149, 24, 0.856);">
-              <i class="nav-icon fas">
-                <i class="bi bi-file-earmark-person-fill"></i>
-              </i>
-              <p>
-                Miembros
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{url('miembros/create')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Nuevo miembro</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url('miembros')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Listado de miembros</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+            @can('miembros')
+            <li class="nav-item" >
+              <a href="#" class="nav-link active" style="background-color: rgba(245, 149, 24, 0.856);">
+                <i class="nav-icon fas">
+                  <i class="bi bi-file-earmark-person-fill"></i>
+                </i>
+                <p>
+                  Miembros
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{url('miembros/create')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Nuevo miembro</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{url('miembros')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Listado de miembros</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            @endcan
 
-          <li class="nav-item">
-            <a href="#" class="nav-link active" style="background-color: rgba(245, 149, 24, 0.856);">
-              <i class="nav-icon fas">
-                <i class="bi bi-person-vcard-fill"></i>
-              </i>
-              <p>
-                Cargos
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{url('cargos/create')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Nuevo cargo</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url('cargos')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Listado de cargos</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+            @can('cargos')
+            <li class="nav-item">
+              <a href="#" class="nav-link active" style="background-color: rgba(245, 149, 24, 0.856);">
+                <i class="nav-icon fas">
+                  <i class="bi bi-person-vcard-fill"></i>
+                </i>
+                <p>
+                  Cargos
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{url('cargos/create')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Nuevo cargo</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{url('cargos')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Listado de cargos</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            @endcan
 
+          @can('usuarios')
           <li class="nav-item">
             <a href="#" class="nav-link active" style="background-color: rgba(245, 149, 24, 0.856);">
               <i class="nav-icon fas">
@@ -148,6 +153,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
+          @endcan
 
           <li class="nav-item" >
             <a href="#" class="nav-link active" style="background-color: rgba(245, 149, 24, 0.856);">
@@ -176,35 +182,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
 
           <li class="nav-item" >
-            <a href="#" class="nav-link active" style="background-color: rgba(245, 149, 24, 0.856);">
+            <a href="{{url('asistencias/reportes')}}" class="nav-link active" style="background-color: rgba(245, 149, 24, 0.856);">
               <i class="nav-icon fas">
                 <i class="bi bi-printer"></i>
               </i>
               <p>
                 Reportes
-                <i class="right fas fa-angle-left"></i>
+
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{url('asistencias/reportes')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Asistencias</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url('/')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>...</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url('/')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>...</p>
-                </a>
-              </li>
-            </ul>
           </li>
           
           <li class="nav-item">

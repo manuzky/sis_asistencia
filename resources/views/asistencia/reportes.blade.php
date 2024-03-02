@@ -22,7 +22,7 @@
                                             </a>
                                         </span>
                                         <div class="info-box-content">
-                                            <span class="info-box-text">Imrpimir reporte</span>
+                                            <span class="info-box-text">Imprimir reporte</span>
                                             <span class="info-box-number">Asistencias</span>
                                         </div>
                                     </div>

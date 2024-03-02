@@ -168,6 +168,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -185,5 +186,6 @@ return [
         // 'Example' => App\Facades\Example::class,
         $app->register(\Barryvdh\DomPDF\ServiceProvider::class),
     ])->toArray(),
+
 
 ];

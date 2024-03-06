@@ -26,7 +26,7 @@ Route::get('/asistencia/pdf', [AsistenciaController::class, 'pdf'])->name('pdf')
 Route::get('/asistencias/pdf_fechas', [AsistenciaController::class, 'pdf_fechas'])->name('pdf_fechas');
 Route::get('/home', [HomeController::class, 'index'])->name('home')->name('home');
 
-Auth::routes(['register']);
+Auth::routes(['register'=>false]);
 
 Route::resource('/miembros', MiembroController::class)->middleware('can:miembros');
 Route::resource('/cargos', CargoController::class)->middleware('can:cargos');

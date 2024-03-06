@@ -13,7 +13,6 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             <div class="row">
-
                                 <div class="col-md-3 col-sm-6 col-12" >
                                     <div class="info-box" style="height: 92px">
                                         <span class="info-box-icon bg-info">
@@ -43,7 +42,7 @@
                                                         <input type="date" name="fi" class="form-control">
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label for="">Fecha Inicio</label>
+                                                        <label for="">Fecha Final</label>
                                                         <input type="date" name="ff" class="form-control">
                                                     </div>
                                                     <div class="col-md-4">

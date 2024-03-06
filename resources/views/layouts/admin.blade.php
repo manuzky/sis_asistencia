@@ -39,29 +39,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{ url('/') }}" class="nav-link">MENÚ DE INICIO</a>
+        <img src="{{url('images/encabezado.png')}}" alt="encabezado">
       </li>
     </ul>
   </nav>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #004610">
+  <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-image: linear-gradient(to bottom, #5fc3fd, #cae9ff, #a8f8fd);">
     <!-- Brand Logo -->
     <a href="{{ url('/') }}" class="brand-link">
       {{-- <img src="{{url('/dist/img/logo_uptjaa.png')}}" alt="UPTJAA logo" class="brand-image elevation-9"> --}}
-      <span class="brand-text font-weight-light">CONTROL DE ASISTENCIAS</span>
+      {{-- <span class="brand-text font-weight-light">CONTROL DE ASISTENCIAS</span> --}}
+      <div class="image">
+        <center>
+          <img src="{{url('/images/uptjaalogofullderecha.png')}}" alt="logo uptjaa" width="70%">
+        </center>
+      </div>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="{{url('/dist/img/logo_uptjaa.png')}}" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+        <div class="info ">
+          <a class="d-block" style="color: #333333;"> <b>USUARIO: </b>{{ Auth::user()->name }}</a>
         </div>
       </div>
 
@@ -71,9 +73,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+               <li class="nav-item" >
+                <a href="{{url('/')}}" class="nav-link active" style="background-color: #18b0ec;">
+                  <i class="nav-icon fas">
+                    <i class="bi bi-house-door-fill"></i>
+                  </i>
+                  <p>
+                    Menú de inicio
+                  </p>
+                </a>
+              </li>
             @can('miembros')
-            <li class="nav-item" >
-              <a href="#" class="nav-link active" style="background-color: rgba(245, 149, 24, 0.856);">
+            <li class="nav-item {{ Request::is('miembros/create*') || Request::is('miembros*') ? 'menu-open' : '' }}" >
+              <a href="#" class="nav-link active {{ Request::is('miembros/create*') || Request::is('miembros*') ? 'active' : '' }}" style="background-color: #18b0ec;" >
                 <i class="nav-icon fas">
                   <i class="bi bi-file-earmark-person-fill"></i>
                 </i>
@@ -83,16 +95,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="{{url('miembros/create')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Nuevo miembro</p>
+                <li class="nav-item ">
+                  <a href="{{url('miembros/create')}}" class="nav-link {{ Request::is('miembros/create*') ? 'active' : '' }}">
+                    <i class="far fa-circle nav-icon" style="color: #333333;"></i>
+                    <p style="color: #333333;">Nuevo miembro</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{url('miembros')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Listado de miembros</p>
+                  <a href="{{url('miembros')}}" class="nav-link {{ Request::is('miembros*') && !Request::is('miembros/create*') ? 'active' : '' }}">
+                    <i class="far fa-circle nav-icon" style="color: #333333;"></i>
+                    <p style="color: #333333;">Listado de miembros</p>
                   </a>
                 </li>
               </ul>
@@ -100,8 +112,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             @endcan
 
             @can('cargos')
-            <li class="nav-item">
-              <a href="#" class="nav-link active" style="background-color: rgba(245, 149, 24, 0.856);">
+            <li class="nav-item {{ Request::is('cargos/create*') || Request::is('cargos*') ? 'menu-open' : '' }}">
+              <a href="#" class="nav-link active {{ Request::is('cargos/create*') || Request::is('cargos*') ? 'active' : '' }}" style="background-color: #18b0ec;">
                 <i class="nav-icon fas">
                   <i class="bi bi-person-vcard-fill"></i>
                 </i>
@@ -112,15 +124,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="{{url('cargos/create')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Nuevo cargo</p>
+                  <a href="{{url('cargos/create')}}" class="nav-link {{ Request::is('cargos/create*') ? 'active' : '' }}">
+                    <i class="far fa-circle nav-icon" style="color: #333333;"></i>
+                    <p style="color: #333333;">Nuevo cargo</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{url('cargos')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Listado de cargos</p>
+                  <a href="{{url('cargos')}}" class="nav-link {{ Request::is('cargos*') && !Request::is('cargos/create*') ? 'active' : '' }}">
+                    <i class="far fa-circle nav-icon" style="color: #333333;"></i>
+                    <p style="color: #333333;">Listado de cargos</p>
                   </a>
                 </li>
               </ul>
@@ -128,8 +140,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             @endcan
 
           @can('usuarios')
-          <li class="nav-item">
-            <a href="#" class="nav-link active" style="background-color: rgba(245, 149, 24, 0.856);">
+          <li class="nav-item {{ Request::is('usuarios/create*') || Request::is('usuarios*') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link active {{ Request::is('usuarios/create*') || Request::is('usuarios*') ? 'active' : '' }}" style="background-color: #18b0ec;">
               <i class="nav-icon fas">
                 <i class="bi bi-person-circle"></i>
               </i>
@@ -140,25 +152,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{url('usuarios/create')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Nuevo usuario</p>
+                <a href="{{url('usuarios/create')}}" class="nav-link {{ Request::is('usuarios/create*') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon" style="color: #333333;"></i>
+                  <p style="color: #333333;">Nuevo usuario</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{url('usuarios')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Listado de usuarios</p>
+                <a href="{{url('usuarios')}}" class="nav-link {{ Request::is('usuarios*') && !Request::is('usuarios/create*') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon" style="color: #333333;"></i>
+                  <p style="color: #333333;">Listado de usuarios</p>
                 </a>
               </li>
             </ul>
           </li>
           @endcan
 
-          <li class="nav-item" >
-            <a href="#" class="nav-link active" style="background-color: rgba(245, 149, 24, 0.856);">
+          <li class="nav-item {{ Request::is('asistencias/create*') || Request::is('asistencias*') ? 'menu-open' : '' }}" >
+            <a href="#" class="nav-link active {{ Request::is('asistencias/create*') || Request::is('asistencias*') ? 'active' : '' }}" style="background-color: #18b0ec;">
               <i class="nav-icon fas">
-                <i class="bi bi-calendar2-week"></i>
+                <i class="bi bi-calendar2-week-fill"></i>
               </i>
               <p>
                 Asistencias
@@ -167,28 +179,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{url('asistencias/create')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Nueva asistencia</p>
+                <a href="{{url('asistencias/create')}}" class="nav-link {{ Request::is('asistencias/create*') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon" style="color: #333333;"></i>
+                  <p style="color: #333333;">Nueva asistencia</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{url('asistencias')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Listado de asistencias</p>
+                <a href="{{url('asistencias')}}" class="nav-link {{ Request::is('asistencias*') && !Request::is('asistencias/create*') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon" style="color: #333333;"></i>
+                  <p style="color: #333333;">Listado de asistencias</p>
                 </a>
               </li>
             </ul>
           </li>
 
           <li class="nav-item" >
-            <a href="{{url('asistencias/reportes')}}" class="nav-link active" style="background-color: rgba(245, 149, 24, 0.856);">
+            <a href="{{url('asistencias/reportes')}}" class="nav-link active" style="background-color: #18b0ec;">
               <i class="nav-icon fas">
-                <i class="bi bi-printer"></i>
+                <i class="bi bi-printer-fill"></i>
               </i>
               <p>
                 Reportes
-
               </p>
             </a>
           </li>

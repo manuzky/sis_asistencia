@@ -16,7 +16,7 @@
                                 <div class="col-md-3 col-sm-6 col-12" >
                                     <div class="info-box" style="height: 92px">
                                         <span class="info-box-icon bg-info">
-                                            <a href="{{url('/asistencia/pdf')}}">
+                                            <a href="{{url('reportes/pdf')}}">
                                                 <i class="bi bi-printer"></i>
                                             </a>
                                         </span>
@@ -30,12 +30,12 @@
                                 <div class="col-md-6">
                                     <div class="info-box">
                                         <span class="info-box-icon bg-warning">
-                                            <a href="{{url('/asistencia/pdf')}}">
+                                            <a href="{{url('reportes/pdf')}}">
                                                 <i class="bi bi-printer"></i>
                                             </a>
                                         </span>
                                         <div class="info-box-content">
-                                            <form action="{{url('asistencias/pdf_fechas')}}" method="GET">
+                                            <form action="{{url('reportes/pdf_fechas')}}" method="GET">
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label for="">Fecha Inicio</label>

@@ -35,14 +35,23 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="">Fecha de nacimiento</label><b style="color:red"> *</b>
-                                                <input type="date" name="fecha_nacimiento" value="{{old('fecha_nacimiento')}}" class="form-control" required>
+                                                <label for="">E-mail</label><b style="color:red"> *</b>
+                                                <input type="email" name="email" value="{{old('email')}}" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="">E-mail</label><b style="color:red"> *</b>
-                                                <input type="email" name="email" value="{{old('email')}}" class="form-control" required>
+                                                <label for="">Fecha de nacimiento</label><b style="color:red"> *</b>
+                                                <div>
+                                                    <div class="input-group date" id="datepicker">
+                                                        <input type="text" name="fecha_nacimiento" value="{{old('fecha_nacimiento')}}" class="form-control" required>
+                                                        <span class="input-group-append">
+                                                            <span class="input-group-text bg-white">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -124,4 +133,13 @@
         }
         document.getElementById('file').addEventListener('change',archivo, false);
     </script>
+
+<script type="text/javascript">
+    $(function() {
+        $('#datepicker').datepicker({
+            language: 'es' // Establecer el idioma en español
+        });
+    });
+</script>
+
 @endsection

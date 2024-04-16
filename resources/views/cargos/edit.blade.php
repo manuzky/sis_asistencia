@@ -30,12 +30,6 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="">Fecha de ingreso</label><b style="color:red"> *</b>
-                                                <input type="date" name="fecha_ingreso_cargo" value="{{$cargo->fecha_ingreso_cargo}}" class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
                                                 <label for="">Descripción</label>
                                                 <textarea class="form-control" name="descripcion_cargo" cols="30" rows="3">{{$cargo->descripcion_cargo}}</textarea>
                                             </div>
@@ -61,3 +55,16 @@
         </div>
     </div>
 @endsection
+@push('page_scripts')
+
+       <script>
+    $(document).ready(function() {
+        $('#permisos').select2({
+
+            placeholder: 'Seleccione Permiso',
+
+        });
+
+    })
+</script>
+@endpush

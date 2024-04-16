@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('nombre_cargo');
             $table->text('descripcion_cargo')->nullable();
-            $table->string('estado_cargo', 5);
-            $table->string('fecha_ingreso_cargo', 50);
             $table->timestamps();
         });
     }

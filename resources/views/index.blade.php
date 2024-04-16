@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-    <h2 style="margin-left: 1%">Página principal</h2>
+
     <div class="content" style="margin: 1%">
         <br>
         <div class="row">

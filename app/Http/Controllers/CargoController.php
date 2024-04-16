@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Cargo;
 use Illuminate\Http\Request;
+use App\Models\Permissions;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class CargoController extends Controller
 {
@@ -27,14 +30,11 @@ class CargoController extends Controller
     {
         $request->validate([
             'nombre_cargo' => 'required',
-            'fecha_ingreso_cargo' => 'required'
         ]);
 
         $cargos = new Cargo();
         $cargos->nombre_cargo = $request->nombre_cargo;
         $cargos->descripcion_cargo = $request->descripcion_cargo;
-        $cargos->estado_cargo = 1;
-        $cargos->fecha_ingreso_cargo = $request->fecha_ingreso_cargo;
         
         $cargos->save();
         return redirect()->route('cargos.index')->with('mensaje', 'Se añadió el cargo correctamente.');
@@ -64,13 +64,11 @@ class CargoController extends Controller
     {
         $request->validate([
             'nombre_cargo' => 'required',
-            'fecha_ingreso_cargo' => 'required'
         ]);
 
         $cargos = Cargo::find($id);
         $cargos->nombre_cargo = $request->nombre_cargo;
         $cargos->descripcion_cargo = $request->descripcion_cargo;
-        $cargos->fecha_ingreso_cargo = $request->fecha_ingreso_cargo;
         
         $cargos->save();
         return redirect()->route('cargos.index')->with('mensaje', 'Se actualizó el cargo correctamente.');

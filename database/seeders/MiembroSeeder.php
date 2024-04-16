@@ -22,7 +22,7 @@ class MiembroSeeder extends Seeder
             'genero' => 'MASCULINO',
             'email' => 'josem.zky@gmail.com',
             'estado' => '1',
-            'cargo' => 'DESARROLLADOR',
+            'cargo' => 'Desarrollador',
             'foto' => 'foto_miembro/joseC.jpg',
             'fecha_ingreso' => '2024-01-04',
         ]);
@@ -35,7 +35,7 @@ class MiembroSeeder extends Seeder
             'genero' => 'MASCULINO',
             'email' => 'diegoalbino0606@gmail.com',
             'estado' => '1',
-            'cargo' => 'DESARROLLADOR',
+            'cargo' => 'Desarrollador',
             'foto' => 'foto_miembro/diegoA.jpg',
             'fecha_ingreso' => '2024-01-04',
         ]);
@@ -48,7 +48,7 @@ class MiembroSeeder extends Seeder
             'genero' => 'MASCULINO',
             'email' => 'guaremacacerescesaraugusto@gmail.com',
             'estado' => '1',
-            'cargo' => 'DESARROLLADOR',
+            'cargo' => 'Desarrollador',
             'foto' => 'foto_miembro/cesarG.jpg',
             'fecha_ingreso' => '2024-01-04',
         ]);
@@ -61,7 +61,7 @@ class MiembroSeeder extends Seeder
             'genero' => 'MASCULINO',
             'email' => 'eduardo.liendo27@gmail.com',
             'estado' => '1',
-            'cargo' => 'DESARROLLADOR',
+            'cargo' => 'Desarrollador',
             'foto' => 'foto_miembro/carlosL.jpg',
             'fecha_ingreso' => '2024-01-04',
         ]);

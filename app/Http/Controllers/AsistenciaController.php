@@ -20,38 +20,6 @@ class AsistenciaController extends Controller
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
-    public function reportes()
-    {
-        return view('asistencia.reportes');
-    }
-
-/* ---------------------------------------------------------------------------------------------------------------- */
-
-    public function pdf()
-    {
-        $asistencias = Asistencia::paginate();
-        $pdf = Pdf::loadView('asistencia.pdf', ['asistencias'=>$asistencias]);
-
-        return $pdf->stream();
-    }
-    
-/* ---------------------------------------------------------------------------------------------------------------- */
-
-public function pdf_fechas(Request $request)
-{
-    $fi = $request->fi;
-    $ff = $request->ff;
-    $asistencias = Asistencia::where('fecha', '>=', $fi)
-        ->where('fecha', '<=', $ff)
-        ->get();
-    $pdf = Pdf::loadView('asistencia.pdf_fechas', ['asistencias'=>$asistencias]);
-
-    return $pdf->stream();
-    // return view('asistencia.pdf_fechas', ['asistencias'=>$asistencias]);
-}
-
-/* ---------------------------------------------------------------------------------------------------------------- */
-
     public function create()
     {
         $asistencia = new Asistencia();

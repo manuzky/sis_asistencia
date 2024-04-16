@@ -36,14 +36,23 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="">Fecha de nacimiento</label><b style="color:red"> *</b>
-                                                <input type="date" name="fecha_nacimiento" value="{{$miembro->fecha_nacimiento}}" class="form-control">
+                                                <label for="">E-mail</label><b style="color:red"> *</b>
+                                                <input type="email" name="email" value="{{$miembro->email}}" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="">E-mail</label><b style="color:red"> *</b>
-                                                <input type="email" name="email" value="{{$miembro->email}}" class="form-control">
+                                                <label for="">Fecha de nacimiento</label><b style="color:red"> *</b>
+                                                <div>
+                                                    <div class="input-group date" id="datepicker">
+                                                        <input type="text" name="fecha_nacimiento" value="{{$miembro->fecha_nacimiento}}" class="form-control" required>
+                                                        <span class="input-group-append">
+                                                            <span class="input-group-text bg-white">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -140,4 +149,34 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $(function() {
+            $('#datepicker').datepicker({
+                language: 'es' // Establecer el idioma en español
+            });
+        });
+    </script>
+    <script>
+        // Función para formatear la fecha en el formato DD-MM-YYYY
+        function formatDate(dateString) {
+            var dateParts = dateString.split("-");
+            // Reorganiza los componentes de la fecha y agrega ceros iniciales si es necesario
+            var formattedDate = dateParts[2] + "/" + dateParts[1].padStart(2, '0') + "/" + dateParts[0];
+            return formattedDate;
+        }
+    
+        // Ejecutar cuando el DOM esté listo
+        document.addEventListener("DOMContentLoaded", function() {
+            // Obtener el campo de fecha de nacimiento
+            var fechaNacimientoInput = document.querySelector('input[name="fecha_nacimiento"]');
+            // Obtener el valor actual del campo de fecha de nacimiento
+            var fechaNacimientoValue = fechaNacimientoInput.value;
+            // Formatear la fecha en el formato deseado
+            var formattedDate = formatDate(fechaNacimientoValue);
+            // Establecer el valor formateado en el campo de fecha de nacimiento
+            fechaNacimientoInput.value = formattedDate;
+        });
+    </script>
+    
 @endsection

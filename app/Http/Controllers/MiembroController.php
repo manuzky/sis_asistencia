@@ -6,6 +6,7 @@ use App\Models\Miembro;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class MiembroController extends Controller
 {
@@ -23,34 +24,37 @@ class MiembroController extends Controller
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
-    public function store(Request $request){
-        $miembro = new Miembro();
-        $request->validate([
-            'nombre_apellido' => 'required',
-            'cedula' => 'required',
-            'fecha_nacimiento' => 'required',
-            'email' => 'required',
-            'genero' => 'required',
-            'cargo' => 'required',
-        ]);
+public function store(Request $request){
+    $request->validate([
+        'nombre_apellido' => 'required',
+        'cedula' => 'required',
+        'fecha_nacimiento' => 'required',
+        'email' => 'required',
+        'genero' => 'required',
+        'cargo' => 'required',
+    ]);
 
-        $miembro->nombre_apellido = $request->nombre_apellido;
-        $miembro->cedula = $request->cedula;
-        $miembro->fecha_nacimiento = $request->fecha_nacimiento;
-        $miembro->email = $request->email;
-        $miembro->telefono = $request->telefono;
-        $miembro->genero = $request->genero;
-        $miembro->cargo = $request->cargo;
-        $miembro->direccion = $request->direccion;
-        if ($request->hasFile('foto')){
-            $miembro->foto = $request->file('foto')->store('foto_miembro', 'public');
-        }
-        $miembro->estado = '1';
-        $miembro->fecha_ingreso = date($format = 'Y-m-d');
-        
-        $miembro->save();
-        return redirect()->route('miembros.index')->with('mensaje', 'El miembro fue registrado correctamente.');
+    $fecha_nacimiento = Carbon::createFromFormat('d/m/Y', $request->fecha_nacimiento)->format('Y-m-d');
+
+    $miembro = new Miembro();
+    $miembro->nombre_apellido = $request->nombre_apellido;
+    $miembro->cedula = $request->cedula;
+    $miembro->fecha_nacimiento = $fecha_nacimiento; // Asigna la fecha formateada
+    $miembro->email = $request->email;
+    $miembro->telefono = $request->telefono;
+    $miembro->genero = $request->genero;
+    $miembro->cargo = $request->cargo;
+    $miembro->direccion = $request->direccion;
+    if ($request->hasFile('foto')){
+        $miembro->foto = $request->file('foto')->store('foto_miembro', 'public');
     }
+    $miembro->estado = '1';
+    $miembro->fecha_ingreso = date($format = 'Y-m-d');
+    
+    $miembro->save();
+    return redirect()->route('miembros.index')->with('mensaje', 'El miembro fue registrado correctamente.');
+}
+
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
@@ -70,35 +74,39 @@ class MiembroController extends Controller
 
 /* ------------------------------------------------------------------------------------------------------------------ */
 
+public function update(Request $request, $id){
+    $request->validate([
+        'nombre_apellido' => 'required',
+        'cedula' => 'required',
+        'fecha_nacimiento' => 'required',
+        'email' => 'required',
+        'genero' => 'required',
+        'cargo' => 'required',
+    ]);
 
-    public function update(Request $request, $id){
-        $request->validate([
-            'nombre_apellido' => 'required',
-            'cedula' => 'required',
-            'fecha_nacimiento' => 'required',
-            'email' => 'required',
-            'genero' => 'required',
-            'cargo' => 'required',
-        ]);
+    $miembro = Miembro::find($id);
 
-        $miembro = Miembro::find($id);
+    $miembro->nombre_apellido = $request->nombre_apellido;
+    $miembro->cedula = $request->cedula;
 
-        $miembro->nombre_apellido = $request->nombre_apellido;
-        $miembro->cedula = $request->cedula;
-        $miembro->fecha_nacimiento = $request->fecha_nacimiento;
-        $miembro->email = $request->email;
-        $miembro->telefono = $request->telefono;
-        $miembro->genero = $request->genero;
-        $miembro->cargo = $request->cargo;
-        $miembro->direccion = $request->direccion;
-        if ($request->hasFile('foto')){
-            Storage::delete('public/'.$miembro->foto);
-            $miembro->foto = $request->file('foto')->store('foto_miembro', 'public');
-        }
+    // Convertir la fecha al formato correcto antes de asignarla al modelo
+    $fecha_nacimiento = Carbon::createFromFormat('d/m/Y', $request->fecha_nacimiento)->format('Y-m-d');
+    $miembro->fecha_nacimiento = $fecha_nacimiento;
 
-        $miembro->save();
-        return redirect()->route('miembros.index')->with('mensaje', 'Se actualizó el registro correctamente.');
+    $miembro->email = $request->email;
+    $miembro->telefono = $request->telefono;
+    $miembro->genero = $request->genero;
+    $miembro->cargo = $request->cargo;
+    $miembro->direccion = $request->direccion;
+
+    if ($request->hasFile('foto')){
+        Storage::delete('public/'.$miembro->foto);
+        $miembro->foto = $request->file('foto')->store('foto_miembro', 'public');
     }
+
+    $miembro->save();
+    return redirect()->route('miembros.index')->with('mensaje', 'Se actualizó el registro correctamente.');
+}
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 

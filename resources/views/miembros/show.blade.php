@@ -23,13 +23,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">Cédula</label>
-                                                <input type="text" name="cedula" value="{{$miembro->cedula}}" class="form-control" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="">Fecha de nacimiento</label>
-                                                <input type="date" name="fecha_nacimiento" value="{{$miembro->fecha_nacimiento}}" class="form-control" disabled>
+                                                <input type="text" name="cedula" value="{{ substr($miembro->cedula, 0, 2) . '.' . substr($miembro->cedula, 2, 3) . '.' . substr($miembro->cedula, 5, 3) }}" class="form-control" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -40,8 +34,14 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
+                                                <label for="">Fecha de nacimiento</label>
+                                                <input type="date" name="fecha_nacimiento" value="{{$miembro->fecha_nacimiento}}" class="form-control" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
                                                 <label for="">Teléfono</label>
-                                                <input type="number" name="telefono" value="{{$miembro->telefono}}" class="form-control" disabled>
+                                                <input type="text" name="telefono" value="{{ substr($miembro->telefono, 0, 4) . '-' . substr($miembro->telefono, 4, 3) . '.' . substr($miembro->telefono, 7) }}" class="form-control" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-4">

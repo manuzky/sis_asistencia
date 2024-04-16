@@ -19,25 +19,20 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>Nº</th>
                                     <th>Cargo</th>
                                     <th>Descripción</th>
-                                    <th>Fecha de ingreso</th>
-                                    <th>Estado</th>
                                     <th>Acción</th>
                                 </tr>
                             </thead>
 
                             <tbody>
+                                <?php $i = 0 ?>
                                 @foreach($cargos as $cargo)
                                     <tr>
-                                        <td>{{ str_pad($cargo->id, 4, '0', STR_PAD_LEFT) }}</td>
+                                        <td>{{ ++$i }}</td>
                                         <td>{{$cargo->nombre_cargo}}</td>
                                         <td>{{$cargo->descripcion_cargo}}</td>
-                                        <td>{{$cargo->fecha_ingreso_cargo}}</td>
-                                        <td style="text-align: center">
-                                            <button class="btn btn-success btn-sm" style="border-radius: 20px">Activo</button>
-                                        </td>
                                         <td style="text-align: center">
                                             <div class="btn-group" role="group">
                                                 <a href="{{url('cargos', $cargo->id)}}" type="button" class="btn btn-info"><i class="bi bi-eye"></i></a>
@@ -65,6 +60,17 @@
 
 <script>
     $(function () {
+        // Script para buscar sin necesidad de signos ni simbolos
+        $.fn.dataTable.ext.type.search.string = function (data) {
+        return !data ?
+            '' :
+            typeof data === 'string' ?
+                data
+                    .replace(/[^\w\s]/gi, '') // Elimina caracteres especiales
+                    .replace(/\s+/g, ' ') // Reemplaza múltiples espacios en blanco con uno solo
+                    .trim() // Elimina espacios en blanco al principio y al final
+                    .toLowerCase() : data;
+        };
     $("#example1").DataTable({
         "pageLength": 10,
         "order": [[0, 'desc']],
@@ -87,17 +93,21 @@
                 "previous": "Anterior"
             }
         },
-        "responsive": true, "lengthChange": true, "autoWidth": false,
-        buttons: [{
-            extend: 'collection',
-            text: 'Reportes',
-            orientation: 'landscape',
-            buttons: [
-                { text: 'Imprimir como PDF', extend: 'pdf', exportOptions: { columns: ':not(:last-child, :nth-last-child(2))' } },
-                { text: 'Imprimir como EXCEL',extend: 'excel', exportOptions: { columns: ':not(:last-child, :nth-last-child(2))' } },
-            ]
-        },
-        ],
+        "responsive": true, "lengthChange": true, "autoWidth": false, "searchPanes": true,
+        "search": {
+            "smart": true,
+            "regex": true,
+        }, 
+        // BOTÓN DE REPORTES:
+        // buttons: [{
+        //     extend: 'collection',
+        //     text: 'Reportes',
+        //     orientation: 'landscape',
+        //     buttons: [
+        //         { text: 'Imprimir como PDF', extend: 'pdf', exportOptions: { columns: ':not(:last-child, :nth-last-child(2))' } },
+        //         { text: 'Imprimir como EXCEL',extend: 'excel', exportOptions: { columns: ':not(:last-child, :nth-last-child(2))' } },
+        //     ]},
+        // ],
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
 </script>

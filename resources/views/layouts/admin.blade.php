@@ -194,7 +194,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
 
           <li class="nav-item" >
-            <a href="{{url('asistencias/reportes')}}" class="nav-link active" style="background-color: #18b0ec;">
+            <a href="{{url('reportes')}}" class="nav-link active" style="background-color: #18b0ec;">
               <i class="nav-icon fas">
                 <i class="bi bi-printer-fill"></i>
               </i>
@@ -275,5 +275,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{asset('plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
 <script src="{{asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+{{-- SCRIPT PARA LA FECHA VISUALMENTE MEJOR (DATEPICKER) --}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.es.min.js"></script>
 </body>
 </html>

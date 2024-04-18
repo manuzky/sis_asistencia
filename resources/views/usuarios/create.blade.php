@@ -11,7 +11,7 @@
                     </div>
                     <div class="card">        
                         <div class="card-body">
-                            <form method="POST" action="{{ url('usuarios') }}">
+                            <form id="formulario-usuario" method="POST" action="{{ url('usuarios') }}">
                                 @csrf
         
                                 <div class="row mb-3">
@@ -62,7 +62,9 @@
                                     <div class="col-md-6">
                                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                                     </div>
+                                    
                                 </div>
+                                <div id="mensaje-contrasenas" style="color: red;"></div>
         
                                 <div class="row mb-0">
                                     <div class="col-md-6 offset-md-4">
@@ -80,6 +82,30 @@
         </div>
     </div>
 
+    <script>
+        // Función para verificar si las contraseñas coinciden
+        function verificarContraseñas() {
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("password-confirm").value;
+            var mensaje = document.getElementById("mensaje-contrasenas");
+    
+            if (password !== confirmPassword) {
+                mensaje.innerText = "LAS CONTRASEÑAS NO SON IDENTICAS";
+                mensaje.style.color = "red";
+                return false; // Impedir el envío del formulario
+            } else {
+                mensaje.innerText = "";
+                return true; // Permitir el envío del formulario
+            }
+        }
+    
+        // Agregar evento de cambio al formulario para verificar contraseñas antes del envío
+        document.getElementById("formulario-usuario").addEventListener("submit", function(event) {
+            if (!verificarContraseñas()) {
+                event.preventDefault(); // Impedir el envío del formulario si las contraseñas no coinciden
+            }
+        });
+    </script>
 <script>
     $(function () {
     $("#example1").DataTable({

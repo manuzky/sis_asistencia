@@ -76,46 +76,49 @@ scratch. This page gets rid of all links and provides the needed markup only.
                <li class="nav-item" >
                 <a href="{{url('/')}}" class="nav-link active" style="background-color: #18b0ec;">
                   <i class="nav-icon fas">
-                    <i class="bi bi-house-door-fill"></i>
+                    <i class="bi bi-house-fill"></i>
                   </i>
                   <p>
                     Menú de inicio
                   </p>
                 </a>
               </li>
-            @can('miembros')
-            <li class="nav-item {{ Request::is('miembros/create*') || Request::is('miembros*') ? 'menu-open' : '' }}" >
-              <a href="#" class="nav-link active {{ Request::is('miembros/create*') || Request::is('miembros*') ? 'active' : '' }}" style="background-color: #18b0ec;" >
+
+            @can('asistencias')
+            <li class="nav-item {{ Request::is('asistencias/create*') || Request::is('asistencias*') ? 'menu-open' : '' }}" >
+              <a href="#" class="nav-link active {{ Request::is('asistencias/create*') || Request::is('asistencias*') ? 'active' : '' }}" style="background-color: #18b0ec;">
                 <i class="nav-icon fas">
-                  <i class="bi bi-file-earmark-person-fill"></i>
+                  <i class="bi bi-calendar2-week-fill"></i>
                 </i>
                 <p>
-                  Miembros
+                  Asistencias
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item ">
-                  <a href="{{url('miembros/create')}}" class="nav-link {{ Request::is('miembros/create*') ? 'active' : '' }}">
+                @can('asistencias.create')
+                <li class="nav-item">
+                  <a href="{{url('asistencias/create')}}" class="nav-link {{ Request::is('asistencias/create*') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon" style="color: #333333;"></i>
-                    <p style="color: #333333;">Nuevo miembro</p>
+                    <p style="color: #333333;">Nueva asistencia</p>
                   </a>
                 </li>
+                @endcan
                 <li class="nav-item">
-                  <a href="{{url('miembros')}}" class="nav-link {{ Request::is('miembros*') && !Request::is('miembros/create*') ? 'active' : '' }}">
+                  <a href="{{url('asistencias')}}" class="nav-link {{ Request::is('asistencias*') && !Request::is('asistencias/create*') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon" style="color: #333333;"></i>
-                    <p style="color: #333333;">Listado de miembros</p>
+                    <p style="color: #333333;">Listado de asistencias</p>
                   </a>
                 </li>
               </ul>
             </li>
             @endcan
-
+              
             @can('cargos')
             <li class="nav-item {{ Request::is('cargos/create*') || Request::is('cargos*') ? 'menu-open' : '' }}">
               <a href="#" class="nav-link active {{ Request::is('cargos/create*') || Request::is('cargos*') ? 'active' : '' }}" style="background-color: #18b0ec;">
                 <i class="nav-icon fas">
-                  <i class="bi bi-person-vcard-fill"></i>
+                  <i class="bi bi-tags-fill"></i>
                 </i>
                 <p>
                   Cargos
@@ -123,12 +126,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </p>
               </a>
               <ul class="nav nav-treeview">
+                @can('cargos.create')
                 <li class="nav-item">
                   <a href="{{url('cargos/create')}}" class="nav-link {{ Request::is('cargos/create*') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon" style="color: #333333;"></i>
                     <p style="color: #333333;">Nuevo cargo</p>
                   </a>
                 </li>
+                @endcan
                 <li class="nav-item">
                   <a href="{{url('cargos')}}" class="nav-link {{ Request::is('cargos*') && !Request::is('cargos/create*') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon" style="color: #333333;"></i>
@@ -139,11 +144,73 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </li>
             @endcan
 
+            @can('miembros')
+            <li class="nav-item {{ Request::is('miembros/create*') || Request::is('miembros*') ? 'menu-open' : '' }}" >
+              <a href="#" class="nav-link active {{ Request::is('miembros/create*') || Request::is('miembros*') ? 'active' : '' }}" style="background-color: #18b0ec;" >
+                <i class="nav-icon fas">
+                  <i class="bi bi-person-vcard-fill"></i>
+                </i>
+                <p>
+                  Miembros
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                @can('miembros.create')
+                <li class="nav-item ">
+                  <a href="{{url('miembros/create')}}" class="nav-link {{ Request::is('miembros/create*') ? 'active' : '' }}">
+                    <i class="far fa-circle nav-icon" style="color: #333333;"></i>
+                    <p style="color: #333333;">Nuevo miembro</p>
+                  </a>
+                </li>
+                @endcan
+                <li class="nav-item">
+                  <a href="{{url('miembros')}}" class="nav-link {{ Request::is('miembros*') && !Request::is('miembros/create*') ? 'active' : '' }}">
+                    <i class="far fa-circle nav-icon" style="color: #333333;"></i>
+                    <p style="color: #333333;">Listado de miembros</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            @endcan
+
+
+          @can('rolesypermisos')
+          <li class="nav-item {{ Request::is('rolesypermisos/create*') || Request::is('rolesypermisos*') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link active {{ Request::is('rolesypermisos/create*') || Request::is('rolesypermisos*') ? 'active' : '' }}" style="background-color: #18b0ec;">
+              <i class="nav-icon fas">
+                <i class="fas fa-users-cog fa-fw"></i>
+              </i>
+              <p>
+                Roles y Permisos
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              @can('rolesypermisos.create')
+              <li class="nav-item">
+                <a href="{{url('rolesypermisos/create')}}" class="nav-link {{ Request::is('rolesypermisos/create*') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon" style="color: #333333;"></i>
+                  <p style="color: #333333;">Nuevo rol</p>
+                </a>
+              </li>
+              @endcan
+              <li class="nav-item">
+                <a href="{{url('rolesypermisos')}}" class="nav-link {{ Request::is('rolesypermisos*') && !Request::is('rolesypermisos/create*') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon" style="color: #333333;"></i>
+                  <p style="color: #333333;">Listado de roles</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          @endcan
+
+
           @can('usuarios')
           <li class="nav-item {{ Request::is('usuarios/create*') || Request::is('usuarios*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active {{ Request::is('usuarios/create*') || Request::is('usuarios*') ? 'active' : '' }}" style="background-color: #18b0ec;">
               <i class="nav-icon fas">
-                <i class="bi bi-person-circle"></i>
+                <i class="fas fa-users fa-fw"></i>
               </i>
               <p>
                 Usuarios
@@ -151,12 +218,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
             <ul class="nav nav-treeview">
+              @can('usuarios.create')
               <li class="nav-item">
                 <a href="{{url('usuarios/create')}}" class="nav-link {{ Request::is('usuarios/create*') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon" style="color: #333333;"></i>
                   <p style="color: #333333;">Nuevo usuario</p>
                 </a>
               </li>
+              @endcan
               <li class="nav-item">
                 <a href="{{url('usuarios')}}" class="nav-link {{ Request::is('usuarios*') && !Request::is('usuarios/create*') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon" style="color: #333333;"></i>
@@ -167,32 +236,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           @endcan
 
-          <li class="nav-item {{ Request::is('asistencias/create*') || Request::is('asistencias*') ? 'menu-open' : '' }}" >
-            <a href="#" class="nav-link active {{ Request::is('asistencias/create*') || Request::is('asistencias*') ? 'active' : '' }}" style="background-color: #18b0ec;">
-              <i class="nav-icon fas">
-                <i class="bi bi-calendar2-week-fill"></i>
-              </i>
-              <p>
-                Asistencias
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{url('asistencias/create')}}" class="nav-link {{ Request::is('asistencias/create*') ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon" style="color: #333333;"></i>
-                  <p style="color: #333333;">Nueva asistencia</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url('asistencias')}}" class="nav-link {{ Request::is('asistencias*') && !Request::is('asistencias/create*') ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon" style="color: #333333;"></i>
-                  <p style="color: #333333;">Listado de asistencias</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-
+          @can('reportes')
           <li class="nav-item" >
             <a href="{{url('reportes')}}" class="nav-link active" style="background-color: #18b0ec;">
               <i class="nav-icon fas">
@@ -203,6 +247,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
+          @endcan
           
           <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}"

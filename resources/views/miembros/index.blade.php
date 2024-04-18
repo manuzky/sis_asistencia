@@ -8,11 +8,13 @@
                 <div class="card card-primary shadow">
                     <div class="card-header">
                         <h3 class="card-title text-center">Miembros registrados</h3>
+                        @can('miembros.create')
                         <div class="card-tools">
                             <a href="{{url('/miembros/create')}}" class="btn btn-primary">
                                 <i class="bi bi-person-plus" style="font-size: 112%;"> Agregar nuevo miembro</i>
                             </a>
                         </div>
+                        @endcan
                     </div>
                     
                     <div class="card-body" style="display: block;">
@@ -44,9 +46,12 @@
                                             <div class="btn-group" role="group">
                                                 <a href="{{url('miembros', $miembro->id)}}" type="button" class="btn btn-info"><i class="bi bi-eye"></i></a>
                                             </div>
+                                            @can('miembros.edit')
                                             <div class="btn-group" role="group">
                                                 <a href="{{route('miembros.edit', $miembro->id)}}" type="button" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
                                             </div>
+                                            @endcan
+                                            @can('miembros.destroy')
                                             <div class="btn-group" role="group">
                                                 <form action="{{url('miembros', $miembro->id)}}" method="POST">
                                                     @csrf
@@ -54,6 +59,7 @@
                                                     <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar el registro de: {{$miembro->nombre_apellido}}?')" class="btn btn-danger" value=""><i class="bi bi-trash"></i></button>
                                                 </form>
                                             </div>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach

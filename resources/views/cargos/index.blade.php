@@ -8,11 +8,13 @@
                 <div class="card card-primary shadow">
                     <div class="card-header">
                         <h3 class="card-title text-center">Cargos registrados</h3>
+                        @can('cargos.create')
                         <div class="card-tools">
                             <a href="{{url('/cargos/create')}}" class="btn btn-primary">
                                 <i class="bi bi-person-plus" style="font-size: 112%;"> Agregar nuevo cargo</i>
                             </a>
                         </div>
+                        @endcan
                     </div>
                     
                     <div class="card-body" style="display: block;">
@@ -37,9 +39,12 @@
                                             <div class="btn-group" role="group">
                                                 <a href="{{url('cargos', $cargo->id)}}" type="button" class="btn btn-info"><i class="bi bi-eye"></i></a>
                                             </div>
+                                            @can('cargos.edit')
                                             <div class="btn-group" role="group">
                                                 <a href="{{route('cargos.edit', $cargo->id)}}" type="button" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
                                             </div>
+                                            @endcan
+                                            @can('cargos.destroy')
                                             <div class="btn-group" role="group">
                                                 <form action="{{url('cargos', $cargo->id)}}" method="POST">
                                                     @csrf
@@ -47,6 +52,7 @@
                                                     <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar el cargo: {{$cargo->nombre_cargo}}?')" class="btn btn-danger" value=""><i class="bi bi-trash"></i></button>
                                                 </form>
                                             </div>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach

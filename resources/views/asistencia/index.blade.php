@@ -9,9 +9,11 @@
                     <div class="card-header">
                         <h3 class="card-title text-center">Asistencias registradas</h3>
                         <div class="card-tools">
+                            @can('asistencias.create')
                             <a href="{{url('/asistencias/create')}}" class="btn btn-primary">
                                 <i class="bi bi-person-plus" style="font-size: 112%;"> Agregar nueva asistencia</i>
                             </a>
+                            @endcan
                         </div>
                     </div>
 
@@ -38,9 +40,12 @@
                                                 <div class="btn-group" role="group">
                                                     <a href="{{route('asistencias.show', $asistencia->id)}}" type="button" class="btn btn-info"><i class="bi bi-eye"></i></a>
                                                 </div>
+                                                @can('asistencias.edit')
                                                 <div class="btn-group" role="group">
                                                     <a href="{{route('asistencias.edit', $asistencia->id)}}" type="button" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
                                                 </div>
+                                                @endcan
+                                                @can('asistencias.destroy')
                                                 <div class="btn-group" role="group">
                                                     <form action="{{route('asistencias.destroy', $asistencia->id)}}" method="POST">
                                                         @csrf
@@ -48,6 +53,7 @@
                                                         <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar la asistencia de {{$asistencia->miembro->nombre_apellido}}?')" class="btn btn-danger" value=""><i class="bi bi-trash"></i></button>
                                                     </form>
                                                 </div>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @endforeach
@@ -86,16 +92,15 @@
                 }
             },
             "responsive": true, "lengthChange": true, "autoWidth": false,
-            buttons: [{
-                extend: 'collection',
-                text: 'Reportes',
-                orientation: 'landscape',
-                buttons: [
-                    { text: 'Imprimir como PDF', extend: 'pdf', exportOptions: { columns: ':not(:last-child, :nth-last-child(2))' } },
-                    { text: 'Imprimir como EXCEL',extend: 'excel', exportOptions: { columns: ':not(:last-child, :nth-last-child(2))' } },
-                ]
-            },
-            ],
+            // buttons: [{
+            //     extend: 'collection',
+            //     text: 'Reportes',
+            //     orientation: 'landscape',
+            //     buttons: [
+            //         { text: 'Imprimir como PDF', extend: 'pdf', exportOptions: { columns: ':not(:last-child, :nth-last-child(2))' } },
+            //         { text: 'Imprimir como EXCEL',extend: 'excel', exportOptions: { columns: ':not(:last-child, :nth-last-child(2))' } },
+            //     ]},
+            // ],
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>

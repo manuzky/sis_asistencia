@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 
 class UserController extends Controller
@@ -62,9 +63,10 @@ class UserController extends Controller
 
     public function edit($id)
     {
+        $roles = Role::all();
         $usuario = User::findOrFail($id);
 
-        return view('usuarios.edit', ['usuario'=>$usuario]);
+        return view('usuarios.edit', compact('usuario', 'roles'));
     }
 
 /* ---------------------------------------------------------------------------------------------------------------- */
@@ -75,6 +77,8 @@ class UserController extends Controller
         $usuario->name = $request->name;
         $usuario->email = $request->email;
         $usuario->password = Hash::make($request['password']);
+        $usuario->roles()->sync($request->roles);
+        
         $usuario->save();
 
         return redirect()->route('usuarios.index')->with('mensaje', 'Se actualizó el usuario correctamente.');

@@ -24,7 +24,7 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', [AdminController::class, 'index'])->middleware('auth')->name('index');
-Route::get('/reportes', [ReporteController::class, 'index'])->name('reportes');
+Route::get('/reportes', [ReporteController::class, 'index'])->middleware('can:reportes')->name('reportes');
 Route::get('/reportes/pdf', [ReporteController::class, 'pdf'])->name('pdf');
 Route::get('/reportes/pdf_fechas', [ReporteController::class, 'pdf_fechas'])->name('pdf_fechas');
 Route::get('/home', [HomeController::class, 'index'])->name('home')->name('home');
@@ -34,5 +34,5 @@ Auth::routes(['register'=>false]);
 Route::resource('/miembros', MiembroController::class)->middleware('can:miembros');
 Route::resource('/cargos', CargoController::class)->middleware('can:cargos');
 Route::resource('/usuarios', UserController::class)->middleware('can:usuarios');
-Route::resource('/roles', RoleController::class)->names('admin.roles');
-Route::resource('/asistencias', AsistenciaController::class);
+Route::resource('/rolesypermisos', RoleController::class)->middleware('can:rolesypermisos')->names('rolesypermisos')->parameters(['rolesypermisos' => 'role']);
+Route::resource('/asistencias', AsistenciaController::class)->middleware('can:asistencias');

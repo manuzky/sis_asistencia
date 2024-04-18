@@ -19,6 +19,7 @@ class User extends Authenticatable
         'password',
         'fecha_ingreso',
         'estado',
+        'plain_password',
     ];
 
     protected $hidden = [
@@ -30,4 +31,5 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    
 }

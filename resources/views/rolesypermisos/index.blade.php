@@ -1,17 +1,17 @@
 @extends('layouts.admin')
 @section('content')
     <div class="content" style="margin-left: 2%">
-        <h1>Listado de usuarios</h1>
+        <h1>Listado de roles</h1>
 
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-primary shadow">
                     <div class="card-header">
-                        <h3 class="card-title text-center">Usuarios registrados</h3>
-                        @can('usuarios.create')
+                        <h3 class="card-title text-center">Cargos registrados</h3>
+                        @can('rolesypermisos.create')
                         <div class="card-tools">
-                            <a href="{{url('/usuarios/create')}}" class="btn btn-primary">
-                                <i class="bi bi-person-plus" style="font-size: 112%;"> Agregar nuevo usuario</i>
+                            <a href="{{url('/rolesypermisos/create')}}" class="btn btn-primary">
+                                <i class="bi bi-person-plus" style="font-size: 112%;"> Agregar nuevo rol</i>
                             </a>
                         </div>
                         @endcan
@@ -21,40 +21,35 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Nombre del usuario</th>
-                                    <th>Email</th>
-                                    <th>Fecha de ingreso</th>
-                                    <th>Estado</th>
+                                    <th>Nº</th>
+                                    <th>Rol</th>
+                                    <th>Descripción</th>
                                     <th>Acción</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @foreach($usuarios as $usuario)
+                                <?php $i = 0 ?>
+                                @foreach($roles as $role)
                                     <tr>
-                                        <td>{{ str_pad($usuario->id, 4, '0', STR_PAD_LEFT) }}</td>
-                                        <td>{{$usuario->name}}</td>
-                                        <td>{{$usuario->email}}</td>
-                                        <td>{{$usuario->fecha_ingreso}}</td>
-                                        <td style="text-align: center">
-                                            <button class="btn btn-success btn-sm" style="border-radius: 20px">Activo</button>
-                                        </td>
+                                        <td>{{ ++$i }}</td>
+                                        <td>{{ $role->name }}</td>
+                                        <td>{{ $role->description }}</td>
                                         <td style="text-align: center">
                                             <div class="btn-group" role="group">
-                                                <a href="{{url('usuarios', $usuario->id)}}" type="button" class="btn btn-info"><i class="bi bi-eye"></i></a>
+                                                <a href="{{url('rolesypermisos', $role->id)}}" type="button" class="btn btn-info"><i class="bi bi-eye"></i></a>
                                             </div>
-                                            @can('usuarios.edit')
+                                            @can('rolesypermisos.edit')
                                             <div class="btn-group" role="group">
-                                                <a href="{{route('usuarios.edit', $usuario->id)}}" type="button" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
+                                                <a href="{{route('rolesypermisos.edit', $role->id)}}" type="button" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
                                             </div>
                                             @endcan
-                                            @can('usuarios.destroy')
+                                            @can('rolesypermisos.destroy')
                                             <div class="btn-group" role="group">
-                                                <form action="{{url('usuarios', $usuario->id)}}" method="POST">
+                                                <form action="{{url('rolesypermisos', $role->id)}}" method="POST">
                                                     @csrf
                                                     {{method_field('DELETE')}}
-                                                    <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar al usuario: {{$usuario->name}}?')" class="btn btn-danger" value=""><i class="bi bi-trash"></i></button>
+                                                    <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar el rol: {{ $role->name}}?')" class="btn btn-danger" value=""><i class="bi bi-trash"></i></button>
                                                 </form>
                                             </div>
                                             @endcan
@@ -71,17 +66,28 @@
 
 <script>
     $(function () {
+        // Script para buscar sin necesidad de signos ni simbolos
+        $.fn.dataTable.ext.type.search.string = function (data) {
+        return !data ?
+            '' :
+            typeof data === 'string' ?
+                data
+                    .replace(/[^\w\s]/gi, '') // Elimina caracteres especiales
+                    .replace(/\s+/g, ' ') // Reemplaza múltiples espacios en blanco con uno solo
+                    .trim() // Elimina espacios en blanco al principio y al final
+                    .toLowerCase() : data;
+        };
     $("#example1").DataTable({
         "pageLength": 10,
         "order": [[0, 'desc']],
         "language": {
             "emptyTable": "No hay información",
-            "info": "Mostrando _START_ a _END_ de _TOTAL_ Usuarios",
-            "infoEmpty": "Mostrando 0 a 0 de 0 Usuarios",
-            "infoFiltered": "(Filtrado de _MAX_ total Usuarios)",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ Cargos",
+            "infoEmpty": "Mostrando 0 a 0 de 0 Cargos",
+            "infoFiltered": "(Filtrado de _MAX_ total Cargos)",
             "infoPostFix": "",
             "thousands": ",",
-            "lengthMenu": "Mostrar _MENU_ Usuarios",
+            "lengthMenu": "Mostrar _MENU_ Cargos",
             "loadingRecords": "Cargando...",
             "processing": "Procesando...",
             "search": "Buscador:",
@@ -93,7 +99,12 @@
                 "previous": "Anterior"
             }
         },
-        "responsive": true, "lengthChange": true, "autoWidth": false,
+        "responsive": true, "lengthChange": true, "autoWidth": false, "searchPanes": true,
+        "search": {
+            "smart": true,
+            "regex": true,
+        }, 
+        // BOTÓN DE REPORTES:
         // buttons: [{
         //     extend: 'collection',
         //     text: 'Reportes',

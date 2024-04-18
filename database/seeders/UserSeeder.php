@@ -22,15 +22,5 @@ class UserSeeder extends Seeder
             'estado' => '1',
             'remember_token' => Str::random(10),
         ]);
-
-        User::create( [
-            'name' => 'Joseillys Carrasquel',
-            'email' => 'joseillyscarrasquel@gmail.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('123456789'),
-            'fecha_ingreso' => now(),
-            'estado' => '1',
-            'remember_token' => Str::random(10),
-        ]);
     }
 }

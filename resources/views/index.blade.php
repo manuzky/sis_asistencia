@@ -16,7 +16,7 @@
                         <p>Miembros ingresados</p>
                     </div>
                     <div class="icon">
-                        <i class="bi bi-file-earmark-person"></i>
+                        <i class="bi bi-person-vcard-fill"></i>
                     </div>
                 <a href="{{url('miembros')}}" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
@@ -35,7 +35,7 @@
                         <p>Cargos ingresados</p>
                     </div>
                     <div class="icon">
-                        <i class="bi bi-person-lines-fill"></i>
+                        <i class="bi bi-tags-fill"></i>
                     </div>
                 <a href="{{url('cargos')}}" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
@@ -61,6 +61,7 @@
             </div>
             @endcan
 
+            @can('asistencias')
             <div class="col-lg-3">
                 <div class="small-box bg-primary">
                     <div class="inner">
@@ -77,6 +78,7 @@
                 <a href="{{url('asistencias')}}" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
+            @endcan
 
         </div>
     </div>

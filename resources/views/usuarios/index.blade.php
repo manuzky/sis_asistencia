@@ -36,7 +36,7 @@
                                         <td>{{ str_pad($usuario->id, 4, '0', STR_PAD_LEFT) }}</td>
                                         <td>{{$usuario->name}}</td>
                                         <td>{{$usuario->email}}</td>
-                                        <td>{{$usuario->fecha_ingreso}}</td>
+                                        <td><?php echo date('d/m/Y', strtotime($usuario->fecha_ingreso)); ?></td>
                                         <td style="text-align: center">
                                             <button class="btn btn-success btn-sm" style="border-radius: 20px">Activo</button>
                                         </td>
@@ -44,20 +44,22 @@
                                             <div class="btn-group" role="group">
                                                 <a href="{{url('usuarios', $usuario->id)}}" type="button" class="btn btn-info"><i class="bi bi-eye"></i></a>
                                             </div>
-                                            @can('usuarios.edit')
-                                            <div class="btn-group" role="group">
-                                                <a href="{{route('usuarios.edit', $usuario->id)}}" type="button" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
-                                            </div>
-                                            @endcan
-                                            @can('usuarios.destroy')
-                                            <div class="btn-group" role="group">
-                                                <form action="{{url('usuarios', $usuario->id)}}" method="POST">
-                                                    @csrf
-                                                    {{method_field('DELETE')}}
-                                                    <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar al usuario: {{$usuario->name}}?')" class="btn btn-danger" value=""><i class="bi bi-trash"></i></button>
-                                                </form>
-                                            </div>
-                                            @endcan
+                                            @if($usuario->id != 1) 
+                                                @can('usuarios.edit')
+                                                <div class="btn-group" role="group">
+                                                    <a href="{{route('usuarios.edit', $usuario->id)}}" type="button" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
+                                                </div>
+                                                @endcan
+                                                @can('usuarios.destroy')
+                                                <div class="btn-group" role="group">
+                                                    <form action="{{url('usuarios', $usuario->id)}}" class="formulario-eliminar" method="POST">
+                                                        @csrf
+                                                        {{method_field('DELETE')}}
+                                                        <button type="submit" class="btn btn-danger" value=""><i class="bi bi-trash"></i></button>
+                                                    </form>
+                                                </div>
+                                                @endcan
+                                            @endif 
                                         </td>
                                     </tr>
                                 @endforeach
@@ -68,6 +70,35 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $('.formulario-eliminar').submit(function(e){
+            e.preventDefault();
+            var nombre = "<b>{{$usuario->name}}</b>";
+            Swal.fire({
+                title: "¿Estás seguro?",
+                html: "¿Deseas eliminar el usuario " + nombre + "?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sí, eliminarlo"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit();
+                }
+            });
+        });
+    </script>
+    @if(session('eliminar') == 'eliminar')
+        <script>
+            Swal.fire({
+            title: "¡Eliminado!",
+            text: "Los datos han sido eliminados.",
+            icon: "success"
+            });
+        </script>
+    @endif
 
 <script>
     $(function () {

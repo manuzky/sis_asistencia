@@ -39,20 +39,22 @@
                                             <div class="btn-group" role="group">
                                                 <a href="{{url('cargos', $cargo->id)}}" type="button" class="btn btn-info"><i class="bi bi-eye"></i></a>
                                             </div>
-                                            @can('cargos.edit')
-                                            <div class="btn-group" role="group">
-                                                <a href="{{route('cargos.edit', $cargo->id)}}" type="button" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
-                                            </div>
-                                            @endcan
-                                            @can('cargos.destroy')
-                                            <div class="btn-group" role="group">
-                                                <form action="{{url('cargos', $cargo->id)}}" method="POST">
-                                                    @csrf
-                                                    {{method_field('DELETE')}}
-                                                    <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar el cargo: {{$cargo->nombre_cargo}}?')" class="btn btn-danger" value=""><i class="bi bi-trash"></i></button>
-                                                </form>
-                                            </div>
-                                            @endcan
+                                            @if($cargo->id != 1)
+                                                @can('cargos.edit')
+                                                <div class="btn-group" role="group">
+                                                    <a href="{{route('cargos.edit', $cargo->id)}}" type="button" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
+                                                </div>
+                                                @endcan
+                                                @can('cargos.destroy')
+                                                <div class="btn-group" role="group">
+                                                    <form action="{{url('cargos', $cargo->id)}}" class="formulario-eliminar" method="POST">
+                                                        @csrf
+                                                        {{method_field('DELETE')}}
+                                                        <button type="submit" class="btn btn-danger" value=""><i class="bi bi-trash"></i></button>
+                                                    </form>
+                                                </div>
+                                                @endcan
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -63,6 +65,36 @@
             </div>
         </div>
     </div>
+
+
+    <script>
+        $('.formulario-eliminar').submit(function(e){
+            e.preventDefault();
+            var nombre = "<b>{{$cargo->nombre_cargo}}</b>";
+            Swal.fire({
+                title: "¿Estás seguro?",
+                html: "¿Deseas eliminar el cargo " + nombre + "?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sí, eliminarlo"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit();
+                }
+            });
+        });
+    </script>
+    @if(session('eliminar') == 'eliminar')
+        <script>
+            Swal.fire({
+            title: "¡Eliminado!",
+            text: "Los datos han sido eliminados.",
+            icon: "success"
+            });
+        </script>
+    @endif
 
 <script>
     $(function () {

@@ -18,27 +18,40 @@
                                 <div class="box-body">
                                     
                                     <div class="form-group">
-                                        {{ Form::label('fecha') }}
-                                        {{ Form::date('fecha', $asistencia->fecha, ['class' => 'form-control' . ($errors->has('fecha') ? ' is-invalid' : ''), 'placeholder' => 'Fecha']) }}
-                                        {!! $errors->first('fecha', '<div class="invalid-feedback">:message</div>') !!}
-                                    </div>
-                                    <div class="form-group">
                                         {{ Form::label('Miembros') }}
                                         {{ Form::select('miembro_id', $miembros, $asistencia->miembro_id, ['class' => 'form-control' . ($errors->has('miembro_id') ? ' is-invalid' : ''), 'placeholder' => '-- MIEMBROS LISTADOS --']) }}
                                         {!! $errors->first('miembro_id', '<div class="invalid-feedback">:message</div>') !!}
                                     </div>
-                            
+
+                                    <label for="">Fecha</label>
+                                    <div class="input-group date" id="datepicker">
+                                        <input type="text" name="fecha" value="{{ $asistencia->fecha }}" class="form-control{{ $errors->has('fecha') ? ' is-invalid' : '' }}" placeholder="Fecha de asistencia">
+                                        <span class="input-group-append">
+                                            <span class="input-group-text bg-white">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    {!! $errors->first('fecha', '<div class="invalid-feedback">:message</div>') !!}
                                 </div>
-                                <div class="box-footer mt20">
+
+                                <div class="box-footer mt-4 ">
                                     <a href="{{url('asistencias')}}" class="btn btn-danger">Cancelar</a>
                                     <button type="submit" class="btn btn-success">Guardar asistencia</button>
                                 </div>
                             </div>
-
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+<script type="text/javascript">
+    $(function() {
+        $('#datepicker').datepicker({
+            language: 'es' // Establecer el idioma en español
+        });
+    });
+</script>
 @endsection

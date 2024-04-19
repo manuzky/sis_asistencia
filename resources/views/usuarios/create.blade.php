@@ -58,14 +58,24 @@
         
                                 <div class="row mb-3">
                                     <label for="password-confirm" class="col-md-4 col-form-label text-md-end">Confirmar contraseña</label>
-        
                                     <div class="col-md-6">
                                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                                     </div>
-                                    
                                 </div>
                                 <div id="mensaje-contrasenas" style="color: red;"></div>
         
+                                <div class="row mb-3">
+                                    <div class="col-md-4 col-form-label text-md-end">
+                                        {{ Form::label('roles', 'Roles y permisos') }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {{ Form::select('roles', ['' => '-- SIN ROL --'] + $roles->pluck('name', 'id')->toArray(), null, ['class' => 'form-control']) }}
+                                            {!! $errors->first('roles', '<div class="invalid-feedback">:message</div>') !!}
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="row mb-0">
                                     <div class="col-md-6 offset-md-4">
                                         <a href="{{url('usuarios')}}" class="btn btn-danger">Cancelar</a>

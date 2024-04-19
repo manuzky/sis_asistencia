@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\App;
 
 class ReporteController extends Controller
 {
+        public function __construct()
+    {
+        $this->middleware('can:reportes')->only('index');
+        $this->middleware('can:reportes.asistencias')->only('pdf', 'pdf_fechas');
+    }
+
+/* ---------------------------------------------------------------------------------------------------------------- */
+
     public function index()
     {
         return view('reportes.index');

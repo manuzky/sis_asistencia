@@ -23,7 +23,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">Cédula</label>
-                                                <input type="text" name="cedula" value="{{ substr($miembro->cedula, 0, 2) . '.' . substr($miembro->cedula, 2, 3) . '.' . substr($miembro->cedula, 5, 3) }}" class="form-control" disabled>
+                                                <input type="text" name="cedula" value="{{ number_format($miembro->cedula, 0, '.', '.') }}" class="form-control" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -59,9 +59,15 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">Cargo</label>
-                                                <input type="text" name="cargo" value="{{$miembro->cargo}}" class="form-control" disabled>
+                                                @if(isset($cargos[$miembro->cargo]))
+                                                    <input type="text" name="cargo" value="{{ $cargos[$miembro->cargo] }}" class="form-control" disabled>
+                                                @else
+                                                    <input type="text" name="cargo" value="Desarrollador" class="form-control" disabled>
+                                                @endif
                                             </div>
                                         </div>
+                                        
+                                        
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label for="">Dirección</label>

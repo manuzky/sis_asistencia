@@ -36,7 +36,7 @@ class MiembroSeeder extends Seeder
             'email' => 'diegoalbino0606@gmail.com',
             'estado' => '1',
             'cargo' => 'Desarrollador',
-            'foto' => 'foto_miembro/diegoA.jpg',
+            'foto' => '',
             'fecha_ingreso' => '2024-01-04',
         ]);
         Miembro::create([
@@ -49,7 +49,7 @@ class MiembroSeeder extends Seeder
             'email' => 'guaremacacerescesaraugusto@gmail.com',
             'estado' => '1',
             'cargo' => 'Desarrollador',
-            'foto' => 'foto_miembro/cesarG.jpg',
+            'foto' => '',
             'fecha_ingreso' => '2024-01-04',
         ]);
         Miembro::create([
@@ -62,7 +62,7 @@ class MiembroSeeder extends Seeder
             'email' => 'eduardo.liendo27@gmail.com',
             'estado' => '1',
             'cargo' => 'Desarrollador',
-            'foto' => 'foto_miembro/carlosL.jpg',
+            'foto' => '',
             'fecha_ingreso' => '2024-01-04',
         ]);
     }

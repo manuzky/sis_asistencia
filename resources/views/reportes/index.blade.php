@@ -13,6 +13,8 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             <div class="row">
+
+                                @can('reportes.asistencias')
                                 <div class="col-md-3 col-sm-6 col-12" >
                                     <div class="info-box" style="height: 92px">
                                         <span class="info-box-icon bg-info">
@@ -55,6 +57,7 @@
                                         
                                     </div>
                                 </div>
+                                @endcan
 
                             </div>
                         </div>

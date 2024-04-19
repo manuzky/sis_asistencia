@@ -31,8 +31,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home')->name('home'
 
 Auth::routes(['register'=>false]);
 
-Route::resource('/miembros', MiembroController::class)->middleware('can:miembros');
-Route::resource('/cargos', CargoController::class)->middleware('can:cargos');
-Route::resource('/usuarios', UserController::class)->middleware('can:usuarios');
-Route::resource('/rolesypermisos', RoleController::class)->middleware('can:rolesypermisos')->names('rolesypermisos')->parameters(['rolesypermisos' => 'role']);
 Route::resource('/asistencias', AsistenciaController::class)->middleware('can:asistencias');
+Route::resource('/cargos', CargoController::class)->middleware('can:cargos');
+Route::resource('/miembros', MiembroController::class)->middleware('can:miembros');
+Route::resource('/rolesypermisos', RoleController::class)->middleware('can:rolesypermisos')->names('rolesypermisos')->parameters(['rolesypermisos' => 'role']);
+Route::resource('/usuarios', UserController::class)->middleware('can:usuarios');

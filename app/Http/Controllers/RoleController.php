@@ -5,9 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Validation\Rule;
 
 class RoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:rolesypermisos')->only('index', 'show');
+        $this->middleware('can:rolesypermisos.create')->only('create', 'store');
+        $this->middleware('can:rolesypermisos.edit')->only('edit', 'update');
+        $this->middleware('can:rolesypermisos.destroy')->only('destroy');
+    }
+
+/* ---------------------------------------------------------------------------------------------------------------- */
+
     public function index()
     {
         $roles = Role::all();
@@ -29,8 +40,10 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'description' => 'required'
+            'name' => 'required|unique:roles',
+            'description' => 'required',
+        ], [
+            'name.unique' => 'El nombre del rol ya está en uso.',
         ]);
 
         $role = Role::create($request->all());
@@ -76,6 +89,6 @@ class RoleController extends Controller
     {
         $role->delete();
 
-        return redirect()->route('rolesypermisos.index', $role->id)->with('mensaje', 'El rol y los permisos se eliminó con éxito.');
+        return redirect()->route('rolesypermisos.index', $role->id)->with('eliminar', 'eliminar');
     }
 }

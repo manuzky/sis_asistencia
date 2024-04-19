@@ -72,8 +72,13 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="">Cargo</label><b style="color:red"> *</b>
-                                                <input type="text" name="cargo" value="{{old('cargo')}}" class="form-control" required>
+                                                <label for="cargo">Cargo</label><b style="color:red"> *</b>
+                                                <select name="cargo" id="cargo" class="form-control" required>
+                                                    <option value="">-- SELECCIONE EL CARGO --</option>
+                                                    @foreach($cargos as $id => $cargo)
+                                                        <option value="{{ $id }}" @if(old('cargo') == $id) selected @endif>{{ $cargo }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md-8">

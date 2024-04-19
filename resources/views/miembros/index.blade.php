@@ -46,20 +46,22 @@
                                             <div class="btn-group" role="group">
                                                 <a href="{{url('miembros', $miembro->id)}}" type="button" class="btn btn-info"><i class="bi bi-eye"></i></a>
                                             </div>
-                                            @can('miembros.edit')
-                                            <div class="btn-group" role="group">
-                                                <a href="{{route('miembros.edit', $miembro->id)}}" type="button" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
-                                            </div>
-                                            @endcan
-                                            @can('miembros.destroy')
-                                            <div class="btn-group" role="group">
-                                                <form action="{{url('miembros', $miembro->id)}}" method="POST">
-                                                    @csrf
-                                                    {{method_field('DELETE')}}
-                                                    <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar el registro de: {{$miembro->nombre_apellido}}?')" class="btn btn-danger" value=""><i class="bi bi-trash"></i></button>
-                                                </form>
-                                            </div>
-                                            @endcan
+                                            @if($miembro->id != 1)
+                                                @can('miembros.edit')
+                                                <div class="btn-group" role="group">
+                                                    <a href="{{route('miembros.edit', $miembro->id)}}" type="button" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
+                                                </div>
+                                                @endcan
+                                                @can('miembros.destroy')
+                                                <div class="btn-group" role="group">
+                                                    <form action="{{url('miembros', $miembro->id)}}" class="formulario-eliminar" method="POST">
+                                                        @csrf
+                                                        {{method_field('DELETE')}}
+                                                        <button type="submit" class="btn btn-danger" value=""><i class="bi bi-trash"></i></button>
+                                                    </form>
+                                                </div>
+                                                @endcan
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -70,6 +72,45 @@
             </div>
         </div>
     </div>
+
+@if($message = Session::get('mensaje'))
+    <script>
+        Swal.fire({
+            title: "¡Felicidades!",
+            text: "{{$message}}",
+            icon: "success"
+        });
+    </script>
+@endif
+
+<script>
+    $('.formulario-eliminar').submit(function(e){
+        e.preventDefault();
+        var nombre = "<b>{{$miembro->nombre_apellido}}</b>";
+        Swal.fire({
+            title: "¿Estás seguro?",
+            html: "¿Deseas eliminar los registros de " + nombre + "?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, eliminarlo"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.submit();
+            }
+        });
+    });
+</script>
+@if(session('eliminar') == 'eliminar')
+    <script>
+        Swal.fire({
+        title: "¡Eliminado!",
+        text: "Los datos han sido eliminados.",
+        icon: "success"
+        });
+    </script>
+@endif
 
 <script>
     $(function () {
@@ -124,6 +165,7 @@
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
 </script>
+
 <script>
     $(document).ready(function() {
         // Cuando se hace clic en un botón con la clase toggleButton
@@ -137,15 +179,6 @@
         });
     });
 </script>
-@if($message = Session::get('mensaje'))
-    <script>
-        Swal.fire({
-            title: "¡Felicidades!",
-            text: "{{$message}}",
-            icon: "success"
-        });
-    </script>
-@endif
 
 @endsection
 

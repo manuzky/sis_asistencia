@@ -15,7 +15,7 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $admin = Role::create(['name' => 'admin', 'description' => 'Acceso completo al sistema']);
+        $admin = Role::create(['name' => 'Super administrador', 'description' => 'Acceso completo al sistema']);
 
         Permission::create(['name' => 'index', 'description' => 'Ver la barra lateral'])->syncRoles([$admin]);
         Permission::create(['name' => 'home', 'description' => 'Ver la página principal'])->syncRoles([$admin]);
@@ -46,8 +46,7 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'usuarios.destroy', 'description' => 'Borrar los usuarios'])->syncRoles([$admin]);
 
         Permission::create(['name' => 'reportes', 'description' => 'Ver los reportes'])->syncRoles([$admin]);
-        Permission::create(['name' => 'pdf', 'description' => 'Imprimir reportes completos'])->syncRoles([$admin]);
-        Permission::create(['name' => 'pdf_fechas', 'description' => 'Imprimir reportes por fecha'])->syncRoles([$admin]);
+        Permission::create(['name' => 'reportes.asistencias', 'description' => 'Imprimir reportes de asistencias'])->syncRoles([$admin]);
 
         User::find(1)->assignRole($admin);
     }

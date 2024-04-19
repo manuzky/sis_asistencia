@@ -24,12 +24,6 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="">Fecha de ingreso</label>
-                                                <input type="date" name="fecha_ingreso_cargo" value="{{$cargo->fecha_ingreso_cargo}}" class="form-control" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
                                                 <label for="">Descripción</label>
                                                 <p>{{$cargo->descripcion_cargo}}</p>
                                             </div>

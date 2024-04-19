@@ -7,10 +7,21 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
+use Illuminate\Validation\Rule;
 
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:usuarios')->only('index', 'show');
+        $this->middleware('can:usuarios.create')->only('create', 'store');
+        $this->middleware('can:usuarios.edit')->only('edit', 'update');
+        $this->middleware('can:usuarios.destroy')->only('destroy');
+    }
+
+/* ---------------------------------------------------------------------------------------------------------------- */
+
     public function index()
     {
         $usuarios = User::all();
@@ -21,7 +32,8 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('usuarios.create');
+        $roles = Role::all();
+        return view('usuarios.create', compact('roles'));
     }
 
 /* ---------------------------------------------------------------------------------------------------------------- */
@@ -39,6 +51,15 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ], [
+            'email.unique' => 'El correo electrónico ya está en uso.',
+            'password.confirmed' => 'La confirmación de la contraseña no coincide.',
+        ]);
+
         $usuario = new User();
         $usuario->name = $request->name;
         $usuario->email = $request->email;
@@ -46,8 +67,10 @@ class UserController extends Controller
         $usuario->fecha_ingreso = date($format = 'Y-m-d');
         $usuario->estado = 1;
         $usuario->save();
+        
+        $usuario->roles()->sync($request->roles);
 
-        return redirect()->route('usuarios.index')->with('mensaje', 'Se añadió al usuario correctamente.');
+        return redirect()->route('usuarios.index')->with('mensaje', 'Se añadió el usuario correctamente.');
     }
 
 /* ---------------------------------------------------------------------------------------------------------------- */
@@ -90,6 +113,6 @@ class UserController extends Controller
     {
         User::destroy($id);
 
-        return redirect()->route('usuarios.index')->with('mensaje', 'Se eliminó al usuario correctamente.');
+        return redirect()->route('usuarios.index')->with('eliminar', 'eliminar');
     }
 }

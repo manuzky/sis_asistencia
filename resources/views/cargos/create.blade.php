@@ -30,7 +30,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Descripción</label>
-                                                <textarea class="form-control" name="descripcion_cargo" value="{{old('descripcion_cargo')}}" cols="30" rows="3"></textarea>
+                                                <textarea class="form-control" name="descripcion_cargo" value="{{old('descripcion_cargo')}}"></textarea>
                                             </div>
                                         </div>
                                     </div>

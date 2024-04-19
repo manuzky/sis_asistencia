@@ -16,10 +16,8 @@
         
                                 <div class="row mb-3">
                                     <label for="name" class="col-md-4 col-form-label text-md-end">Nombre y Apellido</label>
-        
                                     <div class="col-md-6">
                                         <input id="name" type="text" class="form-control" name="name" value="{{ $usuario->name }}" disabled>
-        
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -30,10 +28,8 @@
         
                                 <div class="row mb-3">
                                     <label for="email" class="col-md-4 col-form-label text-md-end">Correo electronico</label>
-        
                                     <div class="col-md-6">
                                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $usuario->email }}" disabled>
-        
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -41,20 +37,23 @@
                                         @enderror
                                     </div>
                                 </div>
-        
+
                                 <div class="row mb-3">
-                                    <label for="password" class="col-md-4 col-form-label text-md-end">Fecha de ingreso</label>
-        
+                                    <label class="col-md-4 col-form-label text-md-end">Roles y permisos</label>
                                     <div class="col-md-6">
-                                        <input id="password" type="text" class="form-control" value="{{$usuario->fecha_ingreso}}" disabled>
-        
-                                        @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                        <input type="text" class="form-control" value="{{$usuario->roles->pluck('name')->implode(', ')}}" disabled>
                                     </div>
                                 </div>
+        
+                                <div class="row mb-3">
+                                    <label class="col-md-4 col-form-label text-md-end">Fecha de ingreso</label>
+                                    <div class="col-md-6">
+                                        <?php $fecha_ingreso = date('d/m/Y', strtotime($usuario->fecha_ingreso)); ?>
+                                        <input type="text" class="form-control" value="<?php echo $fecha_ingreso; ?>" disabled>
+                                    </div>
+                                </div>
+                                
+                                
                             </form>
                         </div>
                     </div>

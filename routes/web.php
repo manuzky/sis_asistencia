@@ -28,6 +28,8 @@ Route::get('/reportes', [ReporteController::class, 'index'])->middleware('can:re
 Route::get('/reportes/pdf', [ReporteController::class, 'pdf'])->name('pdf');
 Route::get('/reportes/pdf_fechas', [ReporteController::class, 'pdf_fechas'])->name('pdf_fechas');
 Route::get('/home', [HomeController::class, 'index'])->name('home')->name('home');
+Route::get('/miembros/{id}/toggle', [MiembroController::class, 'toggleEstado'])->middleware('can:miembros')->name('miembros.toggle');
+
 
 Auth::routes(['register'=>false]);
 

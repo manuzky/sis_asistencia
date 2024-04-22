@@ -22,6 +22,16 @@ class MiembroController extends Controller
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
+    public function toggleEstado($id) {
+        $miembro = Miembro::findOrFail($id);
+        $miembro->estado = $miembro->estado == '1' ? '2' : '1'; // Cambiar entre 'Activo' (1) e 'Inactivo' (2)
+        $miembro->save();
+
+        return redirect()->route('miembros.index')->with('mensaje', 'El estado del miembro ha sido actualizado correctamente.');
+    }
+
+/* ---------------------------------------------------------------------------------------------------------------- */
+
 public function index(){
     $miembros = Miembro::all();
     $cargos = Cargo::pluck('nombre_cargo', 'id');

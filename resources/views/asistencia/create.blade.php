@@ -48,11 +48,15 @@
         </div>
     </section>
 
-<script type="text/javascript">
-    $(function() {
-        $('#datepicker').datepicker({
-            language: 'es' // Establecer el idioma en español
+{{-- SCRIPTS --}}
+<div>
+    {{-- DATEPICKER EN ESPAÑOL --}}
+    <script type="text/javascript">
+        $(function() {
+            $('#datepicker').datepicker({
+                language: 'es' // Establecer el idioma en español
+            });
         });
-    });
-</script>
+    </script>
+</div>
 @endsection

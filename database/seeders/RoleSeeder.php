@@ -17,9 +17,6 @@ class RoleSeeder extends Seeder
     {
         $admin = Role::create(['name' => 'Super administrador', 'description' => 'Acceso completo al sistema']);
 
-        Permission::create(['name' => 'index', 'description' => 'Ver la barra lateral'])->syncRoles([$admin]);
-        Permission::create(['name' => 'home', 'description' => 'Ver la página principal'])->syncRoles([$admin]);
-        
         Permission::create(['name' => 'asistencias', 'description' => 'Ver las asistencias'])->syncRoles([$admin]);
         Permission::create(['name' => 'asistencias.create', 'description' => 'Crear una asistencia'])->syncRoles([$admin]);
         Permission::create(['name' => 'asistencias.edit', 'description' => 'Editar las asistencias'])->syncRoles([$admin]);
@@ -31,6 +28,7 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'cargos.destroy', 'description' => 'Borrar los cargos'])->syncRoles([$admin]);
         
         Permission::create(['name' => 'miembros', 'description' => 'Ver los miembros'])->syncRoles([$admin]);
+        Permission::create(['name' => 'miembros.toggle', 'description' => 'Modificar el estado de los miembros'])->syncRoles([$admin]);
         Permission::create(['name' => 'miembros.create', 'description' => 'Crear un miembro'])->syncRoles([$admin]);
         Permission::create(['name' => 'miembros.edit', 'description' => 'Editar los miembros'])->syncRoles([$admin]);
         Permission::create(['name' => 'miembros.destroy', 'description' => 'Borrar los miembros'])->syncRoles([$admin]);

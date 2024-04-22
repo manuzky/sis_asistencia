@@ -91,7 +91,7 @@
                                     </div>
                                 </div>
     
-                                <div class="col-md-3">
+                                <div class="col-md-3 mt-4">
                                     <div class="form-group">
                                         <label for="">Fotografía</label>
                                         <input type="file" id="file" name="foto" class="form-control">
@@ -118,6 +118,9 @@
         </div>
     </div>
 
+{{-- SCRIPTS --}}
+<div>
+    {{-- CARGAR Y MOSTRAR LA IMAGEN --}}
     <script>
         function archivo(evt){
             var files = evt.target.files;
@@ -140,12 +143,14 @@
         document.getElementById('file').addEventListener('change',archivo, false);
     </script>
 
-<script type="text/javascript">
-    $(function() {
-        $('#datepicker').datepicker({
-            language: 'es' // Establecer el idioma en español
+    {{-- DATEPICKER EN ESPAÑOL --}}
+    <script type="text/javascript">
+        $(function() {
+            $('#datepicker').datepicker({
+                language: 'es' // Establecer el idioma en español
+            });
         });
-    });
-</script>
+    </script>
+</div>
 
 @endsection

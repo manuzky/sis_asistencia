@@ -92,8 +92,10 @@
         </div>
     </div>
 
+{{-- SCRIPTS --}}
+<div>
+    {{-- FUNCIÓN PARA QUE LAS CONTRASEÑAS COINCIDAN --}}
     <script>
-        // Función para verificar si las contraseñas coinciden
         function verificarContraseñas() {
             var password = document.getElementById("password").value;
             var confirmPassword = document.getElementById("password-confirm").value;
@@ -116,53 +118,7 @@
             }
         });
     </script>
-<script>
-    $(function () {
-    $("#example1").DataTable({
-        "pageLength": 10,
-        "order": [[0, 'desc']],
-        "language": {
-            "emptyTable": "No hay información",
-            "info": "Mostrando _START_ a _END_ de _TOTAL_ Usuarios",
-            "infoEmpty": "Mostrando 0 a 0 de 0 Usuarios",
-            "infoFiltered": "(Filtrado de _MAX_ total Usuarios)",
-            "infoPostFix": "",
-            "thousands": ",",
-            "lengthMenu": "Mostrar _MENU_ Usuarios",
-            "loadingRecords": "Cargando...",
-            "processing": "Procesando...",
-            "search": "Buscador:",
-            "zeroRecords": "Sin resultados encontrados",
-            "paginate": {
-                "first": "Primero",
-                "last": "Ultimo",
-                "next": "Siguiente",
-                "previous": "Anterior"
-            }
-        },
-        "responsive": true, "lengthChange": true, "autoWidth": false,
-        buttons: [{
-            extend: 'collection',
-            text: 'Reportes',
-            orientation: 'landscape',
-            buttons: [
-                { text: 'Imprimir como PDF', extend: 'pdf', exportOptions: { columns: ':not(:last-child, :nth-last-child(2))' } },
-                { text: 'Imprimir como EXCEL',extend: 'excel', exportOptions: { columns: ':not(:last-child, :nth-last-child(2))' } },
-            ]
-        },
-        ],
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    });
-</script>
-@if($message = Session::get('mensaje'))
-    <script>
-            Swal.fire({
-                title: "¡Felicidades!",
-                text: "{{$message}}",
-                icon: "success"
-            });
-    </script>
-@endif
+</div>
 
 @endsection
 

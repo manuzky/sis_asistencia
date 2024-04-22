@@ -157,6 +157,9 @@
         </div>
     </div>
 
+{{-- SCRIPTS --}}
+<div>
+    {{-- DATEPICKER --}}
     <script type="text/javascript">
         $(function() {
             $('#datepicker').datepicker({
@@ -164,6 +167,8 @@
             });
         });
     </script>
+
+    {{-- CARGAR Y MOSTRAR LA IMAGEN --}}
     <script>
         // Función para formatear la fecha en el formato DD-MM-YYYY
         function formatDate(dateString) {
@@ -185,5 +190,6 @@
             fechaNacimientoInput.value = formattedDate;
         });
     </script>
+</div>
     
 @endsection

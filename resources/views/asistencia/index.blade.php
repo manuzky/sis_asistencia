@@ -67,6 +67,9 @@
         </div>
     </div>
 
+{{-- SCRIPTS --}}
+<div>
+    {{-- DATATABLES --}}
     <script>
         $(function () {
         $("#example1").DataTable({
@@ -89,7 +92,7 @@
                     "last": "Ultimo",
                     "next": "Siguiente",
                     "previous": "Anterior"
-                }
+                    }
             },
             "responsive": true, "lengthChange": true, "autoWidth": false,
             // buttons: [{
@@ -104,15 +107,17 @@
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>
-    
+        
+    {{-- SWEETALERT AL AÑADIR NUEVA ASISTENCIA --}}
     @if($message = Session::get('mensaje'))
-    <script>
-            Swal.fire({
-                title: "¡Felicidades!",
-                text: "{{$message}}",
-                icon: "success"
-            });
-    </script>
+        <script>
+                Swal.fire({
+                    title: "¡Felicidades!",
+                    text: "{{$message}}",
+                    icon: "success"
+                });
+        </script>
     @endif
+</div>
 
 @endsection

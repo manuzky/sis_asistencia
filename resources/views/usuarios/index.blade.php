@@ -71,82 +71,89 @@
         </div>
     </div>
 
-    <script>
-        $('.formulario-eliminar').submit(function(e){
-            e.preventDefault();
-            var nombre = "<b>{{$usuario->name}}</b>";
-            Swal.fire({
-                title: "¿Estás seguro?",
-                html: "¿Deseas eliminar el usuario " + nombre + "?",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Sí, eliminarlo"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    this.submit();
-                }
-            });
-        });
-    </script>
-    @if(session('eliminar') == 'eliminar')
+{{-- SCRIPTS --}}
+<div>
+        {{-- SWEETALERT AL ELIMINAR USUARIO --}}
         <script>
-            Swal.fire({
-            title: "¡Eliminado!",
-            text: "Los datos han sido eliminados.",
-            icon: "success"
+            $('.formulario-eliminar').submit(function(e){
+                e.preventDefault();
+                var nombre = "<b>{{$usuario->name}}</b>";
+                Swal.fire({
+                    title: "¿Estás seguro?",
+                    html: "¿Deseas eliminar el usuario " + nombre + "?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sí, eliminarlo"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit();
+                    }
+                });
             });
         </script>
-    @endif
-
-<script>
-    $(function () {
-    $("#example1").DataTable({
-        "pageLength": 10,
-        "order": [[0, 'desc']],
-        "language": {
-            "emptyTable": "No hay información",
-            "info": "Mostrando _START_ a _END_ de _TOTAL_ Usuarios",
-            "infoEmpty": "Mostrando 0 a 0 de 0 Usuarios",
-            "infoFiltered": "(Filtrado de _MAX_ total Usuarios)",
-            "infoPostFix": "",
-            "thousands": ",",
-            "lengthMenu": "Mostrar _MENU_ Usuarios",
-            "loadingRecords": "Cargando...",
-            "processing": "Procesando...",
-            "search": "Buscador:",
-            "zeroRecords": "Sin resultados encontrados",
-            "paginate": {
-                "first": "Primero",
-                "last": "Ultimo",
-                "next": "Siguiente",
-                "previous": "Anterior"
-            }
-        },
-        "responsive": true, "lengthChange": true, "autoWidth": false,
-        // buttons: [{
-        //     extend: 'collection',
-        //     text: 'Reportes',
-        //     orientation: 'landscape',
-        //     buttons: [
-        //         { text: 'Imprimir como PDF', extend: 'pdf', exportOptions: { columns: ':not(:last-child, :nth-last-child(2))' } },
-        //         { text: 'Imprimir como EXCEL',extend: 'excel', exportOptions: { columns: ':not(:last-child, :nth-last-child(2))' } },
-        //     ]},
-        // ],
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    });
-</script>
-
-@if($message = Session::get('mensaje'))
-<script>
-        Swal.fire({
-            title: "¡Felicidades!",
-            text: "{{$message}}",
-            icon: "success"
-        });
-</script>
-@endif
+        {{-- SWEETALERT RECARGA LA PÁGINA AL ELIMINAR USUARIO --}}
+        @if(session('eliminar') == 'eliminar')
+            <script>
+                Swal.fire({
+                title: "¡Eliminado!",
+                text: "Los datos han sido eliminados.",
+                icon: "success"
+                });
+            </script>
+        @endif
+    
+        {{-- DATATABLES --}}
+        <script>
+            $(function () {
+            $("#example1").DataTable({
+                "pageLength": 10,
+                "order": [[0, 'desc']],
+                "language": {
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Usuarios",
+                    "infoEmpty": "Mostrando 0 a 0 de 0 Usuarios",
+                    "infoFiltered": "(Filtrado de _MAX_ total Usuarios)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Usuarios",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscador:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                },
+                "responsive": true, "lengthChange": true, "autoWidth": false,
+                // buttons: [{
+                //     extend: 'collection',
+                //     text: 'Reportes',
+                //     orientation: 'landscape',
+                //     buttons: [
+                //         { text: 'Imprimir como PDF', extend: 'pdf', exportOptions: { columns: ':not(:last-child, :nth-last-child(2))' } },
+                //         { text: 'Imprimir como EXCEL',extend: 'excel', exportOptions: { columns: ':not(:last-child, :nth-last-child(2))' } },
+                //     ]},
+                // ],
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            });
+        </script>
+    
+        {{-- SWEETALERT MENSAJE AL AÑADIR NUEVO USUARIO --}}
+        @if($message = Session::get('mensaje'))
+            <script>
+                    Swal.fire({
+                        title: "¡Felicidades!",
+                        text: "{{$message}}",
+                        icon: "success"
+                    });
+            </script>
+        @endif
+</div>
 
 @endsection
 

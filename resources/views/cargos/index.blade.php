@@ -67,6 +67,9 @@
     </div>
 
 
+{{-- SCRIPTS --}}
+<div>
+    {{-- SWEETALERT PARA ELIMINAR --}}
     <script>
         $('.formulario-eliminar').submit(function(e){
             e.preventDefault();
@@ -86,6 +89,7 @@
             });
         });
     </script>
+    {{-- SWEETALERT RECARGA LA PAGINA AL ELIMINAR --}}
     @if(session('eliminar') == 'eliminar')
         <script>
             Swal.fire({
@@ -96,69 +100,72 @@
         </script>
     @endif
 
-<script>
-    $(function () {
-        // Script para buscar sin necesidad de signos ni simbolos
-        $.fn.dataTable.ext.type.search.string = function (data) {
-        return !data ?
-            '' :
-            typeof data === 'string' ?
-                data
-                    .replace(/[^\w\s]/gi, '') // Elimina caracteres especiales
-                    .replace(/\s+/g, ' ') // Reemplaza múltiples espacios en blanco con uno solo
-                    .trim() // Elimina espacios en blanco al principio y al final
-                    .toLowerCase() : data;
-        };
-    $("#example1").DataTable({
-        "pageLength": 10,
-        "order": [[0, 'desc']],
-        "language": {
-            "emptyTable": "No hay información",
-            "info": "Mostrando _START_ a _END_ de _TOTAL_ Cargos",
-            "infoEmpty": "Mostrando 0 a 0 de 0 Cargos",
-            "infoFiltered": "(Filtrado de _MAX_ total Cargos)",
-            "infoPostFix": "",
-            "thousands": ",",
-            "lengthMenu": "Mostrar _MENU_ Cargos",
-            "loadingRecords": "Cargando...",
-            "processing": "Procesando...",
-            "search": "Buscador:",
-            "zeroRecords": "Sin resultados encontrados",
-            "paginate": {
-                "first": "Primero",
-                "last": "Ultimo",
-                "next": "Siguiente",
-                "previous": "Anterior"
-            }
-        },
-        "responsive": true, "lengthChange": true, "autoWidth": false, "searchPanes": true,
-        "search": {
-            "smart": true,
-            "regex": true,
-        }, 
-        // BOTÓN DE REPORTES:
-        // buttons: [{
-        //     extend: 'collection',
-        //     text: 'Reportes',
-        //     orientation: 'landscape',
-        //     buttons: [
-        //         { text: 'Imprimir como PDF', extend: 'pdf', exportOptions: { columns: ':not(:last-child, :nth-last-child(2))' } },
-        //         { text: 'Imprimir como EXCEL',extend: 'excel', exportOptions: { columns: ':not(:last-child, :nth-last-child(2))' } },
-        //     ]},
-        // ],
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    });
-</script>
-
-@if($message = Session::get('mensaje'))
-<script>
-        Swal.fire({
-            title: "¡Felicidades!",
-            text: "{{$message}}",
-            icon: "success"
+    {{-- DATATABLES --}}
+    <script>
+        $(function () {
+            // Script para buscar sin necesidad de signos ni simbolos
+            $.fn.dataTable.ext.type.search.string = function (data) {
+            return !data ?
+                '' :
+                typeof data === 'string' ?
+                    data
+                        .replace(/[^\w\s]/gi, '') // Elimina caracteres especiales
+                        .replace(/\s+/g, ' ') // Reemplaza múltiples espacios en blanco con uno solo
+                        .trim() // Elimina espacios en blanco al principio y al final
+                        .toLowerCase() : data;
+            };
+        $("#example1").DataTable({
+            "pageLength": 10,
+            "order": [[0, 'desc']],
+            "language": {
+                "emptyTable": "No hay información",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ Cargos",
+                "infoEmpty": "Mostrando 0 a 0 de 0 Cargos",
+                "infoFiltered": "(Filtrado de _MAX_ total Cargos)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ Cargos",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscador:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            },
+            "responsive": true, "lengthChange": true, "autoWidth": false, "searchPanes": true,
+            "search": {
+                "smart": true,
+                "regex": true,
+            }, 
+            // BOTÓN DE REPORTES:
+            // buttons: [{
+            //     extend: 'collection',
+            //     text: 'Reportes',
+            //     orientation: 'landscape',
+            //     buttons: [
+            //         { text: 'Imprimir como PDF', extend: 'pdf', exportOptions: { columns: ':not(:last-child, :nth-last-child(2))' } },
+            //         { text: 'Imprimir como EXCEL',extend: 'excel', exportOptions: { columns: ':not(:last-child, :nth-last-child(2))' } },
+            //     ]},
+            // ],
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
-</script>
-@endif
+    </script>
+
+    {{-- SWEETALERT AL AÑADIR CARGO --}}
+    @if($message = Session::get('mensaje'))
+        <script>
+                Swal.fire({
+                    title: "¡Felicidades!",
+                    text: "{{$message}}",
+                    icon: "success"
+                });
+        </script>
+    @endif
+</div>
 
 @endsection
 

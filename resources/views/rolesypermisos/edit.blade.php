@@ -38,17 +38,19 @@
             </div>
         </div>
     </div>
+
+{{-- SCRIPTS --}}
+<div>
+    {{-- MEJORA FUNCIONALIDAD DEL SELECTOR --}}
+    @push('page_scripts')
+        <script>
+            $(document).ready(function() {
+                $('#permisos').select2({
+                    placeholder: 'Seleccione Permiso',
+                });
+            })
+        </script>
+    @endpush
+</div>
 @endsection
-@push('page_scripts')
 
-       <script>
-    $(document).ready(function() {
-        $('#permisos').select2({
-
-            placeholder: 'Seleccione Permiso',
-
-        });
-
-    })
-</script>
-@endpush

@@ -24,7 +24,7 @@
                                     <th>ID</th>
                                     <th>Nombres y apellidos</th>
                                     <th>Cédula</th>
-                                    <th>Teléfono</th>
+                                    <th>Cargo</th>
                                     <th>E-mail</th>
                                     <th>Estado</th>
                                     <th>Acción</th>
@@ -35,10 +35,10 @@
                                 @foreach($miembros as $miembro)
                                     <tr>
                                         <td>{{ str_pad($miembro->id, 4, '0', STR_PAD_LEFT) }}</td>
-                                        <td>{{$miembro->nombre_apellido}}</td>
+                                        <td>{{ $miembro->nombre_apellido }} </td>
                                         <td>{{ number_format($miembro->cedula, 0, '.', '.') }}</td>
-                                        <td>{{substr_replace(substr_replace($miembro->telefono, '-', 4, 0), '.', 8, 0)}}</td>
-                                        <td>{{$miembro->email}}</td>
+                                        <td>{{ $miembro->cargo->nombre_cargo }}</td>
+                                        <td>{{ $miembro->email }}</td>
                                         <td style="text-align: center">
                                             <button class="toggleButton btn btn-success btn-sm" style="border-radius: 20px">Activo</button>
                                         </td>

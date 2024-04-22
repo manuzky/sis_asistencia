@@ -20,23 +20,24 @@
                             @csrf
                             <div class="row">
                                 <div class="col-md-9">
+                                    <h6 style="color: red">Los campos con (<b>*</b>) son obligatorios</h6>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">Nombre y apellido</label><b style="color:red"> *</b>
-                                                <input type="text" name="nombre_apellido" value="{{old('nombre_apellido')}}" class="form-control" required>
+                                                <input type="text" name="nombre_apellido" value="{{old('nombre_apellido')}}" class="form-control" placeholder="Nombre y apellido" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">Cédula</label><b style="color:red"> *</b>
-                                                <input type="number" name="cedula" value="{{old('cedula')}}" class="form-control" required>
+                                                <input type="number" name="cedula" value="{{old('cedula')}}" class="form-control" placeholder="Cédula" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="">E-mail</label><b style="color:red"> *</b>
-                                                <input type="email" name="email" value="{{old('email')}}" class="form-control" required>
+                                                <label for="">Email</label><b style="color:red"> *</b>
+                                                <input type="email" name="email" value="{{old('email')}}" class="form-control" placeholder="Email" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -44,7 +45,7 @@
                                                 <label for="">Fecha de nacimiento</label><b style="color:red"> *</b>
                                                 <div>
                                                     <div class="input-group date" id="datepicker">
-                                                        <input type="text" name="fecha_nacimiento" value="{{old('fecha_nacimiento')}}" class="form-control" required>
+                                                        <input type="text" name="fecha_nacimiento" value="{{old('fecha_nacimiento')}}" class="form-control" placeholder="Fecha de nacimiento" required>
                                                         <span class="input-group-append">
                                                             <span class="input-group-text bg-white">
                                                                 <i class="fa fa-calendar"></i>
@@ -57,7 +58,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">Teléfono</label>
-                                                <input type="number" name="telefono" value="{{old('telefono')}}" class="form-control">
+                                                <input type="number" name="telefono" value="{{old('telefono')}}" placeholder="Teléfono" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -84,7 +85,7 @@
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label for="">Dirección</label>
-                                                <input type="text" name="direccion" value="{{old('direccion')}}" class="form-control">
+                                                <input type="text" name="direccion" value="{{old('direccion')}}" placeholder="Dirección" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -106,7 +107,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <a href="{{url('miembros')}}" class="btn btn-danger">Cancelar</a>
-                                        <button type="submit" class="btn btn-success">Guardar Registro</button>
+                                        <button type="submit" class="btn btn-primary">Guardar</button>
                                     </div>
                                 </div>
                             </div>

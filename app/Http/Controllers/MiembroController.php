@@ -22,11 +22,12 @@ class MiembroController extends Controller
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
-    public function index(){
-        $miembros = Miembro::all();
+public function index(){
+    $miembros = Miembro::all();
+    $cargos = Cargo::pluck('nombre_cargo', 'id');
 
-        return view('miembros.index', ['miembros'=>$miembros]);
-    }
+    return view('miembros.index', ['miembros' => $miembros, 'cargos' => $cargos]);
+}
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 

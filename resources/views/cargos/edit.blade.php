@@ -21,17 +21,18 @@
                             {{method_field('PATCH')}}
                             <div class="row">
                                 <div class="col-md-12">
+                                    <h6 style="color: red">Los campos con (<b>*</b>) son obligatorios</h6>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Nombre del cargo</label><b style="color:red"> *</b>
-                                                <input type="text" name="nombre_cargo" value="{{$cargo->nombre_cargo}}" class="form-control" required>
+                                                <input type="text" name="nombre_cargo" value="{{$cargo->nombre_cargo}}" class="form-control" placeholder="Nombre del cargo" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Descripción</label>
-                                                <textarea class="form-control" name="descripcion_cargo" cols="30" rows="3">{{$cargo->descripcion_cargo}}</textarea>
+                                                <textarea class="form-control" name="descripcion_cargo" placeholder="Agregue una descripción del cargo">{{$cargo->descripcion_cargo}}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -44,7 +45,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <a href="{{url('cargos')}}" class="btn btn-danger">Cancelar</a>
-                                        <button type="submit" class="btn btn-success">Actualizar cargo</button>
+                                        <button type="submit" class="btn btn-success">Actualizar</button>
                                     </div>
                                 </div>
                             </div>

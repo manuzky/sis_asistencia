@@ -16,6 +16,7 @@
                     </div>
                     
                     <div class="card-body" style="display: block;">
+                        <h6 style="color: red">Los campos con (<b>*</b>) son obligatorios</h6>
                         {!! Form::open(['route' => 'rolesypermisos.store']) !!}
                             
                         @include('rolesypermisos.partials.form')
@@ -25,7 +26,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <a href="{{url('rolesypermisos')}}" class="btn btn-danger">Cancelar</a>
-                                        {!! Form::submit('Crear Rol y Permisos', ['class'=>'btn btn-success']) !!}
+                                        {!! Form::submit('Guardar', ['class'=>'btn btn-primary']) !!}
                                     </div>
                                 </div>
                             </div>

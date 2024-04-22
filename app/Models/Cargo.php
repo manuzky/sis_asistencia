@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cargo extends Model
 {
-    use HasFactory;
+    public function miembros()
+    {
+        return $this->hasMany(Miembro::class);
+    }
 }

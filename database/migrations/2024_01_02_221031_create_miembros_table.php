@@ -19,12 +19,13 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('telefono')->nullable();
             $table->string('genero');
-            $table->string('cargo');
+            $table->bigInteger('cargo_id')->unsigned();
             $table->string('direccion')->nullable();
             $table->text('foto')->nullable();
             $table->string('estado');
             $table->string('fecha_ingreso');
             $table->timestamps();
+            $table->foreign('cargo_id')->references('id')->on('cargos')->onDelete('cascade');
         });
     }
 

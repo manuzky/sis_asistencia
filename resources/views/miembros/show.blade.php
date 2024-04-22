@@ -59,11 +59,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">Cargo</label>
-                                                @if(isset($cargos[$miembro->cargo]))
-                                                    <input type="text" name="cargo" value="{{ $cargos[$miembro->cargo] }}" class="form-control" disabled>
-                                                @else
-                                                    <input type="text" name="cargo" value="Desarrollador" class="form-control" disabled>
-                                                @endif
+                                                <input type="text" name="cargo" value="{{ $miembro->cargo->nombre_cargo }}" class="form-control" disabled>
                                             </div>
                                         </div>
                                         

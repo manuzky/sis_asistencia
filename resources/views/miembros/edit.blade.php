@@ -81,8 +81,8 @@
                                                 <label for="cargo">Cargo</label><b style="color:red"> *</b>
                                                 <select name="cargo" id="cargo" class="form-control" required>
                                                     <option value="">-- SELECCIONE EL CARGO --</option>
-                                                    @foreach($cargos as $id => $cargo)
-                                                        <option value="{{ $id }}" @if($miembro->cargo == $id) selected @endif>{{ $cargo }}</option>
+                                                    @foreach($cargos as $id => $nombre_cargo)
+                                                        <option value="{{ $id }}" @if($miembro->cargo_id == $id) selected @endif>{{ $nombre_cargo }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

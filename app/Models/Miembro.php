@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Miembro extends Model
 {
-    use HasFactory;
+    public function cargo()
+    {
+        return $this->belongsTo(Cargo::class);
+    }
 }

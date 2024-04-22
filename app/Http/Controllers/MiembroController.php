@@ -39,49 +39,50 @@ public function index(){
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
-    public function store(Request $request){
-        $request->validate([
-            'nombre_apellido' => 'required',
-            'cedula' => 'required',
-            'fecha_nacimiento' => 'required',
-            'email' => 'required',
-            'genero' => 'required',
-            'cargo' => 'required',
-        ]);
+public function store(Request $request){
+    $request->validate([
+        'nombre_apellido' => 'required',
+        'cedula' => 'required',
+        'fecha_nacimiento' => 'required',
+        'email' => 'required',
+        'genero' => 'required',
+        'cargo' => 'required|exists:cargos,id', // Asegura que el ID del cargo exista en la tabla de cargos
+    ]);
 
-        // Validación personalizada para cédula y correo electrónico únicos
-        $request->validate([
-            'cedula' => Rule::unique('miembros')->where(function ($query) use ($request) {
-                return $query->where('cedula', $request->cedula)->orWhere('email', $request->email);
-            }),
-            'email' => Rule::unique('miembros')->where(function ($query) use ($request) {
-                return $query->where('cedula', $request->cedula)->orWhere('email', $request->email);
-            }),
-        ], [
-            'cedula.unique' => 'El número de cédula ya está en uso.',
-            'email.unique' => 'El correo electrónico ya está en uso.',
-        ]);
+    // Validación personalizada para cédula y correo electrónico únicos
+    $request->validate([
+        'cedula' => Rule::unique('miembros')->where(function ($query) use ($request) {
+            return $query->where('cedula', $request->cedula)->orWhere('email', $request->email);
+        }),
+        'email' => Rule::unique('miembros')->where(function ($query) use ($request) {
+            return $query->where('cedula', $request->cedula)->orWhere('email', $request->email);
+        }),
+    ], [
+        'cedula.unique' => 'El número de cédula ya está en uso.',
+        'email.unique' => 'El correo electrónico ya está en uso.',
+    ]);
 
-        $fecha_nacimiento = Carbon::createFromFormat('d/m/Y', $request->fecha_nacimiento)->format('Y-m-d');
+    $fecha_nacimiento = Carbon::createFromFormat('d/m/Y', $request->fecha_nacimiento)->format('Y-m-d');
 
-        $miembro = new Miembro();
-        $miembro->nombre_apellido = $request->nombre_apellido;
-        $miembro->cedula = $request->cedula;
-        $miembro->fecha_nacimiento = $fecha_nacimiento; // Asigna la fecha formateada
-        $miembro->email = $request->email;
-        $miembro->telefono = $request->telefono;
-        $miembro->genero = $request->genero;
-        $miembro->cargo = $request->cargo;
-        $miembro->direccion = $request->direccion;
-        if ($request->hasFile('foto')){
-            $miembro->foto = $request->file('foto')->store('foto_miembro', 'public');
-        }
-        $miembro->estado = '1';
-        $miembro->fecha_ingreso = date($format = 'Y-m-d');
-        
-        $miembro->save();
-        return redirect()->route('miembros.index')->with('mensaje', 'El miembro fue registrado correctamente.');
+    $miembro = new Miembro();
+    $miembro->nombre_apellido = $request->nombre_apellido;
+    $miembro->cedula = $request->cedula;
+    $miembro->fecha_nacimiento = $fecha_nacimiento; // Asigna la fecha formateada
+    $miembro->email = $request->email;
+    $miembro->telefono = $request->telefono;
+    $miembro->genero = $request->genero;
+    $miembro->cargo_id = $request->cargo; // Asigna el ID del cargo enviado desde el formulario
+    $miembro->direccion = $request->direccion;
+    if ($request->hasFile('foto')){
+        $miembro->foto = $request->file('foto')->store('foto_miembro', 'public');
     }
+    $miembro->estado = '1';
+    $miembro->fecha_ingreso = now()->format('Y-m-d');
+    
+    $miembro->save();
+    return redirect()->route('miembros.index')->with('mensaje', 'El miembro fue registrado correctamente.');
+}
+
 
 
 /* ---------------------------------------------------------------------------------------------------------------- */
@@ -105,39 +106,40 @@ public function index(){
 
 /* ------------------------------------------------------------------------------------------------------------------ */
 
-public function update(Request $request, $id){
-    $request->validate([
-        'nombre_apellido' => 'required',
-        'cedula' => 'required',
-        'fecha_nacimiento' => 'required',
-        'email' => 'required',
-        'genero' => 'required',
-        'cargo' => 'required',
-    ]);
+    public function update(Request $request, $id){
+        $request->validate([
+            'nombre_apellido' => 'required',
+            'cedula' => 'required',
+            'fecha_nacimiento' => 'required',
+            'email' => 'required',
+            'genero' => 'required',
+            'cargo' => 'required|exists:cargos,id', // Asegura que el ID del cargo exista en la tabla de cargos
+        ]);
 
-    $miembro = Miembro::find($id);
+        $miembro = Miembro::find($id);
 
-    $miembro->nombre_apellido = $request->nombre_apellido;
-    $miembro->cedula = $request->cedula;
+        $miembro->nombre_apellido = $request->nombre_apellido;
+        $miembro->cedula = $request->cedula;
 
-    // Convertir la fecha al formato correcto antes de asignarla al modelo
-    $fecha_nacimiento = Carbon::createFromFormat('d/m/Y', $request->fecha_nacimiento)->format('Y-m-d');
-    $miembro->fecha_nacimiento = $fecha_nacimiento;
+        // Convertir la fecha al formato correcto antes de asignarla al modelo
+        $fecha_nacimiento = Carbon::createFromFormat('d/m/Y', $request->fecha_nacimiento)->format('Y-m-d');
+        $miembro->fecha_nacimiento = $fecha_nacimiento;
 
-    $miembro->email = $request->email;
-    $miembro->telefono = $request->telefono;
-    $miembro->genero = $request->genero;
-    $miembro->cargo = $request->cargo;
-    $miembro->direccion = $request->direccion;
+        $miembro->email = $request->email;
+        $miembro->telefono = $request->telefono;
+        $miembro->genero = $request->genero;
+        $miembro->cargo_id = $request->cargo; // Asigna el ID del cargo enviado desde el formulario
+        $miembro->direccion = $request->direccion;
 
-    if ($request->hasFile('foto')){
-        Storage::delete('public/'.$miembro->foto);
-        $miembro->foto = $request->file('foto')->store('foto_miembro', 'public');
+        if ($request->hasFile('foto')){
+            Storage::delete('public/'.$miembro->foto);
+            $miembro->foto = $request->file('foto')->store('foto_miembro', 'public');
+        }
+
+        $miembro->save();
+        return redirect()->route('miembros.index')->with('mensaje', 'Se actualizó el registro correctamente.');
     }
 
-    $miembro->save();
-    return redirect()->route('miembros.index')->with('mensaje', 'Se actualizó el registro correctamente.');
-}
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 

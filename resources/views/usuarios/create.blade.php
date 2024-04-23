@@ -4,7 +4,7 @@
         <h1>Creación de un nuevo usuario</h1>
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-9">
                 <div class="card card-primary shadow">
                     <div class="card-header">
                         <h3 class="card-title text-center">Rellene los campos</h3>
@@ -13,27 +13,36 @@
                         <div class="card-body">
                             <form id="formulario-usuario" method="POST" action="{{ url('usuarios') }}">
                                 @csrf
-        
+
+
+
                                 <div class="row mb-3">
-                                    <label for="name" class="col-md-4 col-form-label text-md-end">Nombre y Apellido</label>
-        
+                                    <label for="miembro_id" class="col-md-4 col-form-label text-md-end">Usuario</label>
                                     <div class="col-md-6">
-                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-        
-                                        @error('name')
+                                        <div class="form-group">
+                                            <select id="miembro_id" class="form-control @error('miembro_id') is-invalid @enderror" name="miembro_id" required>
+                                                <option value="" disabled selected>Selecciona un miembro</option>
+                                                @foreach($miembros as $miembro)
+                                                    <option value="{{ $miembro->id }}" data-email="{{ $miembro->email }}">{{ $miembro->nombre_apellido }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                
+                                        @error('miembro_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
                                 </div>
-        
+                                
+                                
                                 <div class="row mb-3">
                                     <label for="email" class="col-md-4 col-form-label text-md-end">Correo electronico</label>
-        
+                                
                                     <div class="col-md-6">
-                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-        
+                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="" readonly required autocomplete="off">
+                                        
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -41,6 +50,9 @@
                                         @enderror
                                     </div>
                                 </div>
+
+                                
+                                
         
                                 <div class="row mb-3">
                                     <label for="password" class="col-md-4 col-form-label text-md-end">Contraseña</label>
@@ -76,17 +88,17 @@
                                     </div>
                                 </div>
 
-                                <div class="row mb-0">
-                                    <div class="col-md-6 offset-md-4">
-                                        <a href="{{url('usuarios')}}" class="btn btn-danger">Cancelar</a>
-                                        <button type="submit" class="btn btn-success">
-                                            Registrar
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
+                        <div class="row mb-0">
+                            <div class="col-md-6 offset-md-4 mb-3">
+                                <a href="{{url('usuarios')}}" class="btn btn-danger">Cancelar</a>
+                                <button type="submit" class="btn btn-primary">
+                                    Registrar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>  
             </div>
         </div>
@@ -116,6 +128,19 @@
             if (!verificarContraseñas()) {
                 event.preventDefault(); // Impedir el envío del formulario si las contraseñas no coinciden
             }
+        });
+    </script>
+
+    {{-- MUESTRA EL CORREO ELECTRÓNICO AUTOMATICAMENTE --}}
+    <script>
+        document.getElementById('miembro_id').addEventListener('change', function() {
+            // Obtener el valor del correo electrónico del miembro seleccionado
+            var selectedMiembroId = this.value;
+            var selectedMiembroOption = this.options[this.selectedIndex];
+            var selectedMiembroEmail = selectedMiembroOption.dataset.email;
+            
+            // Actualizar el valor del campo de correo electrónico con el valor del miembro seleccionado
+            document.getElementById('email').value = selectedMiembroEmail;
         });
     </script>
 </div>

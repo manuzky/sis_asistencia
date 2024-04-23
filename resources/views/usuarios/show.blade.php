@@ -4,7 +4,7 @@
         <h1>Datos del usuario</h1>
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-9">
                 <div class="card card-primary shadow">
                     <div class="card-header">
                         <h3 class="card-title text-center">Datos del registro</h3>
@@ -15,7 +15,7 @@
                                 @csrf
         
                                 <div class="row mb-3">
-                                    <label for="name" class="col-md-4 col-form-label text-md-end">Nombre y Apellido</label>
+                                    <label for="name" class="col-md-4 col-form-label text-md-end">Usuario</label>
                                     <div class="col-md-6">
                                         <input id="name" type="text" class="form-control" name="name" value="{{ $usuario->name }}" disabled>
                                         @error('name')

@@ -19,10 +19,20 @@ return new class extends Migration
             $table->string('password');
             $table->string('fecha_ingreso');
             $table->string('estado');
+
+            // Clave foránea para relacionar usuarios con miembros
+            $table->bigInteger('miembro_id')->unsigned()->nullable();
+            $table->foreign('miembro_id')->references('id')->on('miembros')->onDelete('cascade');
+            
+            // Clave foránea para relacionar usuarios con roles
+            $table->unsignedBigInteger('role_id')->nullable();
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+            
             $table->rememberToken();
             $table->timestamps();
         });
     }
+    
 
     /**
      * Reverse the migrations.

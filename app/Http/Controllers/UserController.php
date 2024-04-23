@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Validation\Rule;
+use App\Models\Miembro;
 
 
 class UserController extends Controller
@@ -25,6 +26,7 @@ class UserController extends Controller
     public function index()
     {
         $usuarios = User::all();
+        $miembros = Miembro::all();
         return view('usuarios.index', ['usuarios'=>$usuarios]);
     }
 
@@ -33,7 +35,8 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all();
-        return view('usuarios.create', compact('roles'));
+        $miembros = Miembro::all();
+        return view('usuarios.create', compact('miembros', 'roles'));
     }
 
 /* ---------------------------------------------------------------------------------------------------------------- */
@@ -52,26 +55,32 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'miembro_id' => 'required|exists:miembros,id', // Validar que el miembro seleccionado existe
             'password' => 'required|string|min:8|confirmed',
         ], [
-            'email.unique' => 'El correo electrónico ya está en uso.',
+            'miembro_id.exists' => 'El miembro seleccionado no existe.',
             'password.confirmed' => 'La confirmación de la contraseña no coincide.',
         ]);
 
+        // Obtener el miembro seleccionado
+        $miembro = Miembro::findOrFail($request->miembro_id);
+
+        // Crear el nuevo usuario
         $usuario = new User();
-        $usuario->name = $request->name;
-        $usuario->email = $request->email;
+        $usuario->name = $miembro->nombre_apellido; // Nombre del miembro
+        $usuario->email = $miembro->email; // Email del miembro
         $usuario->password = Hash::make($request['password']);
         $usuario->fecha_ingreso = date($format = 'Y-m-d');
         $usuario->estado = 1;
+        $usuario->miembro_id = $miembro->id; // Asignar el ID del miembro al usuario
         $usuario->save();
         
+        // Asignar roles si es necesario
         $usuario->roles()->sync($request->roles);
 
         return redirect()->route('usuarios.index')->with('mensaje', 'Se añadió el usuario correctamente.');
     }
+
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
@@ -87,25 +96,35 @@ class UserController extends Controller
     public function edit($id)
     {
         $roles = Role::all();
+        $miembros = Miembro::all();
         $usuario = User::findOrFail($id);
 
-        return view('usuarios.edit', compact('usuario', 'roles'));
+        return view('usuarios.edit', compact('usuario', 'miembros', 'roles'));
     }
 
 /* ---------------------------------------------------------------------------------------------------------------- */
+public function update(Request $request, $id)
+{
+    $usuario = User::findOrFail($id);
+    $miembro = Miembro::findOrFail($request->miembro_id);
 
-    public function update(Request $request, $id)
-    {
-        $usuario = User::findOrFail($id);
-        $usuario->name = $request->name;
-        $usuario->email = $request->email;
+    // Actualizar solo los campos que se están modificando
+    $usuario->name = $miembro->nombre_apellido; // Actualizar el nombre de usuario
+    $usuario->email = $request->email;
+    if ($request->has('password')) {
         $usuario->password = Hash::make($request['password']);
-        $usuario->roles()->sync($request->roles);
-        
-        $usuario->save();
-
-        return redirect()->route('usuarios.index')->with('mensaje', 'Se actualizó el usuario correctamente.');
     }
+    // También puedes agregar una validación aquí para el caso de 'roles'
+
+    $usuario->save();
+
+    // Actualizar roles
+    $usuario->roles()->sync($request->roles);
+
+    return redirect()->route('usuarios.index')->with('mensaje', 'Se actualizó el usuario correctamente.');
+}
+
+
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 

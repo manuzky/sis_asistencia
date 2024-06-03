@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -35,16 +34,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    
-    public function miembro() {
+
+    public function miembro()
+    {
         return $this->belongsTo(Miembro::class, 'miembro_id');
     }
 
-    public function role(): BelongsTo {
+    public function role(): BelongsTo
+    {
         return $this->belongsTo(Role::class);
     }
-    
-    public function permission(): BelongsTo {
+
+    public function permission(): BelongsTo
+    {
         return $this->belongsTo(Permission::class);
     }
 
@@ -53,4 +55,13 @@ class User extends Authenticatable
         return $this->morphMany(PersonalAccessToken::class, 'tokenable');
     }
 
+    public function passwordResetTokens()
+    {
+        return $this->hasMany(PasswordResetToken::class, 'user_id');
+    }
+
+    public function passwordResets()
+    {
+        return $this->hasMany(PasswordReset::class, 'user_id');
+    }
 }

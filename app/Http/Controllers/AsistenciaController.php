@@ -123,6 +123,7 @@ public function update(Request $request, Asistencia $asistencia)
     {
         $asistencia = Asistencia::find($id)->delete();
         $miembro = Miembro::find($id);
-        return redirect()->route('asistencias.index')->with('mensaje', 'Asistencia eliminada correctamente');
+        return redirect()->route('asistencias.index')->with('eliminar', 'eliminar');
+
     }
 }

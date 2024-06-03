@@ -103,28 +103,25 @@ class UserController extends Controller
     }
 
 /* ---------------------------------------------------------------------------------------------------------------- */
-public function update(Request $request, $id)
-{
-    $usuario = User::findOrFail($id);
-    $miembro = Miembro::findOrFail($request->miembro_id);
 
-    // Actualizar solo los campos que se están modificando
-    $usuario->name = $miembro->nombre_apellido; // Actualizar el nombre de usuario
-    $usuario->email = $request->email;
-    if ($request->has('password')) {
-        $usuario->password = Hash::make($request['password']);
+    public function update(Request $request, $id)
+    {
+        $usuario = User::findOrFail($id);
+        $miembro = Miembro::findOrFail($request->miembro_id);
+
+        // Actualizar solo los campos que se están modificando
+        $usuario->name = $miembro->nombre_apellido; // Actualizar el nombre de usuario
+        $usuario->email = $request->email;
+        if ($request->has('password')) {
+            $usuario->password = Hash::make($request['password']);
+        }
+        $usuario->save();
+
+        // Actualizar roles
+        $usuario->roles()->sync($request->roles);
+
+        return redirect()->route('usuarios.index')->with('mensaje', 'Se actualizó el usuario correctamente.');
     }
-    // También puedes agregar una validación aquí para el caso de 'roles'
-
-    $usuario->save();
-
-    // Actualizar roles
-    $usuario->roles()->sync($request->roles);
-
-    return redirect()->route('usuarios.index')->with('mensaje', 'Se actualizó el usuario correctamente.');
-}
-
-
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 

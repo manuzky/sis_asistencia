@@ -24,8 +24,10 @@
                                     <tr>
                                         <th>Nº</th>
                                         <th>ID</th>
-										<th>Nombres y Apellidos</th>
+										<th>Miembro</th>
 										<th>Fecha</th>
+										<th>H. Entrada</th>
+										<th>H. Salida</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -35,7 +37,9 @@
                                             <td>{{ ++$i }}</td>
                                             <td>{{ str_pad($asistencia->miembro->id, 4, '0', STR_PAD_LEFT) }}</td>
 											<td>{{ $asistencia->miembro->nombre_apellido }}</td>
-											<td>{{ $asistencia->fecha }}</td>
+											<td>{{ $asistencia->fecha->format('d/m/Y') }}</td>
+											<td>{{ $asistencia->hora_entrada }}</td>
+											<td>{{ $asistencia->hora_salida }}</td>
                                             <td style="text-align: center">
                                                 <div class="btn-group" role="group">
                                                     <a href="{{route('asistencias.show', $asistencia->id)}}" type="button" class="btn btn-info"><i class="bi bi-eye"></i></a>
@@ -47,10 +51,10 @@
                                                 @endcan
                                                 @can('asistencias.destroy')
                                                 <div class="btn-group" role="group">
-                                                    <form action="{{route('asistencias.destroy', $asistencia->id)}}" method="POST">
+                                                    <form action="{{route('asistencias.destroy', $asistencia->id)}}" method="POST" class="formulario-eliminar">
                                                         @csrf
                                                         {{method_field('DELETE')}}
-                                                        <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar la asistencia de {{$asistencia->miembro->nombre_apellido}}?')" class="btn btn-danger" value=""><i class="bi bi-trash"></i></button>
+                                                        <button type="submit" class="btn btn-danger" value=""><i class="bi bi-trash"></i></button>
                                                     </form>
                                                 </div>
                                                 @endcan
@@ -116,6 +120,38 @@
                     text: "{{$message}}",
                     icon: "success"
                 });
+        </script>
+    @endif
+
+
+    {{-- SWEETALERT AL ELIMINAR ASISTENCIA --}}
+    <script>
+        $('.formulario-eliminar').submit(function(e){
+            e.preventDefault();
+            var nombre = "<b>{{ $asistencia->miembro->nombre_apellido }}</b>"; // Acceder al nombre del miembro
+            Swal.fire({
+                title: "¿Estás seguro?",
+                html: "¿Deseas eliminar la asistencia de " + nombre + "?", // Usar el nombre del miembro
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sí, eliminarlo"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit();
+                }
+            });
+        });
+    </script>
+    {{-- SWEETALERT RECARGA LA PÁGINA AL ELIMINAR ASISTENCIA --}}
+    @if(session('eliminar') == 'eliminar')
+        <script>
+            Swal.fire({
+            title: "¡Eliminado!",
+            text: "Los datos han sido eliminados.",
+            icon: "success"
+            });
         </script>
     @endif
 </div>

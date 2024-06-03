@@ -25,7 +25,7 @@
                                     <th>Nombre del usuario</th>
                                     <th>Email</th>
                                     <th>Fecha de ingreso</th>
-                                    <th>Estado</th>
+                                    {{-- <th>Estado</th> --}}
                                     <th>Acción</th>
                                 </tr>
                             </thead>
@@ -37,9 +37,9 @@
                                         <td>{{$usuario->name}}</td>
                                         <td>{{$usuario->email}}</td>
                                         <td><?php echo date('d/m/Y', strtotime($usuario->fecha_ingreso)); ?></td>
-                                        <td style="text-align: center">
+                                        {{-- <td style="text-align: center">
                                             <button class="btn btn-success btn-sm" style="border-radius: 20px">Activo</button>
-                                        </td>
+                                        </td> --}}
                                         <td style="text-align: center">
                                             <div class="btn-group" role="group">
                                                 <a href="{{url('usuarios', $usuario->id)}}" type="button" class="btn btn-info"><i class="bi bi-eye"></i></a>

@@ -11,6 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Role;
 use App\Models\Permission;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class User extends Authenticatable
 {
@@ -38,6 +39,7 @@ class User extends Authenticatable
     public function miembro() {
         return $this->belongsTo(Miembro::class, 'miembro_id');
     }
+
     public function role(): BelongsTo {
         return $this->belongsTo(Role::class);
     }
@@ -45,4 +47,10 @@ class User extends Authenticatable
     public function permission(): BelongsTo {
         return $this->belongsTo(Permission::class);
     }
+
+    public function tokens()
+    {
+        return $this->morphMany(PersonalAccessToken::class, 'tokenable');
+    }
+
 }

@@ -25,6 +25,11 @@ class AsistenciaController extends Controller
     {
         $asistencias = Asistencia::paginate();
 
+        // Convertir la fecha a objetos Carbon
+        foreach ($asistencias as $asistencia) {
+            $asistencia->fecha = Carbon::parse($asistencia->fecha);
+        }
+
         return view('asistencia.index', compact('asistencias'))
             ->with('i', (request()->input('page', 1) - 1) * $asistencias->perPage());
     }
@@ -40,31 +45,42 @@ class AsistenciaController extends Controller
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
-public function store(Request $request)
-{
-    // Validación de datos
-    $request->validate(Asistencia::$rules);
+    public function store(Request $request)
+    {
+        // Validación de datos
+        $request->validate([
+            'fecha' => 'required|date_format:d/m/Y',
+            'hora_entrada' => 'required',
+            'miembro_id' => 'required|exists:miembros,id'
+        ]);
 
-    // Modificar el formato de fecha antes de almacenarlo en la base de datos
-    $fecha = Carbon::createFromFormat('d/m/Y', $request->fecha)->format('Y-m-d');
-    $request->merge(['fecha' => $fecha]);
+        // Modificar el formato de fecha antes de almacenarlo en la base de datos
+        $fecha = Carbon::createFromFormat('d/m/Y', $request->fecha)->format('Y-m-d');
+        $request->merge(['fecha' => $fecha]);
 
-    // Crear la asistencia
-    $asistencia = Asistencia::create($request->all());
+        // Crear la asistencia
+        $asistencia = new Asistencia();
+        $asistencia->fecha = $request->fecha;
+        $asistencia->hora_entrada = $request->hora_entrada;
+        $asistencia->hora_salida = $request->hora_salida;
+        $asistencia->miembro_id = $request->miembro_id;
+        $asistencia->save();
 
-    // Redireccionar con un mensaje
-    return redirect()->route('asistencias.index')->with('mensaje', 'Asistencia añadida correctamente.');
-}
+        // Redireccionar con un mensaje
+        return redirect()->route('asistencias.index')->with('mensaje', 'Asistencia añadida correctamente.');
+    }
 
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
-    public function show($id)
-    {
-        $asistencia = Asistencia::find($id);
+public function show($id)
+{
+    $asistencia = Asistencia::find($id);
+    $miembros = Miembro::pluck('nombre_apellido', 'id'); // O cualquier otra forma de obtener la lista de miembros
 
-        return view('asistencia.show', compact('asistencia'));
-    }
+    return view('asistencia.show', compact('asistencia', 'miembros'));
+}
+
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
@@ -77,14 +93,29 @@ public function store(Request $request)
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
-    public function update(Request $request, Asistencia $asistencia)
-    {
-        request()->validate(Asistencia::$rules);
+public function update(Request $request, Asistencia $asistencia)
+{
+    // Validación de datos
+    $request->validate([
+        'fecha' => 'required|date_format:d/m/Y',
+        'hora_entrada' => 'required',
+        'hora_salida' => 'required',
+        'miembro_id' => 'required|exists:miembros,id'
+    ]);
 
-        $asistencia->update($request->all());
+    // Modificar el formato de fecha antes de almacenarlo en la base de datos
+    $fecha = Carbon::createFromFormat('d/m/Y', $request->fecha)->format('Y-m-d');
 
-        return redirect()->route('asistencias.index')->with('mensaje', 'Asistencia actualizada correctamente');
-    }
+    // Actualizar la asistencia con los nuevos datos
+    $asistencia->fecha = $fecha;
+    $asistencia->hora_entrada = $request->hora_entrada;
+    $asistencia->hora_salida = $request->hora_salida;
+    $asistencia->miembro_id = $request->miembro_id;
+    $asistencia->save();
+
+    // Redireccionar con un mensaje
+    return redirect()->route('asistencias.index')->with('mensaje', 'Asistencia actualizada correctamente');
+}
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 

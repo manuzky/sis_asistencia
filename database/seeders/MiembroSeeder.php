@@ -25,7 +25,7 @@ class MiembroSeeder extends Seeder
             'email' => 'josem.zky@gmail.com',
             'estado' => '1',
             'cargo_id' => $cargo->id,
-            'foto' => 'foto_miembro/joseC.jpg',
+            'foto' => '',
             'fecha_ingreso' => '2024-01-04',
         ]);
         Miembro::create([

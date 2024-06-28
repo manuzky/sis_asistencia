@@ -22,8 +22,9 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Nombre del usuario</th>
+                                    <th>Usuario</th>
                                     <th>Email</th>
+                                    <th>Rol asignado</th>
                                     <th>Fecha de ingreso</th>
                                     {{-- <th>Estado</th> --}}
                                     <th>Acción</th>
@@ -36,6 +37,11 @@
                                         <td>{{ str_pad($usuario->id, 4, '0', STR_PAD_LEFT) }}</td>
                                         <td>{{$usuario->name}}</td>
                                         <td>{{$usuario->email}}</td>
+                                        <td>
+                                            @foreach($usuario->roles as $rol)
+                                                {{$rol->name}}
+                                            @endforeach
+                                        </td>
                                         <td><?php echo date('d/m/Y', strtotime($usuario->fecha_ingreso)); ?></td>
                                         {{-- <td style="text-align: center">
                                             <button class="btn btn-success btn-sm" style="border-radius: 20px">Activo</button>

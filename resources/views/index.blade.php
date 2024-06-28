@@ -82,7 +82,7 @@
 
     </div>
 
-    @can('asistencias')
+    @can('asistencias.create.index')
     <!-- Formulario de registro de asistencia -->
     <div class="row">
         <div class="col-lg-6">

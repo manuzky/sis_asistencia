@@ -19,6 +19,7 @@ class RoleSeeder extends Seeder
 
         Permission::create(['name' => 'asistencias', 'description' => 'Ver las asistencias'])->syncRoles([$admin]);
         Permission::create(['name' => 'asistencias.create', 'description' => 'Crear una asistencia'])->syncRoles([$admin]);
+        Permission::create(['name' => 'asistencias.create.index', 'description' => 'Crear una asistencia desde el inicio'])->syncRoles([$admin]);
         Permission::create(['name' => 'asistencias.edit', 'description' => 'Editar las asistencias'])->syncRoles([$admin]);
         Permission::create(['name' => 'asistencias.destroy', 'description' => 'Borrar las asistencias'])->syncRoles([$admin]);
         

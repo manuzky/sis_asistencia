@@ -60,25 +60,28 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="usuario">Ingresado por</label>
                                         <input type="text" name="usuario" value="{{ $asistencia->user->name }}" class="form-control" disabled>
                                     </div>
                                 </div>
-                                
-                                
-                                
-                                                             
 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="updated_at">Última modificación </label>
                                         <input type="text" name="updated_at" value="{{ old('updated_at', $asistencia->updated_at->format('d/m/Y — H:i:s')) }}" class="form-control{{ $errors->has('updated_at') ? ' is-invalid' : '' }}" disabled>
                                         {!! $errors->first('updated_at', '<div class="invalid-feedback">:message</div>') !!}
                                     </div>
-                                    
                                 </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="usuario">Última modificación por</label>
+                                        <input type="text" name="usuario" value="{{ $asistencia->updatedBy->name ?? 'N/A' }}" class="form-control" disabled>
+                                    </div>
+                                </div>
+                                
                             </div>
                         </div>
 

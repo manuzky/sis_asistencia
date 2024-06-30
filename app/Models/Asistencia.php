@@ -15,7 +15,7 @@ class Asistencia extends Model
 
     protected $perPage = 20;
 
-    protected $fillable = ['fecha','miembro_id'];
+    protected $fillable = ['fecha','miembro_id','updated_by'];
 
 
     public function miembro()
@@ -27,4 +27,11 @@ class Asistencia extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
+
+
 }

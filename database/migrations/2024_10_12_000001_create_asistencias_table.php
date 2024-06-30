@@ -19,6 +19,8 @@ return new class extends Migration
     
             $table->foreign('miembro_id')->references('id')->on('miembros')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('updated_by')->unsigned()->nullable();
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('set null');
         });
     }    
 

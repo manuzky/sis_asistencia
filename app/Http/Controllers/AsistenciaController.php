@@ -113,6 +113,7 @@ public function update(Request $request, Asistencia $asistencia)
     $asistencia->hora_entrada = $request->hora_entrada;
     $asistencia->hora_salida = $request->hora_salida;
     $asistencia->miembro_id = $request->miembro_id;
+    $asistencia->updated_by = auth()->id();
     $asistencia->save();
 
     // Redireccionar con un mensaje

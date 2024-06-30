@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('fecha_ingreso');
             $table->string('estado');
+            $table->boolean('active')->default(true);
 
             // Clave foránea para relacionar usuarios con miembros
             $table->bigInteger('miembro_id')->unsigned()->nullable();

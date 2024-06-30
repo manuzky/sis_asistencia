@@ -23,6 +23,17 @@ class UserController extends Controller
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
+    public function toggleActive($id)
+    {
+        $user = User::findOrFail($id);
+        $user->active = !$user->active;
+        $user->save();
+
+        return redirect()->back()->with('mensaje', 'Estado del usuario actualizado correctamente.');
+    }
+
+/* ---------------------------------------------------------------------------------------------------------------- */
+
     public function index()
     {
         $usuarios = User::with('roles')->get();

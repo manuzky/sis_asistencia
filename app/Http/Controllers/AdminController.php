@@ -51,6 +51,7 @@ class AdminController extends Controller
                 $asistencia->fecha = $fechaHoy;
                 $asistencia->miembro_id = $miembro->id;
                 $asistencia->hora_entrada = $horaActual;
+                $asistencia->user_id = auth()->id();
                 $asistencia->save();
     
                 // Mostrar SweetAlert después de guardar

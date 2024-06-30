@@ -36,7 +36,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="fecha">Fecha </label>
+                                        <label for="fecha">Fecha de ingreso</label>
                                         <div class="input-group date" id="datepicker">
                                             <input type="text" name="fecha" value="{{ old('fecha', \Carbon\Carbon::parse($asistencia->fecha)->format('d/m/Y')) }}" class="form-control{{ $errors->has('fecha') ? ' is-invalid' : '' }}" placeholder="Fecha de asistencia" disabled>
 
@@ -56,6 +56,28 @@
                                         <input type="time" name="hora_salida" value="{{ old('hora_salida', $asistencia->hora_salida) }}" class="form-control{{ $errors->has('hora_salida') ? ' is-invalid' : '' }}" disabled>
                                         {!! $errors->first('hora_salida', '<div class="invalid-feedback">:message</div>') !!}
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="usuario">Ingresado por</label>
+                                        <input type="text" name="usuario" value="{{ $asistencia->user->name }}" class="form-control" disabled>
+                                    </div>
+                                </div>
+                                
+                                
+                                
+                                                             
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="updated_at">Última modificación </label>
+                                        <input type="text" name="updated_at" value="{{ old('updated_at', $asistencia->updated_at->format('d/m/Y — H:i:s')) }}" class="form-control{{ $errors->has('updated_at') ? ' is-invalid' : '' }}" disabled>
+                                        {!! $errors->first('updated_at', '<div class="invalid-feedback">:message</div>') !!}
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>

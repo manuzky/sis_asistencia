@@ -23,5 +23,8 @@ class Asistencia extends Model
         return $this->hasOne('App\Models\Miembro', 'id', 'miembro_id');
     }
     
-
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

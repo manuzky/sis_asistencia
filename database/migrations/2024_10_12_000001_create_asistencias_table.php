@@ -14,10 +14,13 @@ return new class extends Migration
             $table->time('hora_entrada')->nullable();
             $table->time('hora_salida')->nullable();
             $table->bigInteger('miembro_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned()->nullable();
             $table->timestamps();
+    
             $table->foreign('miembro_id')->references('id')->on('miembros')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
-    }
+    }    
 
     public function down(): void
     {

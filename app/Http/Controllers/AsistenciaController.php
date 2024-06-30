@@ -56,14 +56,17 @@ class AsistenciaController extends Controller
 
         // Modificar el formato de fecha antes de almacenarlo en la base de datos
         $fecha = Carbon::createFromFormat('d/m/Y', $request->fecha)->format('Y-m-d');
-        $request->merge(['fecha' => $fecha]);
-
+        
         // Crear la asistencia
         $asistencia = new Asistencia();
-        $asistencia->fecha = $request->fecha;
+        $asistencia->fecha = $fecha;
         $asistencia->hora_entrada = $request->hora_entrada;
         $asistencia->hora_salida = $request->hora_salida;
         $asistencia->miembro_id = $request->miembro_id;
+
+        // Asignar el usuario que está creando la asistencia
+        $asistencia->user_id = auth()->id();
+
         $asistencia->save();
 
         // Redireccionar con un mensaje
@@ -73,14 +76,13 @@ class AsistenciaController extends Controller
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
-public function show($id)
-{
-    $asistencia = Asistencia::find($id);
-    $miembros = Miembro::pluck('nombre_apellido', 'id'); // O cualquier otra forma de obtener la lista de miembros
+    public function show($id)
+    {
+        $asistencia = Asistencia::with('user')->find($id);
+        $miembros = Miembro::pluck('nombre_apellido', 'id'); // O cualquier otra forma de obtener la lista de miembros
 
-    return view('asistencia.show', compact('asistencia', 'miembros'));
-}
-
+        return view('asistencia.show', compact('asistencia', 'miembros'));
+    }
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 

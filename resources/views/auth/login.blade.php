@@ -67,4 +67,19 @@
         </div>
     </div>
 </div>
+
+{{-- SCRIPTS --}}
+<div>
+  <!-- SWEETALERT AL ESTAR DESHABILITADO -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  @if(session('inactive'))
+      <script>
+          Swal.fire({
+              icon: 'error',
+              title: 'Cuenta Inactiva',
+              text: '{{ session('inactive') }}',
+          });
+      </script>
+  @endif
+</div>
 @endsection

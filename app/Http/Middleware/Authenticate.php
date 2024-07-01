@@ -17,16 +17,13 @@ class Authenticate extends Middleware
         return $request->expectsJson() ? null : route('login');
     }
 
-    /**
-     * Handle an incoming request.
-     */
     public function handle($request, Closure $next, ...$guards)
     {
         $this->authenticate($request, $guards);
 
         if (Auth::check() && !Auth::user()->active) {
             Auth::logout();
-            return redirect()->route('login')->withErrors(['inactive' => 'Tu cuenta está inactiva. Por favor contacta al administrador.']);
+            return redirect()->route('login')->with('inactive', 'Tu cuenta ha sido deshabilitada. Por favor, contacta al administrador.');
         }
 
         return $next($request);

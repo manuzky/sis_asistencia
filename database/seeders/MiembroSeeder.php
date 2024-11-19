@@ -22,7 +22,7 @@ class MiembroSeeder extends Seeder
             'telefono' => '04248534449',
             'fecha_nacimiento' => '2000-10-17',
             'genero' => 'MASCULINO',
-            'email' => 'josem.zky@gmail.com',
+            'email' => 'manuelc.dev@gmail.com',
             'estado' => '1',
             'cargo_id' => $cargo->id,
             'foto' => '',

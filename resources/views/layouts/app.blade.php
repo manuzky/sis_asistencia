@@ -30,10 +30,12 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="images/uptjaalogofullderecha.png" alt="Logo del UPTJAA completo" width="60%">
+                    <img src="images/uptjaalogofullderecha.png" alt="Logo del UPTJAA completo" width="250%">
                 </a>
                 <div class="center">
-                    <img src="images/encabezado.png" alt="encabezado" style="margin-left: 13%" >
+
+                        <img src="images/encabezado.png" alt="encabezado" style="margin-left: 13%" width="60%" >
+
                 </div>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->

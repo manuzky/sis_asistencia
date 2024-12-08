@@ -117,7 +117,7 @@
             </div>
         </div>
     </div>
-
+ 
 {{-- SCRIPTS --}}
 <div>
     {{-- CARGAR Y MOSTRAR LA IMAGEN --}}

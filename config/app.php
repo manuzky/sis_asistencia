@@ -184,7 +184,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
-        $app->register(\Barryvdh\DomPDF\ServiceProvider::class),
+        // $app->register(\Barryvdh\DomPDF\ServiceProvider::class),
     ])->toArray(),
 
 

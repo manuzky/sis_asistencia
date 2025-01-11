@@ -10,7 +10,7 @@ use App\Http\Controllers\CargoController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\PNFController;
 
 Route::get('/', [AdminController::class, 'index'])->middleware('auth')->name('index');
 Route::get('/reportes', [ReporteController::class, 'index'])->middleware('can:reportes')->name('reportes');
@@ -23,6 +23,7 @@ Route::get('/usuarios/toggleActive/{id}', [UserController::class, 'toggleActive'
 
 Auth::routes(['register'=>false]);
 
+Route::resource('pnfs', PNFController::class);
 Route::resource('/asistencias', AsistenciaController::class)->middleware('can:asistencias');
 Route::resource('/cargos', CargoController::class)->middleware('can:cargos');
 Route::resource('/miembros', MiembroController::class)->middleware('can:miembros');

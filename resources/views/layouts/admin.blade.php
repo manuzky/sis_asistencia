@@ -174,6 +174,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </li>
             @endcan
 
+            {{-- @can('pnfs') --}}
+            <li class="nav-item {{ Request::is('pnfs/create*') || Request::is('pnfs*') ? 'menu-open' : '' }}">
+              <a href="#" class="nav-link active {{ Request::is('pnfs/create*') || Request::is('pnfs*') ? 'active' : '' }}" style="background-color: #18b0ec;">
+                <i class="nav-icon fas">
+                  <i class="bi bi-mortarboard-fill"></i>
+                </i>
+                <p>
+                  PNF
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                {{-- @can('pnfs.create') --}}
+                <li class="nav-item">
+                  <a href="{{url('pnfs/create')}}" class="nav-link {{ Request::is('pnfs/create*') ? 'active' : '' }}">
+                    <i class="far fa-circle nav-icon" style="color: #333333;"></i>
+                    <p style="color: #333333;">Nuevo PNF</p>
+                  </a>
+                </li>
+                {{-- @endcan --}}
+                <li class="nav-item">
+                  <a href="{{url('pnfs')}}" class="nav-link {{ Request::is('pnfs*') && !Request::is('pnfs/create*') ? 'active' : '' }}">
+                    <i class="far fa-circle nav-icon" style="color: #333333;"></i>
+                    <p style="color: #333333;">Listado de PNFs</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            {{-- @endcan --}}
 
           @can('rolesypermisos')
           <li class="nav-item {{ Request::is('rolesypermisos/create*') || Request::is('rolesypermisos*') ? 'menu-open' : '' }}">

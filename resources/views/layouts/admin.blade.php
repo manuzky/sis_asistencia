@@ -144,6 +144,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </li>
             @endcan
 
+            {{-- @can('horarios') --}}
+            <li class="nav-item {{ Request::is('horarios/create*') || Request::is('horarios*') ? 'menu-open' : '' }}">
+              <a href="#" class="nav-link active {{ Request::is('horarios/create*') || Request::is('horarios*') ? 'active' : '' }}" style="background-color: #18b0ec;">
+                <i class="nav-icon fas">
+                  <i class="bi bi-calendar3"></i>
+                </i>
+                <p>
+                  Horarios
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                {{-- @can('horarios.create') --}}
+                <li class="nav-item">
+                  <a href="{{url('horarios/create')}}" class="nav-link {{ Request::is('horarios/create*') ? 'active' : '' }}">
+                    <i class="far fa-circle nav-icon" style="color: #333333;"></i>
+                    <p style="color: #333333;">Nuevo Horario</p>
+                  </a>
+                </li>
+                {{-- @endcan --}}
+                <li class="nav-item">
+                  <a href="{{url('horarios')}}" class="nav-link {{ Request::is('horarios*') && !Request::is('horarios/create*') ? 'active' : '' }}">
+                    <i class="far fa-circle nav-icon" style="color: #333333;"></i>
+                    <p style="color: #333333;">Listado de Horarios</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            {{-- @endcan --}}
+
             @can('miembros')
             <li class="nav-item {{ Request::is('miembros/create*') || Request::is('miembros*') ? 'menu-open' : '' }}" >
               <a href="#" class="nav-link active {{ Request::is('miembros/create*') || Request::is('miembros*') ? 'active' : '' }}" style="background-color: #18b0ec;" >

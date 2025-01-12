@@ -13,6 +13,8 @@ class CreateMateriasTable extends Migration
             $table->id();  // ID autoincrementable
             $table->string('nombre');  // Nombre de la materia
             $table->foreignId('pnf_id')->constrained('pnfs')->onDelete('cascade');  // Relación con la tabla 'pnfs'
+            $table->unsignedBigInteger('docente_id')->nullable();  // Puede ser nulo si no hay docente asignado
+            $table->foreign('docente_id')->references('id')->on('miembros')->onDelete('set null');  // Relación con 'miembros'
             $table->timestamps();  // Tiempos de creación y actualización
         });
     }

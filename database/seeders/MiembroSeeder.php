@@ -14,7 +14,12 @@ class MiembroSeeder extends Seeder
      */
     public function run(): void
     {
-        $cargo = Cargo::inRandomOrder()->first();
+        // Obtén los cargos específicos
+        $cargoDocente = Cargo::where('nombre_cargo', 'Docente')->first();
+        $cargoDesarrollador = Cargo::where('nombre_cargo', 'Desarrollador')->first();
+        $cargoMantenimiento = Cargo::where('nombre_cargo', 'Mantenimiento')->first();
+
+        // Miembro con cargo Docente
         Miembro::create([
             'nombre_apellido' => 'José Carrasquel',
             'cedula' => '30205553',
@@ -24,10 +29,12 @@ class MiembroSeeder extends Seeder
             'genero' => 'MASCULINO',
             'email' => 'manuelc.dev@gmail.com',
             'estado' => '1',
-            'cargo_id' => $cargo->id,
+            'cargo_id' => $cargoDocente->id,
             'foto' => '',
             'fecha_ingreso' => '2024-01-04',
         ]);
+
+        // Miembro con cargo Desarrollador
         Miembro::create([
             'nombre_apellido' => 'Diego Albino',
             'cedula' => '30141723',
@@ -37,10 +44,12 @@ class MiembroSeeder extends Seeder
             'genero' => 'MASCULINO',
             'email' => 'diegoalbino0606@gmail.com',
             'estado' => '1',
-            'cargo_id' => $cargo->id,
+            'cargo_id' => $cargoDesarrollador->id,
             'foto' => '',
             'fecha_ingreso' => '2024-01-04',
         ]);
+
+        // Miembro con cargo Desarrollador
         Miembro::create([
             'nombre_apellido' => 'Cesar Guarema',
             'cedula' => '30131633',
@@ -50,10 +59,12 @@ class MiembroSeeder extends Seeder
             'genero' => 'MASCULINO',
             'email' => 'guaremacacerescesaraugusto@gmail.com',
             'estado' => '1',
-            'cargo_id' => $cargo->id,
+            'cargo_id' => $cargoDesarrollador->id,
             'foto' => '',
             'fecha_ingreso' => '2024-01-04',
         ]);
+
+        // Miembro con cargo Mantenimiento
         Miembro::create([
             'nombre_apellido' => 'Carlos Liendo',
             'cedula' => '30935601',
@@ -63,7 +74,7 @@ class MiembroSeeder extends Seeder
             'genero' => 'MASCULINO',
             'email' => 'eduardo.liendo27@gmail.com',
             'estado' => '1',
-            'cargo_id' => $cargo->id,
+            'cargo_id' => $cargoMantenimiento->id,
             'foto' => '',
             'fecha_ingreso' => '2024-01-04',
         ]);

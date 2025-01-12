@@ -15,7 +15,19 @@ class CargoSeeder extends Seeder
     {
         Cargo::create( [
             'nombre_cargo' => 'Desarrollador',
-            'descripcion_cargo' => 'Desarrollador y/o colaboradores del sistema web',
+            'descripcion_cargo' => 'Desarrollador y/o colaboradores del sistema web.',
+        ]);
+        Cargo::create( [
+            'nombre_cargo' => 'Docente',
+            'descripcion_cargo' => 'Profesores de la universidad.',
+        ]);
+        Cargo::create( [
+            'nombre_cargo' => 'Mantenimiento',
+            'descripcion_cargo' => 'Personal de limpieza y mantenimiento.',
+        ]);
+        Cargo::create( [
+            'nombre_cargo' => 'Administración',
+            'descripcion_cargo' => 'Personal administrativo.',
         ]);
     }
 }

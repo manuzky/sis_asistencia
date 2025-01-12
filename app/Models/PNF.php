@@ -15,6 +15,7 @@ class PNF extends Model
     // Especificamos el nombre de la tabla si es diferente a la convención
     protected $table = 'pnfs';  // Asegúrate de que el nombre de la tabla sea 'pnfs'
 
+    // Relación con las materias
     public function materias()
     {
         return $this->hasMany(Materia::class, 'pnf_id');  // Relación con la tabla 'materias'

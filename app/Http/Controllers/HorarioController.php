@@ -8,11 +8,9 @@ use App\Models\PNF;
 use App\Models\Miembro;
 use App\Models\Materia;
 
-class HorarioController extends Controller
-{
+class HorarioController extends Controller {
 
-    public function getMateriasByPnf(Request $request)
-    {
+    public function getMateriasByPnf(Request $request) {
         $materias = Materia::where('pnf_id', $request->pnf_id)->get();
 
         return response()->json($materias);
@@ -20,29 +18,26 @@ class HorarioController extends Controller
 
     /* ---------------------------------------------------------------------------------------------------------------- */
 
-    public function index()
-    {
+    public function index() {
         $horarios = Horario::all();  // Obtiene todos los horarios de la base de datos
         return view('horarios.index', compact('horarios'));  // Retorna la vista con los horarios
     }
 
     /* ---------------------------------------------------------------------------------------------------------------- */
 
-    public function create()
-    {
+    public function create() {
         $pnfs = PNF::all();  // Obtener todos los PNF
         $materias = collect(); // Inicialmente vacío, ya que no hay PNF seleccionado
         $materias = Materia::all();  // Obtener todas las materias
         $docentes = Miembro::where('cargo_id', 2)->get();  // Obtener solo los miembros con cargo "Docente" (cargo_id = 2)
-        
+
         return view('horarios.create', compact('pnfs', 'docentes', 'materias'));  // Pasar los docentes a la vista
     }
-    
+
 
     /* ---------------------------------------------------------------------------------------------------------------- */
 
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         // Validar los datos de entrada
         $validated = $request->validate([
             'pnf_id' => 'required|exists:pnfs,id',
@@ -52,34 +47,40 @@ class HorarioController extends Controller
             'materias' => 'required|array',
             'profesor_id' => 'required|exists:miembros,id',
         ]);
-        dd($validated);
-
+        $materiasProfesor = array_combine($validated['materias'], $validated['profesor_id']);
         // Crear el horario
-        $horario = Horario::create([
-            'pnf_id' => $validated['pnf_id'],
-            'trayecto' => $validated['trayecto'],
-            'semestre' => $validated['semestre'],
-            'turno' => $validated['turno'],
-            'profesor_id' => $validated['profesor_id'],
-        ]);
+        foreach ($request['horarios'] as $dia => $horas) {
+            foreach ($horas as $hora => $materia_id) {
+                if (!is_null($materia_id)) {
+                    $horario = Horario::create([
+                        'pnf_id' => $validated['pnf_id'],
+                        'trayecto' => $validated['trayecto'],
+                        'semestre' => $validated['semestre'],
+                        'turno' => $validated['turno'],
+                        'dia' => $dia,
+                        'hora' => $hora,
+                        'materia_id' => $materia_id,
+                        'profesor_id' => $materiasProfesor[$materia_id],
+                    ]);
+                    $horario->materias()->attach($validated['materias']);
+                }
+            }
+        }
 
         // Asignar las materias al horario
-        $horario->materias()->attach($validated['materias']);
 
         return redirect()->route('horarios.index')->with('success', 'Horario creado correctamente');
     }
 
     /* ---------------------------------------------------------------------------------------------------------------- */
 
-    public function show(Horario $horario)
-    {
+    public function show(Horario $horario) {
         return view('horarios.show', compact('horario'));  // Pasamos el horario a la vista
     }
 
     /* ---------------------------------------------------------------------------------------------------------------- */
 
-    public function edit(Horario $horario)
-    {
+    public function edit(Horario $horario) {
         $pnfs = PNF::all();
         $miembros = Miembro::where('cargo_id', 2)->get();
         return view('horarios.edit', compact('horario', 'pnfs', 'miembros'));
@@ -87,8 +88,7 @@ class HorarioController extends Controller
 
     /* ---------------------------------------------------------------------------------------------------------------- */
 
-    public function update(Request $request, Horario $horario)
-    {
+    public function update(Request $request, Horario $horario) {
         $validated = $request->validate([
             'pnf_id' => 'required|exists:pnfs,id',
             'trayecto' => 'required|integer',
@@ -114,11 +114,9 @@ class HorarioController extends Controller
 
     /* ---------------------------------------------------------------------------------------------------------------- */
 
-    public function destroy(Horario $horario)
-    {
+    public function destroy(Horario $horario) {
         $horario->materias()->detach();  // Eliminar las relaciones de materias
         $horario->delete();  // Eliminar el horario
         return redirect()->route('horarios.index')->with('success', 'Horario eliminado correctamente');
     }
-
 }

@@ -19,11 +19,10 @@ class MiembroSeeder extends Seeder
         $cargoDesarrollador = Cargo::where('nombre_cargo', 'Desarrollador')->first();
         $cargoMantenimiento = Cargo::where('nombre_cargo', 'Mantenimiento')->first();
 
-        // Miembro con cargo Docente
         Miembro::create([
             'nombre_apellido' => 'José Carrasquel',
             'cedula' => '30205553',
-            'direccion' => 'Barcelona, Guamachito, Calle Libertad, Vereda Libertad, casa S/N.',
+            'direccion' => 'Por ahí en la calle',
             'telefono' => '04248534449',
             'fecha_nacimiento' => '2000-10-17',
             'genero' => 'MASCULINO',
@@ -34,32 +33,30 @@ class MiembroSeeder extends Seeder
             'fecha_ingreso' => '2024-01-04',
         ]);
 
-        // Miembro con cargo Desarrollador
         Miembro::create([
             'nombre_apellido' => 'Diego Albino',
             'cedula' => '30141723',
-            'direccion' => 'Fundación Mendoza, Av. Raúl Leoni, Conjunto Residencial Alto Guaica.',
+            'direccion' => 'Creo que Rivera Guaica',
             'telefono' => '04248172330',
             'fecha_nacimiento' => '2003-06-06',
             'genero' => 'MASCULINO',
             'email' => 'diegoalbino0606@gmail.com',
             'estado' => '1',
-            'cargo_id' => $cargoDesarrollador->id,
+            'cargo_id' => $cargoDocente->id,
             'foto' => '',
             'fecha_ingreso' => '2024-01-04',
         ]);
 
-        // Miembro con cargo Desarrollador
         Miembro::create([
             'nombre_apellido' => 'Cesar Guarema',
             'cedula' => '30131633',
-            'direccion' => 'Urb.Brisas del Mar, calle 4 casa NRO 23',
+            'direccion' => 'Allá en la fuente había un chorrito',
             'telefono' => '04248716974',
             'fecha_nacimiento' => '2002-11-16',
             'genero' => 'MASCULINO',
             'email' => 'guaremacacerescesaraugusto@gmail.com',
             'estado' => '1',
-            'cargo_id' => $cargoDesarrollador->id,
+            'cargo_id' => $cargoDocente->id,
             'foto' => '',
             'fecha_ingreso' => '2024-01-04',
         ]);
@@ -68,7 +65,7 @@ class MiembroSeeder extends Seeder
         Miembro::create([
             'nombre_apellido' => 'Carlos Liendo',
             'cedula' => '30935601',
-            'direccion' => 'Av fraternidad, Conjunto Residencial Venus',
+            'direccion' => 'Se hacía grandote, se hacía chiquito',
             'telefono' => '04121886508',
             'fecha_nacimiento' => '2003-09-27',
             'genero' => 'MASCULINO',
@@ -78,5 +75,7 @@ class MiembroSeeder extends Seeder
             'foto' => '',
             'fecha_ingreso' => '2024-01-04',
         ]);
+
+        Miembro::factory(64)->create();
     }
 }

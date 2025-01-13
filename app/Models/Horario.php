@@ -14,6 +14,7 @@ class Horario extends Model {
         'trayecto', // Trayecto del PNF
         'semestre', // Semestre
         'turno', // Mañana, tarde, etc.
+        'seccion', // Sección
         'dia',
         'hora',
         'materia_id',

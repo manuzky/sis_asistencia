@@ -33,7 +33,7 @@
                                             <div class="form-group">
                                                 <label for="turno">Turno <b style="color:red">*</b></label>
                                                 <select name="turno" id="turno" class="form-control" required>
-                                                    <option value="">--vacío--</option>
+                                                    <option value=""></option>
                                                     <option value="Mañana" {{ old('turno') == 'Mañana' ? 'selected' : '' }}>
                                                         Mañana</option>
                                                     <option value="Tarde" {{ old('turno') == 'Tarde' ? 'selected' : '' }}>
@@ -49,7 +49,7 @@
                                             <div class="form-group">
                                                 <label for="pnf_id">PNF <b style="color:red">*</b></label>
                                                 <select name="pnf_id" id="pnf_id" class="form-control" required>
-                                                    <option value="">--vacío--</option>
+                                                    <option value=""></option>
                                                     @foreach ($pnfs as $pnf)
                                                         <option value="{{ $pnf->id }}"
                                                             {{ old('pnf_id') == $pnf->id ? 'selected' : '' }}>
@@ -64,7 +64,7 @@
                                             <div class="form-group">
                                                 <label for="trayecto">Trayecto <b style="color:red">*</b></label>
                                                 <select name="trayecto" id="trayecto" class="form-control" required>
-                                                    <option value="">--vacío--</option>
+                                                    <option value=""></option>
                                                     <option value="Inicial"
                                                         {{ old('trayecto') == 'Inicial' ? 'selected' : '' }}>Inicial
                                                     </option>
@@ -85,7 +85,7 @@
                                             <div class="form-group">
                                                 <label for="semestre">Semestre <b style="color:red">*</b></label>
                                                 <select name="semestre" id="semestre" class="form-control" required>
-                                                    <option value="">--vacío--</option>
+                                                    <option value=""></option>
                                                     <option value="1" {{ old('semestre') == '1' ? 'selected' : '' }}>1
                                                     </option>
                                                     <option value="2" {{ old('semestre') == '2' ? 'selected' : '' }}>2
@@ -143,13 +143,13 @@
                                     <tr>
                                         <td>
                                             <select name="materias[]" class="form-control materia-dropdown">
-                                                <option value="">--vacío--</option>
+                                                <option value=""></option>
                                                 <!-- Las materias se cargarán dinámicamente aquí -->
                                             </select>
                                         </td>
                                         <td>
                                             <select name="profesor_id[]" class="form-control profesor-dropdown">
-                                                <option value="">--vacío--</option>
+                                                <option value=""></option>
                                                 <!-- Los profesores se cargarán dinámicamente aquí -->
                                             </select>
                                         </td>
@@ -193,7 +193,7 @@
             let selectMateria = document.createElement('select');
             selectMateria.name = 'materias[]';
             selectMateria.className = 'form-control materia-dropdown';
-            selectMateria.innerHTML = '<option value="">-- Seleccionar Materia --</option>';
+            selectMateria.innerHTML = '<option value=""></option>';
             celdaMateria.appendChild(selectMateria);
 
             // Columna 2: Dropdown de Profesor
@@ -201,7 +201,7 @@
             let selectProfesor = document.createElement('select');
             selectProfesor.name = 'profesor_id[]';
             selectProfesor.className = 'form-control profesor-dropdown';
-            selectProfesor.innerHTML = '<option value="">-- Seleccionar Profesor --</option>';
+            selectProfesor.innerHTML = '<option value=""></option>';
             celdaProfesor.appendChild(selectProfesor);
 
             // Columna 3: Botón Eliminar
@@ -232,7 +232,7 @@
             // Limpiar las materias de todos los dropdowns solo si 'reset' es true
             if (reset) {
                 dropdownsMaterias.forEach(function(dropdown) {
-                    dropdown.innerHTML = '<option value="">-- Seleccionar Materia --</option>';
+                    dropdown.innerHTML = '<option value=""></option>';
                 });
             }
 
@@ -265,7 +265,7 @@
             // Limpiar los profesores de todos los dropdowns solo si 'reset' es true
             if (reset) {
                 dropdownsProfesores.forEach(function(dropdown) {
-                    dropdown.innerHTML = '<option value="">-- Seleccionar Profesor --</option>';
+                    dropdown.innerHTML = '<option value=""></option>';
                 });
             }
 
@@ -347,7 +347,7 @@
                     // Añadir un valor por defecto vacío
                     let option = document.createElement('option');
                     option.value = '';
-                    option.textContent = '-- Materia --';
+                    option.textContent = '';
                     input.appendChild(option);
 
                     // Aquí se agregan las materias dependiendo del PNF

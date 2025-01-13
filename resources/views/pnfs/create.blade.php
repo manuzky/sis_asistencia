@@ -32,15 +32,18 @@
                                     </div>
                                     
                                     <!-- Sección de materias -->
-                                    <div id="materias-container">
-                                        <div class="form-group materia-group">
-                                            <label for="">Materia</label>
-                                            <input type="text" name="materias[]" class="form-control" placeholder="Ingrese el nombre de la materia" required>
-                                            <button type="button" class="btn btn-danger btn-sm remove-materia" style="margin-top: 5px;">Eliminar</button>
+                                    <h4>Materias asociadas</h4>
+                                    <div id="materias" class="row">
+                                        <div class="col-md-6" id="materia-new-0">
+                                            <div class="form-group">
+                                                <label for="materia-new-0">Materia</label>
+                                                <input type="text" class="form-control" name="materias[new-0]" placeholder="Ingrese el nombre de la materia" required>
+                                                <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminarMateria('new-0')">Eliminar</button>
+                                            </div>
                                         </div>
                                     </div>
                                     
-                                    <button type="button" id="add-materia" class="btn btn-success btn-sm" style="margin-top: 10px;">+ Agregar materia</button>
+                                    <button type="button" class="btn btn-success mt-2" onclick="agregarMateria()">+ Agregar materia</button>
                                 </div>
                             </div>
     
@@ -63,33 +66,28 @@
 
     <!-- Script para agregar y eliminar materias dinámicamente -->
     <script>
-        // Agregar nueva materia
-        document.getElementById('add-materia').addEventListener('click', function() {
-            var container = document.getElementById('materias-container');
-            var newMateriaGroup = document.createElement('div');
-            newMateriaGroup.classList.add('form-group', 'materia-group');
-            newMateriaGroup.innerHTML = `
-                <label for="">Materia</label>
-                <input type="text" name="materias[]" class="form-control" placeholder="Ingrese el nombre de la materia" required>
-                <button type="button" class="btn btn-danger btn-sm remove-materia" style="margin-top: 5px;">Eliminar</button>
+        // Función para agregar una nueva materia
+        function agregarMateria() {
+            const materiaCount = document.querySelectorAll("#materias .col-md-6").length;
+            const newMateriaId = 'new-' + materiaCount;
+            const newMateriaHTML = `
+                <div class="col-md-6" id="materia-${newMateriaId}">
+                    <div class="form-group">
+                        <label for="materia-${newMateriaId}">Materia</label>
+                        <input type="text" class="form-control" name="materias[${newMateriaId}]" placeholder="Ingrese el nombre de la materia" required>
+                        <button type="button" class="btn btn-danger btn-sm mt-2" onclick="eliminarMateria('${newMateriaId}')">Eliminar</button>
+                    </div>
+                </div>
             `;
-            container.appendChild(newMateriaGroup);
-
-            // Volver a agregar el evento de eliminar
-            addRemoveMateriaEvent();
-        });
-
-        // Función para agregar el evento de eliminación a los botones
-        function addRemoveMateriaEvent() {
-            var removeButtons = document.querySelectorAll('.remove-materia');
-            removeButtons.forEach(function(button) {
-                button.addEventListener('click', function() {
-                    this.parentElement.remove();
-                });
-            });
+            document.getElementById('materias').insertAdjacentHTML('beforeend', newMateriaHTML);
         }
 
-        // Inicializamos el evento de eliminación de materias
-        addRemoveMateriaEvent();
+        // Función para eliminar una materia
+        function eliminarMateria(materiaId) {
+            const materiaElement = document.getElementById('materia-' + materiaId);
+            if (materiaElement) {
+                materiaElement.remove();
+            }
+        }
     </script>
 @endsection

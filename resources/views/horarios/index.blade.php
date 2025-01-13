@@ -22,6 +22,7 @@
                             <thead>
                                 <tr>
                                     <th>Nº</th>
+                                    <th>Turno</th>
                                     <th>PNF</th>
                                     <th>Trayecto</th>
                                     <th>Semestre</th>
@@ -35,7 +36,8 @@
                                 @foreach($horarios as $horario)
                                     <tr>
                                         <td>{{ ++$i }}</td>
-                                        <td>{{$horario->pnf->nombre_pnf}}</td>
+                                        <td>{{$horario->turno}}</td>
+                                        <td>{{$horario->pnf->nombre}}</td>
                                         <td>{{$horario->trayecto}}</td>
                                         <td>{{$horario->semestre}}</td>
                                         <td>{{$horario->seccion}}</td>

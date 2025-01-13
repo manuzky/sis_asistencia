@@ -20,6 +20,7 @@ class HorarioController extends Controller {
 
     public function index() {
         $horarios = Horario::all();  // Obtiene todos los horarios de la base de datos
+        // dd($horarios);
         return view('horarios.index', compact('horarios'));  // Retorna la vista con los horarios
     }
 
@@ -44,6 +45,7 @@ class HorarioController extends Controller {
             'trayecto' => 'required|string',
             'semestre' => 'required|string',
             'turno' => 'required|string',
+            'seccion' => 'required|string',
             'materias' => 'required|array',
             'profesor_id' => 'required|exists:miembros,id',
         ]);
@@ -57,6 +59,7 @@ class HorarioController extends Controller {
                         'trayecto' => $validated['trayecto'],
                         'semestre' => $validated['semestre'],
                         'turno' => $validated['turno'],
+                        'seccion' => $validated['seccion'],
                         'dia' => $dia,
                         'hora' => $hora,
                         'materia_id' => $materia_id,

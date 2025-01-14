@@ -23,7 +23,9 @@ class Horario extends Model {
 
     // Relación con Materias
     public function materias() {
-        return $this->belongsToMany(Materia::class, 'horario_materia', 'horario_id', 'materia_id');
+        return $this->belongsToMany(Materia::class, 'horario_materia', 'horario_id', 'materia_id')
+            ->withPivot('dia', 'hora', 'profesor_id')
+            ->withTimestamps();
     }
 
     // Relación con Miembros (profesores)

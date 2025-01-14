@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\PNF;
 use App\Models\Miembro;
 use App\Models\Materia;
+use Illuminate\Support\Facades\DB;
 
 class HorarioController extends Controller {
 
@@ -41,79 +42,149 @@ class HorarioController extends Controller {
     public function store(Request $request) {
         // Validar los datos de entrada
         $validated = $request->validate([
+            'turno' => 'required|string',
             'pnf_id' => 'required|exists:pnfs,id',
             'trayecto' => 'required|string',
             'semestre' => 'required|string',
-            'turno' => 'required|string',
             'seccion' => 'required|string',
             'materias' => 'required|array',
-            'profesor_id' => 'required|exists:miembros,id',
+            'profesor_id' => 'required|array',
+            'profesor_id.*' => 'required|exists:miembros,id',
+            'horarios' => 'required|array',
         ]);
-        $materiasProfesor = array_combine($validated['materias'], $validated['profesor_id']);
-        // Crear el horario
-        foreach ($request['horarios'] as $dia => $horas) {
-            foreach ($horas as $hora => $materia_id) {
-                if (!is_null($materia_id)) {
-                    $horario = Horario::create([
-                        'pnf_id' => $validated['pnf_id'],
-                        'trayecto' => $validated['trayecto'],
-                        'semestre' => $validated['semestre'],
-                        'turno' => $validated['turno'],
-                        'seccion' => $validated['seccion'],
-                        'dia' => $dia,
-                        'hora' => $hora,
-                        'materia_id' => $materia_id,
-                        'profesor_id' => $materiasProfesor[$materia_id],
-                    ]);
-                    $horario->materias()->attach($validated['materias']);
+        try {
+            $horario = Horario::create([
+                'turno' => $validated['turno'],
+                'pnf_id' => $validated['pnf_id'],
+                'trayecto' => $validated['trayecto'],
+                'semestre' => $validated['semestre'],
+                'seccion' => $validated['seccion'],
+            ]);
+
+            // indice para recorrer los arrays de materias y profesores
+            $materiaProfesorIndex = 0;
+            // Recorrer los horarios seleccionados
+            foreach ($validated['horarios'] as $dia => $horas) {
+                foreach ($horas as $hora => $materia_id) {
+                    if ($materia_id) {
+                        $profesor_id = $request['profesor_id'][$materiaProfesorIndex];
+                        DB::table('horario_materia')->insert([
+                            'horario_id' => $horario->id,
+                            'materia_id' => $materia_id,
+                            'profesor_id' => $profesor_id,
+                            'dia' => $dia,
+                            'hora' => $hora,
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ]);
+                        // Aumentar el indice para el siguiente profesor
+                        $materiaProfesorIndex++;
+                    }
                 }
             }
+            return redirect()->route('horarios.index')->with('success', 'Horario creado correctamente');
+        } catch (\Exception $e) {
+            //throw $th;
+            return back()->withErrors(['error' => 'Error al crear el horario: ' . $e->getMessage()]);
         }
-
-        // Asignar las materias al horario
-
-        return redirect()->route('horarios.index')->with('success', 'Horario creado correctamente');
     }
 
     /* ---------------------------------------------------------------------------------------------------------------- */
 
     public function show(Horario $horario) {
-        return view('horarios.show', compact('horario'));  // Pasamos el horario a la vista
+        // Obtener los registros relacionados con el horario
+        $horarioMaterias = DB::table('horario_materia')
+            ->where('horario_id', $horario->id)
+            ->get();
+
+        // Cargar realciones (materias y profesores) para cada registro
+        foreach ($horarioMaterias as $registro) {
+            $registro->materia = Materia::find($registro->materia_id);
+            $registro->profesor = Miembro::find($registro->profesor_id);
+        }
+        // extraer los dias y horas unicos de los datos
+        $dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
+        $horas = $horarioMaterias->pluck('hora')->unique()->sort();
+
+        return view('horarios.show', compact('horario', 'dias', 'horas', 'horarioMaterias'));  // Pasamos el horario a la vista
     }
 
     /* ---------------------------------------------------------------------------------------------------------------- */
 
     public function edit(Horario $horario) {
+        $horario = Horario::with('materias')->find($horario->id);
         $pnfs = PNF::all();
-        $miembros = Miembro::where('cargo_id', 2)->get();
-        return view('horarios.edit', compact('horario', 'pnfs', 'miembros'));
+        $docentes = Miembro::all();
+        $materias = Materia::where('pnf_id', $horario->pnf_id)->get();
+        $horariosAsignados = [];
+        foreach ($horario->materias as $horarioMateria) {
+            $horariosAsignados[$horarioMateria->pivot->turno][$horarioMateria->pivot->dia][$horarioMateria->pivot->hora] = [
+                'id' => $horarioMateria->id,
+                'nombre' => $horarioMateria->nombre,
+            ];
+        }
+        return view('horarios.edit', compact('horario', 'pnfs', 'docentes', 'materias', 'horariosAsignados'));
     }
 
     /* ---------------------------------------------------------------------------------------------------------------- */
 
     public function update(Request $request, Horario $horario) {
+        dd($request->all());
+        // Validación de los datos del formulario
         $validated = $request->validate([
-            'pnf_id' => 'required|exists:pnfs,id',
-            'trayecto' => 'required|integer',
-            'semestre' => 'required|integer',
             'turno' => 'required|string',
-            'materias' => 'required|array',
-            'profesor_id' => 'required|exists:miembros,id',
+            'trayecto' => 'required|string',
+            'semestre' => 'required|string',
+            'seccion' => 'required|string|max:255',
+            'pnf_id' => 'required|exists:pnfs,id',
+            'materias' => 'nullable|array',
+            'materias.*' => 'nullable|exists:materias,id',
+            'profesor_id' => 'nullable|array',
+            'profesor_id.*' => 'nullable|exists:miembros,id',
+            'horarios' => 'nullable|array',
         ]);
 
+        // Actualizar el modelo Horario
         $horario->update([
-            'pnf_id' => $validated['pnf_id'],
+            'turno' => $validated['turno'],
             'trayecto' => $validated['trayecto'],
             'semestre' => $validated['semestre'],
-            'turno' => $validated['turno'],
-            'profesor_id' => $validated['profesor_id'],
+            'seccion' => $validated['seccion'],
+            'pnf_id' => $validated['pnf_id'],
         ]);
 
-        // Actualizar las materias asignadas
-        $horario->materias()->sync($validated['materias']);
+        DB::table('horario_materia')->where('horario_id', $horario->id)->delete();
+        $materiaProfesorIndex = 0;
 
-        return redirect()->route('horarios.index')->with('success', 'Horario actualizado correctamente');
+        // Recorrer los horarios seleccionados
+        foreach ($validated['horarios'] as $dia => $horas) {
+            foreach ($horas as $hora => $materia_id) {
+                if ($materia_id) {
+                    $profesor_id = $validated['profesor_id'][$materiaProfesorIndex];
+
+                    // Insertar en la tabla pivote horario_materia
+                    DB::table('horario_materia')->insert([
+                        'horario_id' => $horario->id,
+                        'materia_id' => $materia_id,
+                        'profesor_id' => $profesor_id,
+                        'dia' => $dia,
+                        'hora' => $hora,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+
+                    // Aumentar el índice para el siguiente profesor
+                    $materiaProfesorIndex++;
+                }
+            }
+        }
+        // Redirigir con mensaje de éxito
+        return redirect()->route('horarios.index')->with('success', 'Horario actualizado correctamente.');
     }
+
+
+
+
 
     /* ---------------------------------------------------------------------------------------------------------------- */
 

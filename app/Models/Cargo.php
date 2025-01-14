@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cargo extends Model
 {
+    use HasFactory;
+
+    protected $fillable = ['nombre_cargo', 'descripcion_cargo'];
+
+    public function asistencias()
+    {
+        return $this->hasMany(Asistencia::class, 'cargo_id');
+    }
+    
     public function miembros()
     {
         return $this->hasMany(Miembro::class);

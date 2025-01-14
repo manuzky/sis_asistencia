@@ -12,7 +12,7 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <div class="text-center mt-3">
+                            <div class="text-center mt-2">
                                 <button id="btn-general" class="btn btn-info mx-2">Reporte General</button>
                                 <button id="btn-cargo" class="btn btn-success mx-2">Reporte por Cargo</button>
                                 <button id="btn-pnf" class="btn btn-primary mx-2">Reporte por PNF</button>
@@ -41,13 +41,15 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
+                            <hr>
+
                                 <div class="col-md-12 mt-4">
                                     <h4 class="text-center">Reporte general por fecha</h4>
                                 </div>
                                 <div class="col-md-8 col-sm-6 col-12">
                                     <div class="info-box" style="height: 90%">
-                                        <span class="info-box-icon bg-warning">
+                                        <span class="info-box-icon bg-danger">
                                             <a>
                                                 <i class="bi bi-printer"></i>
                                             </a>
@@ -81,9 +83,10 @@
                                 <div class="col-md-12 mt-4">
                                     <h4 class="text-center">Seleccionar por cargo</h4>
                                     <div class="row">
-                                        <!-- Simulando los cargos -->
                                         @php
-                                            $cargos = ['Administración', 'Mantenimiento', 'Docente'];
+                                            // Obtener los cargos desde la base de datos
+                                            use App\Models\Cargo;
+                                            $cargos = Cargo::all();
                                         @endphp
 
                                         @foreach ($cargos as $cargo)
@@ -95,9 +98,9 @@
                                                         </a>
                                                     </span>
                                                     <div class="info-box-content">
-                                                        <span class="info-box-text">Reporte de {{ $cargo }}</span>
+                                                        <span class="info-box-text">Reporte de {{ $cargo->nombre_cargo }}</span>
                                                         <form action="{{ url('reportes/pdf_cargo') }}" method="GET">
-                                                            <input type="hidden" name="cargo" value="{{ $cargo }}">
+                                                            <input type="hidden" name="cargo" value="{{ $cargo->id }}">
                                                             <button type="submit" class="btn btn-primary mt-2">IMPRIMIR</button>
                                                         </form>
                                                     </div>
@@ -107,6 +110,8 @@
                                     </div>
                                 </div>
 
+                                <hr>
+
                                 <!-- Reporte por fecha y cargo -->
                                 <div class="col-md-12 mt-4">
                                     <h4 class="text-center">Reporte de un cargo por fecha</h4>
@@ -114,7 +119,7 @@
                                 <div class="col-md-12 mt-2">
                                     <div class="info-box" style="height: 90%">
                                         <span class="info-box-icon bg-danger">
-                                            <a >
+                                            <a>
                                                 <i class="bi bi-printer"></i>
                                             </a>
                                         </span>
@@ -125,7 +130,7 @@
                                                         <label for="">Seleccionar Cargo</label>
                                                         <select name="cargo" class="form-control">
                                                             @foreach ($cargos as $cargo)
-                                                                <option value="{{ $cargo }}">{{ $cargo }}</option>
+                                                                <option value="{{ $cargo->id }}">{{ $cargo->nombre_cargo }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -147,6 +152,7 @@
                                     </div>
                                 </div>
                             </div>
+
 
 
                             {{-- IMPRIMIR REPORTE POR PNF --}}
@@ -179,6 +185,8 @@
                                         @endforeach
                                     </div>
                                 </div>
+
+                                <hr>
 
                                 <div class="col-md-12 mt-4">
                                     <h4 class="text-center">Reporte de un PNF por fecha</h4>

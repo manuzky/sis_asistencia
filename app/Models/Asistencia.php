@@ -33,5 +33,11 @@ class Asistencia extends Model
         return $this->belongsTo(User::class, 'updated_by');
     }
 
+    use HasFactory;
+
+    public function cargo()
+    {
+        return $this->belongsTo(Cargo::class, 'cargo_id');
+    }
 
 }

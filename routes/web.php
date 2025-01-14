@@ -19,6 +19,8 @@ Route::get('/', [AdminController::class, 'index'])->middleware('auth')->name('in
 Route::get('/reportes', [ReporteController::class, 'index'])->middleware('can:reportes')->name('reportes');
 Route::get('/reportes/pdf', [ReporteController::class, 'pdf'])->name('pdf');
 Route::get('/reportes/pdf_fechas', [ReporteController::class, 'pdf_fechas'])->name('pdf_fechas');
+Route::get('reportes/pdf_cargo', [ReporteController::class, 'pdf_cargo'])->name('reportes.pdf_cargo');
+Route::get('reportes/pdf_fechas_cargo', [ReporteController::class, 'pdf_fechas_cargo'])->name('reportes.pdf_fechas_cargo');
 Route::get('/home', [HomeController::class, 'index'])->name('home')->name('home');
 Route::get('/miembros/{id}/toggle', [MiembroController::class, 'toggleEstado'])->middleware('can:miembros')->name('miembros.toggle');
 Route::get('/usuarios/toggleActive/{id}', [UserController::class, 'toggleActive'])->name('usuarios.toggleActive');

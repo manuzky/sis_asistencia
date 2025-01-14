@@ -105,18 +105,35 @@ class HorarioController extends Controller {
         $horarioMaterias = DB::table('horario_materia')
             ->where('horario_id', $horario->id)
             ->get();
-
-        // Cargar realciones (materias y profesores) para cada registro
+    
+        // Cargar relaciones (materias y profesores) para cada registro
         foreach ($horarioMaterias as $registro) {
             $registro->materia = Materia::find($registro->materia_id);
             $registro->profesor = Miembro::find($registro->profesor_id);
         }
-        // extraer los dias y horas unicos de los datos
+    
+        // Definir los intervalos de las horas según el turno
+        $turnos = [
+            'Mañana' => [
+                '8:00 – 8:45', '8:45 – 9:30', '9:30 – 10:15', '10:15 – 11:00', '11:00 – 11:45', '11:45 – 12:30'
+            ],
+            'Tarde' => [
+                '12:30 – 1:15', '1:15 – 2:00', '2:00 – 2:45', '2:45 – 3:30', '3:30 – 4:15', '4:15 – 5:00'
+            ],
+            'Noche' => [
+                '5:00 – 5:30', '5:30 – 6:00', '6:00 – 6:30', '6:30 – 7:00', '7:00 – 7:30', '7:30 – 8:00'
+            ]
+        ];
+    
+        // Obtener las horas según el turno del horario
+        $horas = $turnos[$horario->turno];  // Obtener las horas del turno (mañana, tarde, noche)
+    
+        // Extraer los días
         $dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
-        $horas = $horarioMaterias->pluck('hora')->unique()->sort();
-
-        return view('horarios.show', compact('horario', 'dias', 'horas', 'horarioMaterias'));  // Pasamos el horario a la vista
+    
+        return view('horarios.show', compact('horario', 'dias', 'horas', 'horarioMaterias'));  // Pasamos los datos a la vista
     }
+    
 
     /* ---------------------------------------------------------------------------------------------------------------- */
 

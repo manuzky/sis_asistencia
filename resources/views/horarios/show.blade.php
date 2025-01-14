@@ -1,54 +1,6 @@
 @extends('layouts.admin')
 
 @section('content')
-    {{-- <div class="container card card-body">
-        <h3>Detalles del Horario</h3>
-
-        <h5>Horario para la sección: {{ $horario->seccion }}</h5>
-        <p><strong>Turno:</strong> {{ $horario->turno }}</p>
-        <p><strong>Trayecto:</strong> {{ $horario->trayecto }}</p>
-        <p><strong>Semestre:</strong> {{ $horario->semestre }}</p>
-        <p><strong>PNF:</strong> {{ $horario->pnf->nombre }}</p>
-
-        <h5>Horarios</h5>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Hora</th>
-                    @foreach ($dias as $dia)
-                        <th>{{ $dia }}</th>
-                    @endforeach
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($horas as $hora)
-                    <tr>
-                        <td>{{ $hora }}</td>
-                        @foreach ($dias as $dia)
-                            <td>
-                                @php
-                                    $materiaProfesor = $horarioMaterias
-                                        ->where('dia', $dia)
-                                        ->where('hora', $hora)
-                                        ->first();
-                                @endphp
-
-                                @if ($materiaProfesor)
-                                    <strong>{{ $materiaProfesor->materia->nombre }}</strong><br>
-                                    <small>{{ $materiaProfesor->profesor->nombre_apellido ?? 'Sin Profesor' }}</small>
-                                @else
-                                    <em>Sin asignar</em>
-                                @endif
-                            </td>
-                        @endforeach
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-
-        <a href="{{ route('horarios.index') }}" class="btn btn-primary">Volver</a>
-    </div> --}}
-
     <div class="container">
         <h3 class="mb-4">Detalles del Horario</h3>
 

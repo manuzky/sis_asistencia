@@ -20,4 +20,11 @@ class Cargo extends Model
     {
         return $this->hasMany(Miembro::class);
     }
+
+    public function profesor()
+    {
+        return $this->belongsTo(User::class, 'profesor_id');
+    }
+
+
 }

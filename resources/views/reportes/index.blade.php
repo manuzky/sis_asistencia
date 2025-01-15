@@ -167,9 +167,9 @@
                                 <div class="col-md-12 mt-4">
                                     <h4 class="text-center">Seleccionar por PNF</h4>
                                     <div class="row">
-                                        <!-- Simulando los PNF -->
+                                        <!-- Obtenemos los PNF desde la base de datos -->
                                         @php
-                                            $pnfs = ['Ingeniería de Sistemas', 'Administración', 'Contaduría'];
+                                            $pnfs = App\Models\PNF::all();  // Obtienes todos los PNF desde la base de datos
                                         @endphp
 
                                         @foreach ($pnfs as $pnf)
@@ -181,9 +181,9 @@
                                                         </a>
                                                     </span>
                                                     <div class="info-box-content">
-                                                        <span class="info-box-text">Reporte de {{ $pnf }}</span>
+                                                        <span class="info-box-text">Reporte de {{ $pnf->nombre }}</span>
                                                         <form action="{{ url('reportes/pdf_pnf') }}" method="GET">
-                                                            <input type="hidden" name="pnf" value="{{ $pnf }}">
+                                                            <input type="hidden" name="pnf" value="{{ $pnf->id }}">
                                                             <button type="submit" class="btn btn-primary mt-2">IMPRIMIR</button>
                                                         </form>
                                                     </div>
@@ -201,7 +201,7 @@
                                 <div class="col-md-12 mt-2">
                                     <div class="info-box" style="height: 90%">
                                         <span class="info-box-icon bg-danger">
-                                            <a >
+                                            <a>
                                                 <i class="bi bi-printer"></i>
                                             </a>
                                         </span>
@@ -212,7 +212,7 @@
                                                         <label for="">Seleccionar PNF</label>
                                                         <select name="pnf" class="form-control">
                                                             @foreach ($pnfs as $pnf)
-                                                                <option value="{{ $pnf }}">{{ $pnf }}</option>
+                                                                <option value="{{ $pnf->id }}">{{ $pnf->nombre }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>

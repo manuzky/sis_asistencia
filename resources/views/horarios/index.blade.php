@@ -46,10 +46,10 @@
                                                 <a href="{{ url('horarios', $horario->id) }}" type="button"
                                                     class="btn btn-info"><i class="bi bi-eye"></i></a>
                                             </div>
-                                            <div class="btn-group" role="group">
+                                            {{-- <div class="btn-group" role="group">
                                                 <a href="{{ route('horarios.edit', $horario->id) }}" type="button"
                                                     class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
-                                            </div>
+                                            </div> --}}
                                             <div class="btn-group" role="group">
                                                 <form action="{{ url('horarios', $horario->id) }}"
                                                     class="formulario-eliminar" method="POST">

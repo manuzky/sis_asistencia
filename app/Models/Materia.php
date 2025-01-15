@@ -24,4 +24,10 @@ class Materia extends Model {
             ->withPivot('dia', 'hora')
             ->withTimestamps();
     }
+
+    public function asistencias()
+    {
+        return $this->hasMany(Asistencia::class);
+    }
+
 }

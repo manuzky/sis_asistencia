@@ -37,4 +37,21 @@ class Horario extends Model {
     public function pnf() {
         return $this->belongsTo(PNF::class, 'pnf_id');
     }
+
+    public function materia()
+    {
+        return $this->belongsTo(Materia::class);  // Relación con Materia
+    }
+
+    public function cargo()
+    {
+        return $this->belongsTo(Cargo::class);  // Relación con Cargo
+    }
+
+    public function asistencias()
+{
+    return $this->hasMany(Asistencia::class, 'horario_id');
+}
+
+
 }

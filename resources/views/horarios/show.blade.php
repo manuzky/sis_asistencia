@@ -7,22 +7,26 @@
         <!-- Información del horario con estilo profesional -->
         <div class="card mb-4 shadow-sm">
             <div class="card-body">
-                <div class="row">
-                    <div class="col-md-3">
+                <div class="row text-center">
+                    <div class="col-md-2">
                         <h6 class="text-uppercase font-weight-bold">Turno</h6>
                         <p class="mb-0">{{ $horario->turno }}</p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
+                        <h6 class="text-uppercase font-weight-bold">PNF</h6>
+                        <p class="mb-0">{{ $horario->pnf->nombre }}</p>
+                    </div>
+                    <div class="col-md-2">
                         <h6 class="text-uppercase font-weight-bold">Trayecto</h6>
                         <p class="mb-0">{{ $horario->trayecto }}</p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <h6 class="text-uppercase font-weight-bold">Semestre</h6>
                         <p class="mb-0">{{ $horario->semestre }}</p>
                     </div>
-                    <div class="col-md-3">
-                        <h6 class="text-uppercase font-weight-bold">PNF</h6>
-                        <p class="mb-0">{{ $horario->pnf->nombre }}</p>
+                    <div class="col-md-2">
+                        <h6 class="text-uppercase font-weight-bold">Sección</h6>
+                        <p class="mb-0">{{ $horario->seccion }}</p>
                     </div>
                 </div>
             </div>

@@ -19,4 +19,10 @@ class Miembro extends Model
     {
         return $this->hasMany(Horario::class, 'profesor_id');
     }
+
+    public function miembro()
+{
+    return $this->belongsTo(Miembro::class);
+}
+
 }

@@ -155,7 +155,7 @@ class HorarioController extends Controller {
     /* ---------------------------------------------------------------------------------------------------------------- */
 
     public function update(Request $request, Horario $horario) {
-        dd($request->all());
+        // dd($request->all());
         // Validación de los datos del formulario
         $validated = $request->validate([
             'turno' => 'required|string',

@@ -90,22 +90,25 @@
                                         @endphp
 
                                         @foreach ($cargos as $cargo)
-                                            <div class="col-md-4">
-                                                <div class="info-box" style="height: 90%">
-                                                    <span class="info-box-icon bg-success">
-                                                        <a>
-                                                            <i class="bi bi-printer"></i>
-                                                        </a>
-                                                    </span>
-                                                    <div class="info-box-content">
-                                                        <span class="info-box-text">Reporte de {{ $cargo->nombre_cargo }}</span>
-                                                        <form action="{{ url('reportes/pdf_cargo') }}" method="GET">
-                                                            <input type="hidden" name="cargo" value="{{ $cargo->id }}">
-                                                            <button type="submit" class="btn btn-primary mt-2">IMPRIMIR</button>
-                                                        </form>
+                                            {{-- Verificar si el cargo no es "Desarrollador" --}}
+                                            @if ($cargo->nombre_cargo != 'Desarrollador')
+                                                <div class="col-md-4">
+                                                    <div class="info-box" style="height: 90%">
+                                                        <span class="info-box-icon bg-success">
+                                                            <a>
+                                                                <i class="bi bi-printer"></i>
+                                                            </a>
+                                                        </span>
+                                                        <div class="info-box-content">
+                                                            <span class="info-box-text">Reporte de {{ $cargo->nombre_cargo }}</span>
+                                                            <form action="{{ url('reportes/pdf_cargo') }}" method="GET">
+                                                                <input type="hidden" name="cargo" value="{{ $cargo->id }}">
+                                                                <button type="submit" class="btn btn-primary mt-2">IMPRIMIR</button>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            @endif
                                         @endforeach
                                     </div>
                                 </div>
@@ -130,7 +133,10 @@
                                                         <label for="">Seleccionar Cargo</label>
                                                         <select name="cargo" class="form-control">
                                                             @foreach ($cargos as $cargo)
-                                                                <option value="{{ $cargo->id }}">{{ $cargo->nombre_cargo }}</option>
+                                                                {{-- Verificar si el cargo no es "Desarrollador" --}}
+                                                                @if ($cargo->nombre_cargo != 'Desarrollador')
+                                                                    <option value="{{ $cargo->id }}">{{ $cargo->nombre_cargo }}</option>
+                                                                @endif
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -152,6 +158,7 @@
                                     </div>
                                 </div>
                             </div>
+
 
 
 

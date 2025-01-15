@@ -50,42 +50,52 @@ class ReporteController extends Controller
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
-    public function pdf_cargo(Request $request)
-    {
-        $cargoId = $request->input('cargo');
-        $cargo = Cargo::findOrFail($cargoId); // Obtenemos el cargo
-        $asistencias = Asistencia::where('cargo_id', $cargoId)->get(); // Filtramos las asistencias
+public function pdf_cargo(Request $request)
+{
+    $cargoId = $request->input('cargo');
+    $cargo = Cargo::findOrFail($cargoId); // Obtenemos el cargo
+    // Filtramos las asistencias que tienen el cargo correspondiente
+    $asistencias = Asistencia::whereHas('miembro.cargo', function ($query) use ($cargoId) {
+        $query->where('cargo_id', $cargoId); // Filtramos por el cargo del miembro
+    })->get();
 
-        $pdf = Pdf::loadView('reportes.pdf_cargo', [
-            'asistencias' => $asistencias,
-            'cargo' => $cargo->nombre_cargo
-        ]);
+    $pdf = Pdf::loadView('reportes.pdf_cargo', [
+        'asistencias' => $asistencias,
+        'cargo' => $cargo->nombre_cargo
+    ]);
 
-        return $pdf->stream();
-    }
+    return $pdf->stream();
+}
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
-    public function pdf_fechas_cargo(Request $request)
-    {
-        $cargo = $request->input('cargo'); // Obtenemos el cargo desde el formulario
-        $fi = $request->input('fi'); // Fecha de inicio
-        $ff = $request->input('ff'); // Fecha de finalización
+public function pdf_fechas_cargo(Request $request)
+{
+    $cargoId = $request->input('cargo'); // Obtenemos el ID del cargo
+    $fi = $request->input('fi'); // Fecha de inicio
+    $ff = $request->input('ff'); // Fecha de finalización
 
-        // Filtramos las asistencias que corresponden al cargo y el rango de fechas
-        $asistencias = Asistencia::whereHas('miembro.cargo', function ($query) use ($cargo) {
-                $query->where('nombre_cargo', $cargo); // Comprobamos que el miembro tenga el cargo seleccionado
-            })
-            ->whereBetween('fecha', [$fi, $ff]) // Filtramos por el rango de fechas
-            ->get();
+    // Asegúrate de que las fechas están en formato adecuado antes de pasarlas a la consulta
+    $fi = \Carbon\Carbon::parse($fi)->startOfDay(); 
+    $ff = \Carbon\Carbon::parse($ff)->endOfDay();
 
-        $pdf = Pdf::loadView('reportes.pdf_fechas_cargo', [
-            'asistencias' => $asistencias,
-            'cargo' => $cargo,
-        ]);
+    // Filtramos las asistencias por cargo y fechas
+    $asistencias = Asistencia::whereHas('miembro.cargo', function ($query) use ($cargoId) {
+        $query->where('cargo_id', $cargoId); // Filtramos por el ID del cargo
+    })
+    ->whereBetween('fecha', [$fi, $ff]) // Filtramos por el rango de fechas
+    ->get();
 
-        return $pdf->stream();
-    }
+    $cargo = Cargo::findOrFail($cargoId); // Obtenemos el nombre del cargo
+
+    $pdf = Pdf::loadView('reportes.pdf_fechas_cargo', [
+        'asistencias' => $asistencias,
+        'cargo' => $cargo->nombre_cargo,
+    ]);
+
+    return $pdf->stream();
+}
+
 
 
 

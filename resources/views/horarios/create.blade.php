@@ -140,28 +140,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <select name="materias[]" class="form-control materia-dropdown">
-                                                <option value=""></option>
-                                                <!-- Las materias se cargarán dinámicamente aquí -->
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <select name="profesor_id[]" class="form-control profesor-dropdown">
-                                                <option value=""></option>
-                                                <!-- Los profesores se cargarán dinámicamente aquí -->
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-danger eliminar-fila">Eliminar</button>
-                                        </td>
-                                    </tr>
+                                    
                                 </tbody>
                             </table>
 
                             <!-- Botón para agregar más filas -->
-                            <button type="button" class="btn btn-success" id="agregar-materia">Agregar Materia</button>
+                            <button type="button" class="btn btn-success" id="agregar-materia" hidden>Agregar Materia</button>
+                            {{-- ↑↑↑ ESTE BOTÓN NO SE PUEDE ELIMINAR O ROMPE EL CÓDIGO JAJAJAJAJAJA ↑↑↑ --}}
 
 
                             <hr>
@@ -182,182 +167,181 @@
     </div>
 
 
-    {{-- // JavaScript para manejar la tabla de Materias y Profesores --}}
-    <script>
-        document.getElementById('agregar-materia').addEventListener('click', function() {
-            const tablaMaterias = document.getElementById('tabla-materias').getElementsByTagName('tbody')[0];
-            const nuevaFila = tablaMaterias.insertRow();
+{{-- JavaScript para manejar la tabla de Materias y Profesores --}}
+<script>
+    // Agregar una nueva fila de materia y profesor
+    document.getElementById('agregar-materia').addEventListener('click', function() {
+        const tablaMaterias = document.getElementById('tabla-materias').querySelector('tbody');
+        const nuevaFila = tablaMaterias.insertRow();
 
-            // Columna 1: Dropdown de Materia
-            let celdaMateria = nuevaFila.insertCell();
-            let selectMateria = document.createElement('select');
-            selectMateria.name = 'materias[]';
-            selectMateria.className = 'form-control materia-dropdown';
-            selectMateria.innerHTML = '<option value=""></option>';
-            celdaMateria.appendChild(selectMateria);
+        // Dropdown de Materia
+        let celdaMateria = nuevaFila.insertCell();
+        let selectMateria = document.createElement('select');
+        selectMateria.name = 'materias[]';
+        selectMateria.className = 'form-control materia-dropdown';
+        celdaMateria.appendChild(selectMateria);
 
-            // Columna 2: Dropdown de Profesor
-            let celdaProfesor = nuevaFila.insertCell();
-            let selectProfesor = document.createElement('select');
-            selectProfesor.name = 'profesor_id[]';
-            selectProfesor.className = 'form-control profesor-dropdown';
-            selectProfesor.innerHTML = '<option value=""></option>';
-            celdaProfesor.appendChild(selectProfesor);
+        // Dropdown de Profesor
+        let celdaProfesor = nuevaFila.insertCell();
+        let selectProfesor = document.createElement('select');
+        selectProfesor.name = 'profesor_id[]';
+        selectProfesor.className = 'form-control profesor-dropdown';
+        celdaProfesor.appendChild(selectProfesor);
 
-            // Columna 3: Botón Eliminar
-            let celdaAccion = nuevaFila.insertCell();
-            let botonEliminar = document.createElement('button');
-            botonEliminar.type = 'button';
-            botonEliminar.className = 'btn btn-danger eliminar-fila';
-            botonEliminar.textContent = 'Eliminar';
-            celdaAccion.appendChild(botonEliminar);
+        // Botón Eliminar
+        let celdaAccion = nuevaFila.insertCell();
+        let botonEliminar = document.createElement('button');
+        botonEliminar.type = 'button';
+        botonEliminar.className = 'btn btn-danger eliminar-fila';
+        botonEliminar.textContent = 'Eliminar';
+        celdaAccion.appendChild(botonEliminar);
 
-            // Eliminar fila al hacer clic en "Eliminar"
-            botonEliminar.addEventListener('click', function() {
-                nuevaFila.remove();
-            });
+        botonEliminar.addEventListener('click', () => nuevaFila.remove());
 
-            // Cargar las materias en el nuevo dropdown (pero no reiniciar las seleccionadas)
-            cargarMaterias(false);
+        cargarMaterias(false);
+        cargarProfesores(false);
+    });
 
-            // Cargar los docentes en el nuevo dropdown de profesores (pero no reiniciar los docentes)
-            cargarProfesores(false);
-        });
+    // Cargar materias dinámicamente
+    function cargarMaterias(reset = true) {
+        const pnf_id = document.getElementById('pnf_id').value;
+        const dropdownsMaterias = document.querySelectorAll('.materia-dropdown');
 
-        // Función para cargar las materias dinámicamente (sin reiniciar las seleccionadas)
-        function cargarMaterias(reset = true) {
-            const pnf_id = document.getElementById('pnf_id').value;
-            const dropdownsMaterias = document.querySelectorAll('.materia-dropdown');
+        if (reset) dropdownsMaterias.forEach(dropdown => dropdown.innerHTML = '<option value=""></option>');
 
-            // Limpiar las materias de todos los dropdowns solo si 'reset' es true
-            if (reset) {
-                dropdownsMaterias.forEach(function(dropdown) {
-                    dropdown.innerHTML = '<option value=""></option>';
-                });
-            }
-
-            if (pnf_id) {
-                fetch(`/api/materias/${pnf_id}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        dropdownsMaterias.forEach(function(dropdown) {
-                            // Añadir las materias solo si no existen ya en el dropdown
-                            data.materias.forEach(function(materia) {
+        if (pnf_id) {
+            fetch(`/api/materias/${pnf_id}`)
+                .then(response => response.json())
+                .then(data => {
+                    dropdownsMaterias.forEach(dropdown => {
+                        data.materias.forEach(materia => {
+                            if (!Array.from(dropdown.options).some(option => option.value === materia.id.toString())) {
                                 let option = document.createElement('option');
                                 option.value = materia.id;
                                 option.textContent = materia.nombre;
-                                // Añadir la opción solo si no está ya en la lista
-                                if (!Array.from(dropdown.options).some(option => option.value ===
-                                        materia.id.toString())) {
-                                    dropdown.appendChild(option);
-                                }
-                            });
+                                dropdown.appendChild(option);
+                            }
                         });
-                    })
-                    .catch(error => console.log('Error al cargar las materias:', error));
-            }
+                    });
+                })
+                .catch(error => console.log('Error al cargar las materias:', error));
         }
+    }
 
-        // Función para cargar los profesores dinámicamente (sin reiniciar las opciones)
-        function cargarProfesores(reset = true) {
-            const dropdownsProfesores = document.querySelectorAll('.profesor-dropdown');
+    // Cargar profesores dinámicamente
+    function cargarProfesores(reset = true) {
+        const dropdownsProfesores = document.querySelectorAll('.profesor-dropdown');
+        const docentes = {!! json_encode($docentes) !!};
 
-            // Limpiar los profesores de todos los dropdowns solo si 'reset' es true
-            if (reset) {
-                dropdownsProfesores.forEach(function(dropdown) {
-                    dropdown.innerHTML = '<option value=""></option>';
-                });
-            }
+        if (reset) dropdownsProfesores.forEach(dropdown => dropdown.innerHTML = '<option value=""></option>');
 
-            // Obtener los docentes de la vista (ya están pasados en el controlador)
-            const docentes = {!! json_encode($docentes) !!}; // Convierte la variable PHP a JavaScript
-
-            // Llenar los dropdowns con los profesores
-            dropdownsProfesores.forEach(function(dropdown) {
-                docentes.forEach(function(docente) {
+        dropdownsProfesores.forEach(dropdown => {
+            docentes.forEach(docente => {
+                if (!Array.from(dropdown.options).some(option => option.value === docente.id.toString())) {
                     let option = document.createElement('option');
                     option.value = docente.id;
-                    option.textContent = docente.nombre_apellido; // Usar nombre_apellido
-                    // Añadir la opción solo si no está ya en la lista
-                    if (!Array.from(dropdown.options).some(option => option.value === docente.id
-                            .toString())) {
-                        dropdown.appendChild(option);
-                    }
-                });
+                    option.textContent = docente.nombre_apellido;
+                    dropdown.appendChild(option);
+                }
             });
-        }
-
-        // Cargar materias y profesores cuando se cambia el PNF
-        document.getElementById('pnf_id').addEventListener('change', function() {
-            cargarMaterias();
-            cargarProfesores();
         });
-    </script>
+    }
 
+    // Actualizar materias y profesores al cambiar el PNF
+    document.getElementById('pnf_id').addEventListener('change', () => {
+        cargarMaterias();
+        cargarProfesores();
+    });
+</script>
 
+{{-- JavaScript para manejar los horarios dinámicamente --}}
+<script>
+    document.getElementById('turno').addEventListener('change', function() {
+        const turno = this.value;
+        const tabla = document.getElementById('tabla-horarios').querySelector('tbody');
+        tabla.innerHTML = '';
 
+        let horas = {
+            'Mañana': ['8:00 – 8:45', '8:45 – 9:30', '9:30 – 10:15', '10:15 – 11:00', '11:00 – 11:45', '11:45 – 12:30'],
+            'Tarde': ['12:30 – 1:15', '1:15 – 2:00', '2:00 – 2:45', '2:45 – 3:30', '3:30 – 4:15', '4:15 – 5:00'],
+            'Noche': ['5:00 – 5:30', '5:30 – 6:00', '6:00 – 6:30', '6:30 – 7:00', '7:00 – 7:30', '7:30 – 8:00']
+        }[turno] || [];
 
+        horas.forEach(hora => {
+            let fila = tabla.insertRow();
+            fila.insertCell().textContent = hora;
 
+            ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'].forEach(dia => {
+                let celdaDia = fila.insertCell();
+                let input = document.createElement('select');
+                input.name = `horarios[${dia}][${hora}]`;
+                input.className = 'form-control materia-dropdown';
+                input.innerHTML = '<option value=""></option>';
+                celdaDia.appendChild(input);
+            });
+        });
+    });
+</script>
+<script>
+    // Detectar cambios en el horario y agregar la materia automáticamente a "Materias y Profesores"
+document.getElementById('tabla-horarios').addEventListener('change', function (event) {
+    if (event.target.tagName === 'SELECT' && event.target.classList.contains('materia-dropdown')) {
+        const materiaId = event.target.value;
+        const materiaNombre = event.target.options[event.target.selectedIndex].text;
 
+        if (materiaId) {
+            // Verificar si la materia ya está en la tabla de "Materias y Profesores"
+            const tablaMaterias = document.getElementById('tabla-materias').getElementsByTagName('tbody')[0];
+            let materiaExiste = false;
 
-    <!-- JavaScript para manejar los horarios dinámicamente -->
-    <script>
-        document.getElementById('turno').addEventListener('change', function() {
-            const turno = this.value;
-            const tabla = document.getElementById('tabla-horarios').getElementsByTagName('tbody')[0];
+            tablaMaterias.querySelectorAll('.materia-dropdown').forEach(select => {
+                if (select.value === materiaId) {
+                    materiaExiste = true;
+                }
+            });
 
-            // Limpiar las filas existentes
-            tabla.innerHTML = '';
+            // Si la materia no existe, agregarla
+            if (!materiaExiste) {
+                const nuevaFila = tablaMaterias.insertRow();
 
-            // Definir los rangos de horas según el turno
-            let horas = [];
+                // Columna 1: Dropdown de Materia
+                let celdaMateria = nuevaFila.insertCell();
+                let selectMateria = document.createElement('select');
+                selectMateria.name = 'materias[]';
+                selectMateria.className = 'form-control materia-dropdown';
+                let optionMateria = document.createElement('option');
+                optionMateria.value = materiaId;
+                optionMateria.textContent = materiaNombre;
+                selectMateria.appendChild(optionMateria);
+                celdaMateria.appendChild(selectMateria);
 
-            if (turno === 'Mañana') {
-                horas = [
-                    '8:00 – 8:45', '8:45 – 9:30', '9:30 – 10:15',
-                    '10:15 – 11:00', '11:00 – 11:45', '11:45 – 12:30'
-                ];
-            } else if (turno === 'Tarde') {
-                horas = [
-                    '12:30 – 1:15', '1:15 – 2:00', '2:00 – 2:45',
-                    '2:45 – 3:30', '3:30 – 4:15', '4:15 – 5:00'
-                ];
-            } else if (turno === 'Noche') {
-                horas = [
-                    '5:00 – 5:30', '5:30 – 6:00', '6:00 – 6:30',
-                    '6:30 – 7:00', '7:00 – 7:30', '7:30 – 8:00'
-                ];
+                // Columna 2: Dropdown de Profesor
+                let celdaProfesor = nuevaFila.insertCell();
+                let selectProfesor = document.createElement('select');
+                selectProfesor.name = 'profesor_id[]';
+                selectProfesor.className = 'form-control profesor-dropdown';
+                selectProfesor.innerHTML = '<option value=""></option>';
+                celdaProfesor.appendChild(selectProfesor);
+
+                // Columna 3: Botón Eliminar
+                let celdaAccion = nuevaFila.insertCell();
+                let botonEliminar = document.createElement('button');
+                botonEliminar.type = 'button';
+                botonEliminar.className = 'btn btn-danger eliminar-fila';
+                botonEliminar.textContent = 'Eliminar';
+                celdaAccion.appendChild(botonEliminar);
+
+                // Eliminar fila al hacer clic en "Eliminar"
+                botonEliminar.addEventListener('click', function () {
+                    nuevaFila.remove();
+                });
+
+                // Cargar los profesores en el nuevo dropdown
+                cargarProfesores(false);
             }
+        }
+    }
+});
 
-            // Crear las filas para la tabla
-            horas.forEach(function(hora) {
-                let fila = tabla.insertRow();
-
-                // Hora
-                let celdaHora = fila.insertCell();
-                celdaHora.textContent = hora;
-
-                // Días
-                ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'].forEach(function(dia) {
-                    let celdaDia = fila.insertCell();
-                    let input = document.createElement('select');
-                    input.name = `horarios[${dia}][${hora}]`;
-                    input.className = 'form-control materia-dropdown';
-
-                    // Añadir un valor por defecto vacío
-                    let option = document.createElement('option');
-                    option.value = '';
-                    option.textContent = '';
-                    input.appendChild(option);
-
-                    // Aquí se agregan las materias dependiendo del PNF
-                    input.setAttribute('data-dia',
-                        dia); // Atributo para identificar el día de la semana
-                    input.setAttribute('data-hora', hora); // Atributo para identificar la hora
-
-                    celdaDia.appendChild(input);
-                });
-            });
-        });
-    </script>
+</script>
 @endsection

@@ -38,21 +38,21 @@ class Asistencia extends Model
         return $this->belongsTo(Cargo::class, 'cargo_id');
     }
 
-    public function horario()
-    {
-        return $this->belongsTo(Horario::class, 'horario_id');
-    }
+    // public function horario()
+    // {
+    //     return $this->belongsTo(Horario::class, 'horario_id');
+    // }
 
-    // Relación con HorarioMateria (añadido)
-    public function horariosMaterias()
-    {
-        return $this->hasManyThrough(
-            HorarioMateria::class,  // Modelo de destino
-            Horario::class,         // Modelo intermedio
-            'asistencia_id',        // Clave foránea en la tabla de horarios
-            'horario_id',           // Clave foránea en la tabla de horario_materia
-            'id',                   // Clave primaria de la tabla asistencia
-            'id'                    // Clave primaria de la tabla horario
-        );
-    }
+    // // Relación con HorarioMateria (añadido)
+    // public function horariosMaterias()
+    // {
+    //     return $this->hasManyThrough(
+    //         HorarioMateria::class,  // Modelo de destino
+    //         Horario::class,         // Modelo intermedio
+    //         'asistencia_id',        // Clave foránea en la tabla de horarios
+    //         'horario_id',           // Clave foránea en la tabla de horario_materia
+    //         'id',                   // Clave primaria de la tabla asistencia
+    //         'id'                    // Clave primaria de la tabla horario
+    //     );
+    // }
 }

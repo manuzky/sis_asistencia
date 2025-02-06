@@ -15,7 +15,7 @@
                             <div class="text-center mt-2">
                                 <button id="btn-general" class="btn btn-info mx-2">Reporte General</button>
                                 <button id="btn-cargo" class="btn btn-success mx-2">Reporte por Cargo</button>
-                                <button id="btn-pnf" class="btn btn-primary mx-2">Reporte por PNF</button>
+                                {{-- <button id="btn-pnf" class="btn btn-primary mx-2">Reporte por PNF</button> --}}
                             </div>
 
 
@@ -161,79 +161,6 @@
 
 
 
-
-                            {{-- IMPRIMIR REPORTE POR PNF --}}
-                            <div id="section-pnf" class="report-section row" style="display: none;">
-                                <div class="col-md-12 mt-4">
-                                    <h4 class="text-center">Seleccionar por PNF</h4>
-                                    <div class="row">
-                                        <!-- Obtenemos los PNF desde la base de datos -->
-                                        @php
-                                            $pnfs = App\Models\PNF::all();  // Obtienes todos los PNF desde la base de datos
-                                        @endphp
-
-                                        @foreach ($pnfs as $pnf)
-                                            <div class="col-md-4">
-                                                <div class="info-box" style="height: 90%">
-                                                    <span class="info-box-icon bg-info">
-                                                        <a>
-                                                            <i class="bi bi-printer"></i>
-                                                        </a>
-                                                    </span>
-                                                    <div class="info-box-content">
-                                                        <span class="info-box-text">Reporte de {{ $pnf->nombre }}</span>
-                                                        <form action="{{ url('reportes/pdf_pnf') }}" method="GET">
-                                                            <input type="hidden" name="pnf" value="{{ $pnf->id }}">
-                                                            <button type="submit" class="btn btn-primary mt-2">IMPRIMIR</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-
-                                <hr>
-
-                                <div class="col-md-12 mt-4">
-                                    <h4 class="text-center">Reporte de un PNF por fecha</h4>
-                                </div>
-                                <div class="col-md-12 mt-2">
-                                    <div class="info-box" style="height: 90%">
-                                        <span class="info-box-icon bg-danger">
-                                            <a>
-                                                <i class="bi bi-printer"></i>
-                                            </a>
-                                        </span>
-                                        <div class="info-box-content">
-                                            <form action="{{ url('reportes/pdf_fechas_pnf') }}" method="GET">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <label for="">Seleccionar PNF</label>
-                                                        <select name="pnf" class="form-control">
-                                                            @foreach ($pnfs as $pnf)
-                                                                <option value="{{ $pnf->id }}">{{ $pnf->nombre }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <label for="">Fecha Inicio</label>
-                                                        <input type="date" name="fi" class="form-control">
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <label for="">Fecha Final</label>
-                                                        <input type="date" name="ff" class="form-control">
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div style="height: 37px"></div>
-                                                        <button type="submit" class="btn btn-primary">Generar reporte</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
 
                         </div>

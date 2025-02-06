@@ -104,30 +104,30 @@ class ReporteController extends Controller
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
-public function pdf_pnf(Request $request)
-{
-    // Obtener los datos de la tabla 'asistencias'
-    $asistencias = Asistencia::with('miembro', 'horariosMaterias.materia', 'horariosMaterias.profesor')->paginate();
+// public function pdf_pnf(Request $request)
+// {
+//     // Obtener los datos de la tabla 'asistencias'
+//     $asistencias = Asistencia::with('miembro', 'horariosMaterias.materia', 'horariosMaterias.profesor')->paginate();
 
-    // Obtener otros datos relacionados
-    $horarios = Horario::all();
-    $pnfs = Pnf::all();
-    $materias = Materia::all();
+//     // Obtener otros datos relacionados
+//     $horarios = Horario::all();
+//     $pnfs = Pnf::all();
+//     $materias = Materia::all();
 
-    // Obtener los datos de 'horario_materia' y los profesores
-    $horarioMaterias = HorarioMateria::with(['materia', 'profesor'])->get();
+//     // Obtener los datos de 'horario_materia' y los profesores
+//     $horarioMaterias = HorarioMateria::with(['materia', 'profesor'])->get();
 
-    // Generar el PDF con los datos pasados a la vista
-    $pdf = Pdf::loadView('reportes.pdf_pnf', [
-        'asistencias' => $asistencias,
-        'horarios' => $horarios,
-        'materias' => $materias,
-        'pnfs' => $pnfs,
-        'horarioMaterias' => $horarioMaterias, // Pasamos los datos de horarios y profesores
-    ]);
+//     // Generar el PDF con los datos pasados a la vista
+//     $pdf = Pdf::loadView('reportes.pdf_pnf', [
+//         'asistencias' => $asistencias,
+//         'horarios' => $horarios,
+//         'materias' => $materias,
+//         'pnfs' => $pnfs,
+//         'horarioMaterias' => $horarioMaterias, // Pasamos los datos de horarios y profesores
+//     ]);
 
-    return $pdf->stream();
-}
+//     return $pdf->stream();
+// }
 
 
 

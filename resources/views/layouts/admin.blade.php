@@ -144,7 +144,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </li>
             @endcan
 
-            {{-- @can('horarios') --}}
+            {{-- @can('horarios')
             <li class="nav-item {{ Request::is('horarios/create*') || Request::is('horarios*') ? 'menu-open' : '' }}">
               <a href="#" class="nav-link active {{ Request::is('horarios/create*') || Request::is('horarios*') ? 'active' : '' }}" style="background-color: #18b0ec;">
                 <i class="nav-icon fas">
@@ -156,14 +156,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                {{-- @can('horarios.create') --}}
+                @can('horarios.create')
                 <li class="nav-item">
                   <a href="{{url('horarios/create')}}" class="nav-link {{ Request::is('horarios/create*') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon" style="color: #333333;"></i>
                     <p style="color: #333333;">Nuevo Horario</p>
                   </a>
                 </li>
-                {{-- @endcan --}}
+                @endcan
                 <li class="nav-item">
                   <a href="{{url('horarios')}}" class="nav-link {{ Request::is('horarios*') && !Request::is('horarios/create*') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon" style="color: #333333;"></i>
@@ -172,7 +172,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </li>
               </ul>
             </li>
-            {{-- @endcan --}}
+            @endcan --}}
 
             @can('miembros')
             <li class="nav-item {{ Request::is('miembros/create*') || Request::is('miembros*') ? 'menu-open' : '' }}" >
@@ -204,7 +204,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </li>
             @endcan
 
-            {{-- @can('pnfs') --}}
+            {{-- @can('pnfs')
             <li class="nav-item {{ Request::is('pnfs/create*') || Request::is('pnfs*') ? 'menu-open' : '' }}">
               <a href="#" class="nav-link active {{ Request::is('pnfs/create*') || Request::is('pnfs*') ? 'active' : '' }}" style="background-color: #18b0ec;">
                 <i class="nav-icon fas">
@@ -216,14 +216,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                {{-- @can('pnfs.create') --}}
+                @can('pnfs.create')
                 <li class="nav-item">
                   <a href="{{url('pnfs/create')}}" class="nav-link {{ Request::is('pnfs/create*') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon" style="color: #333333;"></i>
                     <p style="color: #333333;">Nuevo PNF</p>
                   </a>
                 </li>
-                {{-- @endcan --}}
+                @endcan
                 <li class="nav-item">
                   <a href="{{url('pnfs')}}" class="nav-link {{ Request::is('pnfs*') && !Request::is('pnfs/create*') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon" style="color: #333333;"></i>
@@ -232,7 +232,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </li>
               </ul>
             </li>
-            {{-- @endcan --}}
+            @endcan --}}
 
           @can('rolesypermisos')
           <li class="nav-item {{ Request::is('rolesypermisos/create*') || Request::is('rolesypermisos*') ? 'menu-open' : '' }}">

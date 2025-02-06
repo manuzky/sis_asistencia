@@ -15,10 +15,10 @@ class Miembro extends Model
     }
 
     // Relación con Horarios (el profesor tiene varios horarios asignados)
-    public function horarios()
-    {
-        return $this->hasMany(Horario::class, 'profesor_id');
-    }
+    // public function horarios()
+    // {
+    //     return $this->hasMany(Horario::class, 'profesor_id');
+    // }
 
     public function miembro()
 {

@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             CargoSeeder::class,
             MiembroSeeder::class,
             RoleSeeder::class,
+            TurnoSeeder::class,
+            MiembroTurnoSeeder::class,
             // PNFSeeder::class,
         ]);
     }

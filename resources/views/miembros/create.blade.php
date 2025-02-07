@@ -88,6 +88,22 @@
                                                 <input type="text" name="direccion" value="{{old('direccion')}}" placeholder="Dirección" class="form-control">
                                             </div>
                                         </div>
+                                        
+                                        <h5><b>Seleccione el turno</b></h5>
+                                        
+                                        @foreach($turnos as $turno)
+                                        <div class="col-md-2  ml-5">
+                                            <div class="form-group">
+                                                <label for="turno_{{ $turno->id }}">{{ $turno->nombre }}</label>
+                                                <div class="checkbox-wrapper-34">
+                                                    <input class='tgl tgl-ios' id='toggle-{{ $turno->id }}' type='checkbox' name="turnos[]" value="{{ $turno->id }}"
+                                                        {{ in_array($turno->id, old('turnos', [])) ? 'checked' : '' }}>
+                                                    <label class='tgl-btn' for='toggle-{{ $turno->id }}'></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    
                                     </div>
                                 </div>
     

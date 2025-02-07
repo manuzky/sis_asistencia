@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Validation\Rule;
 use App\Models\Cargo;
+use App\Models\Turno;
 
 class MiembroController extends Controller
 {
@@ -35,16 +36,18 @@ class MiembroController extends Controller
 public function index(){
     $miembros = Miembro::all();
     $cargos = Cargo::pluck('nombre_cargo', 'id');
+    $turnos = Turno::all();  // Obtener los turnos disponibles
 
-    return view('miembros.index', ['miembros' => $miembros, 'cargos' => $cargos]);
+    return view('miembros.index', ['miembros' => $miembros, 'cargos' => $cargos, 'turnos' => $turnos]);
 }
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
     public function create(){
         $cargos = Cargo::pluck('nombre_cargo', 'id');
+        $turnos = Turno::all();  // Obtener los turnos disponibles
 
-        return view('miembros.create', ['cargos' => $cargos]);
+        return view('miembros.create', ['cargos' => $cargos, 'turnos' => $turnos]);
     }
 
 /* ---------------------------------------------------------------------------------------------------------------- */
@@ -57,6 +60,8 @@ public function store(Request $request){
         'email' => 'required',
         'genero' => 'required',
         'cargo' => 'required|exists:cargos,id', // Asegura que el ID del cargo exista en la tabla de cargos
+        'turnos' => 'required|array',  // Asegura que se seleccionen turnos
+        'turnos.*' => 'exists:turnos,id',  // Asegura que los turnos existan
     ]);
 
     // Validación personalizada para cédula y correo electrónico únicos
@@ -83,15 +88,22 @@ public function store(Request $request){
     $miembro->genero = $request->genero;
     $miembro->cargo_id = $request->cargo; // Asigna el ID del cargo enviado desde el formulario
     $miembro->direccion = $request->direccion;
+    
     if ($request->hasFile('foto')){
         $miembro->foto = $request->file('foto')->store('foto_miembro', 'public');
     }
+
     $miembro->estado = '1';
     $miembro->fecha_ingreso = now()->format('Y-m-d');
     
     $miembro->save();
+
+    // Asociar los turnos seleccionados con el miembro
+    $miembro->turnos()->sync($request->turnos);  // Sincroniza los turnos seleccionados
+
     return redirect()->route('miembros.index')->with('mensaje', 'El miembro fue registrado correctamente.');
 }
+
 
 
 
@@ -100,8 +112,15 @@ public function store(Request $request){
     public function show($id){
         $miembro = Miembro::findOrFail($id);
         $cargos = Cargo::pluck('nombre_cargo', 'id');
+        $turnos = Turno::all(); // Obtener todos los turnos disponibles
+        $turnosAsignados = $miembro->turnos->pluck('id')->toArray(); // Obtener los turnos asignados al miembro
 
-        return view('miembros.show', ['miembro'=>$miembro, 'cargos' => $cargos]);
+        return view('miembros.show', [
+            'miembro' => $miembro, 
+            'cargos' => $cargos, 
+            'turnos' => $turnos, 
+            'turnosAsignados' => $turnosAsignados
+        ]);
     }
 
 /* ---------------------------------------------------------------------------------------------------------------- */
@@ -109,8 +128,15 @@ public function store(Request $request){
     public function edit($id){
         $miembro = Miembro::findOrFail($id);
         $cargos = Cargo::pluck('nombre_cargo', 'id'); // Obtener lista de cargos disponibles
+        $turnos = Turno::all();  // Obtener todos los turnos disponibles
+        $turnosAsignados = $miembro->turnos->pluck('id')->toArray();  // Obtener los turnos ya asignados al miembro
 
-        return view('miembros.edit', ['miembro' => $miembro, 'cargos' => $cargos]);
+        return view('miembros.edit', [
+            'miembro' => $miembro, 
+            'cargos' => $cargos, 
+            'turnos' => $turnos, 
+            'turnosAsignados' => $turnosAsignados  // Pasar los turnos asignados al miembro
+        ]);
     }
 
 
@@ -124,6 +150,8 @@ public function store(Request $request){
             'email' => 'required',
             'genero' => 'required',
             'cargo' => 'required|exists:cargos,id', // Asegura que el ID del cargo exista en la tabla de cargos
+            'turnos' => 'required|array',  // Validar que se seleccionen turnos
+            'turnos.*' => 'exists:turnos,id',  // Asegura que los turnos existan
         ]);
 
         $miembro = Miembro::find($id);
@@ -147,6 +175,10 @@ public function store(Request $request){
         }
 
         $miembro->save();
+
+        // Sincroniza los turnos seleccionados con el miembro
+        $miembro->turnos()->sync($request->turnos);  // Sincroniza los turnos seleccionados
+
         return redirect()->route('miembros.index')->with('mensaje', 'Se actualizó el registro correctamente.');
     }
 

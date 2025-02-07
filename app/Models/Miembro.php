@@ -14,6 +14,11 @@ class Miembro extends Model
         return $this->belongsTo(Cargo::class);
     }
 
+    public function turnos() {
+        return $this->belongsToMany(Turno::class, 'miembro_turno');
+    }
+    
+
     // Relación con Horarios (el profesor tiene varios horarios asignados)
     // public function horarios()
     // {

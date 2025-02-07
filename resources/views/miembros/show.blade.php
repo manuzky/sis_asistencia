@@ -70,6 +70,26 @@
                                                 <input type="text" name="direccion" value="{{$miembro->direccion}}" class="form-control" disabled>
                                             </div>
                                         </div>
+
+                                        <h5><b>Turnos asignados</b></h5>
+
+                                        @foreach($turnos as $turno)
+                                            <div class="col-md-2 ml-5">
+                                                <div class="form-group">
+                                                    <label for="turno_{{ $turno->id }}">{{ $turno->nombre }}</label>
+                                                    <div class="checkbox-wrapper-34">
+                                                        <input class='tgl tgl-ios' id='toggle-{{ $turno->id }}' type='checkbox' disabled 
+                                                            {{ $miembro->turnos->contains('id', $turno->id) ? 'checked' : '' }}>
+                                                        <label class='tgl-btn' for='toggle-{{ $turno->id }}'></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                        
+                                        
+                                        
+                                    
+
                                     </div>
                                 </div>
     

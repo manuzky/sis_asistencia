@@ -23,58 +23,99 @@
                             <div id="section-general" class="report-section row" style="display: block;">
                                 <div class="col-md-12 mt-4">
                                     <h4 class="text-center">Reporte general de asistencias</h4>
-                                <div class="row">
-                                    <div class="col-md-4 col-sm-6 col-12">
-                                        <div class="info-box" style="height: 90%">
-                                            <span class="info-box-icon bg-info">
-                                                <a>
-                                                    <i class="bi bi-printer"></i>
-                                                </a>
-                                            </span>
-                                            <div class="info-box-content">
-                                                <span class="info-box-text">Reporte general</span>
-                                                <form action="{{ url('reportes/pdf') }}" method="GET">
-                                                    <button type="submit" class="btn btn-primary mt-2">IMPRIMIR</button>
-                                                </form>
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-6 col-12">
+                                            <div class="info-box" style="height: 100%">
+                                                <span class="info-box-icon bg-info">
+                                                    <a>
+                                                        <i class="bi bi-printer"></i>
+                                                    </a>
+                                                </span>
+                                                <div class="info-box-content">
+                                                    <span class="info-box-text">Reporte general</span>
+                                                    <form action="{{ url('reportes/pdf') }}" method="GET">
+                                                        {{-- SELECCIÓN DE TURNOS --}}
+                                                        <div class="form-group">
+                                                            <label><b>Seleccionar turnos:</b></label>
+                                                            <div class="row">
+                                                                @foreach($turnos as $turno)
+                                                                    <div class="ml-2">
+                                                                        <div class=" checkbox-wrapper-27">
+                                                                            <label class="checkbox">
+                                                                                <input type="checkbox" name="turnos[]" value="{{ $turno->id }}" 
+                                                                                    {{ in_array($turno->id, $turnosAsignados ?? []) ? 'checked' : '' }}>
+                                                                                <span class="checkbox__icon"></span>
+                                                                                {{ $turno->nombre }}
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary ">IMPRIMIR</button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <hr>
+                                <hr>
 
+                                {{-- IMPRIMIR REPORTE GENERAL POR FECHA --}}
                                 <div class="col-md-12 mt-4">
                                     <h4 class="text-center">Reporte general por fecha</h4>
                                 </div>
-                                <div class="col-md-8 col-sm-6 col-12">
-                                    <div class="info-box" style="height: 90%">
+                                <div class="col-md-12 col-sm-6 col-12">
+                                    <div class="info-box" style="height: 100%">
                                         <span class="info-box-icon bg-danger">
                                             <a>
                                                 <i class="bi bi-printer"></i>
                                             </a>
                                         </span>
                                         <div class="info-box-content">
-                                            <form action="{{url('reportes/pdf_fechas')}}" method="GET">
-                                                <div class="row">
+                                            <form action="{{ url('reportes/pdf_fechas') }}" method="GET">
+                                                <div class="row d-flex align-items-end">
+                                                    {{-- FECHA INICIO --}}
                                                     <div class="col-md-4">
-                                                        <label for="">Fecha Inicio</label>
+                                                        <label for=""><b>Fecha Inicio</b></label>
                                                         <input type="date" name="fi" class="form-control">
                                                     </div>
+
+                                                    {{-- FECHA FINAL --}}
                                                     <div class="col-md-4">
-                                                        <label for="">Fecha Final</label>
+                                                        <label for=""><b>Fecha Final</b></label>
                                                         <input type="date" name="ff" class="form-control">
                                                     </div>
+
+                                                    {{-- SELECCIÓN DE TURNOS --}}
                                                     <div class="col-md-4">
-                                                        <div style="height: 37px"></div>
-                                                        <button type="submit" class="btn btn-primary">Generar reporte</button>
+                                                        <label><b>Seleccionar turnos:</b></label>
+                                                        <div class="d-flex flex-wrap">
+                                                            @foreach($turnos as $turno)
+                                                                <div class="mr-3">
+                                                                    <div class="checkbox-wrapper-27">
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="turnos[]" value="{{ $turno->id }}">
+                                                                            <span class="checkbox__icon"></span>
+                                                                            {{ $turno->nombre }}
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
                                                     </div>
+                                                </div>
+
+                                                {{-- BOTÓN GENERAR REPORTE --}}
+                                                <div class="text-center mt-3">
+                                                    <button type="submit" class="btn btn-primary">GENERAR REPORTE</button>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
-                                
                             </div>
 
 
@@ -84,16 +125,14 @@
                                     <h4 class="text-center">Seleccionar por cargo</h4>
                                     <div class="row">
                                         @php
-                                            // Obtener los cargos desde la base de datos
                                             use App\Models\Cargo;
                                             $cargos = Cargo::all();
                                         @endphp
 
                                         @foreach ($cargos as $cargo)
-                                            {{-- Verificar si el cargo no es "Desarrollador" --}}
                                             @if ($cargo->nombre_cargo != 'Desarrollador')
                                                 <div class="col-md-4">
-                                                    <div class="info-box" style="height: 90%">
+                                                    <div class="info-box" style="height: 100%">
                                                         <span class="info-box-icon bg-success">
                                                             <a>
                                                                 <i class="bi bi-printer"></i>
@@ -103,7 +142,26 @@
                                                             <span class="info-box-text">Reporte de {{ $cargo->nombre_cargo }}</span>
                                                             <form action="{{ url('reportes/pdf_cargo') }}" method="GET">
                                                                 <input type="hidden" name="cargo" value="{{ $cargo->id }}">
-                                                                <button type="submit" class="btn btn-primary mt-2">IMPRIMIR</button>
+                                                                
+                                                                {{-- SELECCIÓN DE TURNOS --}}
+                                                                <div class="form-group">
+                                                                    <label><b>Seleccionar turnos:</b></label>
+                                                                    <div class="row">
+                                                                        @foreach($turnos as $turno)
+                                                                            <div class="ml-2">
+                                                                                <div class="checkbox-wrapper-27">
+                                                                                    <label class="checkbox">
+                                                                                        <input type="checkbox" name="turnos[]" value="{{ $turno->id }}">
+                                                                                        <span class="checkbox__icon"></span>
+                                                                                        {{ $turno->nombre }}
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        @endforeach
+                                                                    </div>
+                                                                </div>
+
+                                                                <button type="submit" class="btn btn-primary">IMPRIMIR</button>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -120,7 +178,7 @@
                                     <h4 class="text-center">Reporte de un cargo por fecha</h4>
                                 </div>
                                 <div class="col-md-12 mt-2">
-                                    <div class="info-box" style="height: 90%">
+                                    <div class="info-box" style="height: 100%">
                                         <span class="info-box-icon bg-danger">
                                             <a>
                                                 <i class="bi bi-printer"></i>
@@ -133,7 +191,6 @@
                                                         <label for="">Seleccionar Cargo</label>
                                                         <select name="cargo" class="form-control">
                                                             @foreach ($cargos as $cargo)
-                                                                {{-- Verificar si el cargo no es "Desarrollador" --}}
                                                                 @if ($cargo->nombre_cargo != 'Desarrollador')
                                                                     <option value="{{ $cargo->id }}">{{ $cargo->nombre_cargo }}</option>
                                                                 @endif
@@ -148,10 +205,29 @@
                                                         <label for="">Fecha Final</label>
                                                         <input type="date" name="ff" class="form-control">
                                                     </div>
+
+                                                    {{-- SELECCIÓN DE TURNOS --}}
                                                     <div class="col-md-3">
-                                                        <div style="height: 37px"></div>
-                                                        <button type="submit" class="btn btn-primary">Generar reporte</button>
+                                                        <label><b>Seleccionar turnos:</b></label>
+                                                        <div class="d-flex flex-wrap">
+                                                            @foreach($turnos as $turno)
+                                                                <div class="mr-3">
+                                                                    <div class="checkbox-wrapper-27">
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="turnos[]" value="{{ $turno->id }}">
+                                                                            <span class="checkbox__icon"></span>
+                                                                            {{ $turno->nombre }}
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
                                                     </div>
+                                                </div>
+
+                                                {{-- BOTÓN GENERAR REPORTE --}}
+                                                <div class="text-center mt-3">
+                                                    <button type="submit" class="btn btn-primary">Generar reporte</button>
                                                 </div>
                                             </form>
                                         </div>

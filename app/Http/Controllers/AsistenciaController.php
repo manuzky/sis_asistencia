@@ -39,7 +39,8 @@ class AsistenciaController extends Controller
     public function create()
     {
         $asistencia = new Asistencia();
-        $miembros = Miembro::pluck('nombre_apellido', 'id');
+        // Pasamos tanto el nombre como la cédula y el cargo de los miembros
+        $miembros = Miembro::all(); // Esto nos dará acceso a todos los datos de los miembros
         return view('asistencia.create', compact('asistencia', 'miembros'));
     }
 
@@ -76,20 +77,21 @@ class AsistenciaController extends Controller
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
-    public function show($id)
-    {
-        $asistencia = Asistencia::with('user')->find($id);
-        $miembros = Miembro::pluck('nombre_apellido', 'id'); // O cualquier otra forma de obtener la lista de miembros
+public function show($id)
+{
+    $asistencia = Asistencia::with('user', 'miembro.cargo')->find($id);
+    $miembros = Miembro::pluck('nombre_apellido', 'id'); // O cualquier otra forma de obtener la lista de miembros
 
-        return view('asistencia.show', compact('asistencia', 'miembros'));
-    }
+    return view('asistencia.show', compact('asistencia', 'miembros'));
+}
+
 
 /* ---------------------------------------------------------------------------------------------------------------- */
 
     public function edit($id)
     {
         $asistencia = Asistencia::find($id);
-        $miembros = Miembro::pluck('nombre_apellido', 'id');
+        $miembros = Miembro::all();
         return view('asistencia.edit', compact('asistencia', 'miembros'));
     }
 

@@ -29,7 +29,7 @@ Route::get('/reportes/pdf_fechas_pnf', [ReporteController::class, 'pdf_fechas_pn
 
 Auth::routes(['register'=>false]);
 
-Route::resource('pnfs', PNFController::class);
+// Route::resource('pnfs', PNFController::class);
 Route::resource('/asistencias', AsistenciaController::class)->middleware('can:asistencias');
 Route::resource('/cargos', CargoController::class)->middleware('can:cargos');
 Route::resource('/miembros', MiembroController::class)->middleware('can:miembros');
@@ -39,10 +39,10 @@ Route::resource('/usuarios', UserController::class)->middleware('can:usuarios');
 Route::resource('/horarios', HorarioController::class);
 // ->middleware('can:horarios');  // Aquí está tu ruta de horarios
 
-Route::get('/api/materias/{pnf_id}', function ($pnf_id) {
-    $materias = Materia::where('pnf_id', $pnf_id)->get();
-    return response()->json(['materias' => $materias]);
-});
+// Route::get('/api/materias/{pnf_id}', function ($pnf_id) {
+//     $materias = Materia::where('pnf_id', $pnf_id)->get();
+//     return response()->json(['materias' => $materias]);
+// });
 // Route::get('/materias/by-pnf', [HorarioController::class, 'getMateriasByPnf'])->name('materias.byPnf');
 
 Route::post('/registrar-asistencia', [AdminController::class, 'registrarAsistencia'])->name('registrarAsistencia');

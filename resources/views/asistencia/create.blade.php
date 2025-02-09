@@ -19,26 +19,42 @@
                                     <h6 style="color: red">Los campos con (<b>*</b>) son obligatorios</h6>
                                     
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 {{ Form::label('Miembros') }}
                                                 <label for="miembro_id" style="color: red;">*</label>
-                                                {{ Form::select('miembro_id', $miembros, $asistencia->miembro_id, ['class' => 'form-control' . ($errors->has('miembro_id') ? ' is-invalid' : ''), 'placeholder' => '-- MIEMBROS LISTADOS --']) }}
+                                                <select id="miembro_id" class="form-control @error('miembro_id') is-invalid @enderror" name="miembro_id" required>
+                                                    <option value="" disabled selected>-- MIEMBROS LISTADOS --</option>
+                                                    @foreach($miembros as $miembro)
+                                                        <option value="{{ $miembro->id }}" 
+                                                                data-cedula="{{ number_format($miembro->cedula, 0, '.', '.') }}" 
+                                                                data-cargo="{{ $miembro->cargo->nombre_cargo }}">
+                                                            {{ $miembro->nombre_apellido }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
                                                 {!! $errors->first('miembro_id', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="hora_entrada">Hora de Entrada <span style="color: red;">*</span></label>
-                                                <input type="time" name="hora_entrada" value="{{ old('hora_entrada', $asistencia->hora_entrada) }}" class="form-control{{ $errors->has('hora_entrada') ? ' is-invalid' : '' }}">
-                                                {!! $errors->first('hora_entrada', '<div class="invalid-feedback">:message</div>') !!}
+                                                <label for="cedula">Cédula</label>
+                                                <input type="text" id="cedula" class="form-control" disabled>
                                             </div>
                                         </div>
+                                    
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="cargo">Cargo</label>
+                                                <input type="text" id="cargo" class="form-control" disabled>
+                                            </div>
+                                        </div>
+
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="fecha">Fecha <span style="color: red;">*</span></label>
                                                 <div class="input-group date" id="datepicker">
@@ -53,7 +69,15 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="hora_entrada">Hora de Entrada <span style="color: red;">*</span></label>
+                                                <input type="time" name="hora_entrada" value="{{ old('hora_entrada', $asistencia->hora_entrada) }}" class="form-control{{ $errors->has('hora_entrada') ? ' is-invalid' : '' }}">
+                                                {!! $errors->first('hora_entrada', '<div class="invalid-feedback">:message</div>') !!}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="hora_salida">Hora de Salida</label>
                                                 <input type="time" name="hora_salida" value="{{ old('hora_salida', $asistencia->hora_salida) }}" class="form-control{{ $errors->has('hora_salida') ? ' is-invalid' : '' }}">
@@ -77,6 +101,24 @@
 
 {{-- SCRIPTS --}}
 <div>
+    
+        {{-- MUESTRA CÉDULA Y CARGO AUTOMÁTICAMENTE --}}
+        <script type="text/javascript">
+            document.getElementById('miembro_id').addEventListener('change', function() {
+                // Obtener la opción seleccionada
+                var selectedMiembroOption = this.options[this.selectedIndex];
+                
+                // Obtener la cédula y el cargo del miembro seleccionado usando los atributos `data`
+                var selectedMiembroCedula = selectedMiembroOption.getAttribute('data-cedula');
+                var selectedMiembroCargo = selectedMiembroOption.getAttribute('data-cargo');
+                
+                // Actualizar los campos de cédula y cargo con los datos del miembro seleccionado
+                document.getElementById('cedula').value = selectedMiembroCedula;
+                document.getElementById('cargo').value = selectedMiembroCargo;
+            });
+        </script>
+        
+    
     {{-- DATEPICKER EN ESPAÑOL --}}
     <script type="text/javascript">
         $(function() {

@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Miembro;
+use App\Models\Cargo;
 use Illuminate\Support\Str;
 
 /**
@@ -17,6 +18,9 @@ class MiembroFactory extends Factory
         $cargos = ['Desarrollador', 'Docente', 'Mantenimiento', 'Administración'];
         $generos = ['Masculino', 'Femenino'];
 
+        // Excluir el cargo "Desarrollador"
+        $cargosDisponibles = Cargo::where('nombre_cargo', '!=', 'Desarrollador')->get();
+
         return [
             'nombre_apellido' => fake()->name(),
             'cedula' => random_int(5000000, 45000000),
@@ -26,7 +30,7 @@ class MiembroFactory extends Factory
             'genero' => fake()->randomElement($generos),
             'email' => fake()->unique()->safeEmail(),
             'estado' => '1',
-            'cargo_id' => \App\Models\Cargo::inRandomOrder()->first()->id,
+            'cargo_id' => $cargosDisponibles->random()->id, // Seleccionamos un cargo aleatorio pero excluyendo "Desarrollador"
             'foto' => '',
             'fecha_ingreso' => fake()->date($format = 'Y-m-d', $max = 'now'),
         ];

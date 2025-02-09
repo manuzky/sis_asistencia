@@ -44,7 +44,7 @@ public function index(){
 /* ---------------------------------------------------------------------------------------------------------------- */
 
     public function create(){
-        $cargos = Cargo::pluck('nombre_cargo', 'id');
+        $cargos = Cargo::where('nombre_cargo', '!=', 'Desarrollador')->pluck('nombre_cargo', 'id');
         $turnos = Turno::all();  // Obtener los turnos disponibles
 
         return view('miembros.create', ['cargos' => $cargos, 'turnos' => $turnos]);
@@ -127,7 +127,7 @@ public function store(Request $request){
 
     public function edit($id){
         $miembro = Miembro::findOrFail($id);
-        $cargos = Cargo::pluck('nombre_cargo', 'id'); // Obtener lista de cargos disponibles
+        $cargos = Cargo::where('nombre_cargo', '!=', 'Desarrollador')->pluck('nombre_cargo', 'id'); // Obtener lista de cargos disponibles
         $turnos = Turno::all();  // Obtener todos los turnos disponibles
         $turnosAsignados = $miembro->turnos->pluck('id')->toArray();  // Obtener los turnos ya asignados al miembro
 

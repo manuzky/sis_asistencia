@@ -22,9 +22,10 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead class="thead">
                                 <tr>
-                                    <th>Nº</th>
+                                    <th hidden>Nº</th>
                                     <th>ID</th>
                                     <th>Miembro</th>
+                                    <th>Cedula</th>
                                     <th>Fecha</th>
                                     <th>H. Entrada</th>
                                     <th>H. Salida</th>
@@ -34,9 +35,14 @@
                             <tbody>
                                 @foreach ($asistencias as $asistencia)
                                 <tr>
-                                    <td>{{ ++$i }}</td>
-                                    <td>{{ str_pad($asistencia->miembro->id, 4, '0', STR_PAD_LEFT) }}</td>
+                                    <td hidden>{{ ++$i }}</td>
+                                    <td>
+                                        <a href="{{ route('miembros.show', $asistencia->miembro->id) }}">
+                                            {{ str_pad($asistencia->miembro->id, 4, '0', STR_PAD_LEFT) }}
+                                        </a>
+                                    </td>
                                     <td>{{ $asistencia->miembro->nombre_apellido }}</td>
+                                    <td>{{ number_format($asistencia->miembro->cedula, 0, '.', '.') }}</td>
                                     <td>{{ $asistencia->fecha->format('d/m/Y') }}</td>
                                     <td>{{ $asistencia->hora_entrada }}</td>
                                     <td>{{ $asistencia->hora_salida }}</td>

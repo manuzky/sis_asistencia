@@ -58,7 +58,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="">Cargo</label>
+                                                <label for="">Personal</label>
                                                 <input type="text" name="cargo" value="{{ $miembro->cargo->nombre_cargo }}" class="form-control" disabled>
                                             </div>
                                         </div>

@@ -71,18 +71,18 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-5">
                                             <div class="form-group">
-                                                <label for="cargo">Cargo</label><b style="color:red"> *</b>
+                                                <label for="cargo">Personal</label><b style="color:red"> *</b>
                                                 <select name="cargo" id="cargo" class="form-control" required>
-                                                    <option value="">-- SELECCIONE EL CARGO --</option>
+                                                    <option value="">-- SELECCIONE EL PERSONAL --</option>
                                                     @foreach($cargos as $id => $cargo)
                                                         <option value="{{ $id }}" @if(old('cargo') == $id) selected @endif>{{ $cargo }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-md-7">
                                             <div class="form-group">
                                                 <label for="">Dirección</label>
                                                 <input type="text" name="direccion" value="{{old('direccion')}}" placeholder="Dirección" class="form-control">

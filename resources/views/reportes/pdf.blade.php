@@ -65,7 +65,7 @@
                 <tr>
                     <th style="width: 18%;">Nombre y Apellido</th>
                     <th style="width: 10%;">Cédula</th>
-                    <th style="width: 10%;">Cargo</th>
+                    <th style="width: 10%;">Personal</th>
                     <th style="width: 13%;">Hora de Entrada</th>
                     <th style="width: 13%;">Hora de Salida</th>
                     <th style="width: 10%;">Fecha</th> 

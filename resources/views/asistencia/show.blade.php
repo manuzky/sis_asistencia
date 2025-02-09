@@ -33,7 +33,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="hora_entrada">Cargo</label>
+                                        <label for="hora_entrada">Personal</label>
                                         <input type="text" name="cargo" value="{{ old('cargo', $asistencia->miembro->cargo->nombre_cargo ?? 'N/A') }}" class="form-control{{ $errors->has('cargo') ? ' is-invalid' : '' }}" disabled>
                                         {!! $errors->first('cargo', '<div class="invalid-feedback">:message</div>') !!}
                                         

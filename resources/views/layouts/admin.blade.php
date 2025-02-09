@@ -122,7 +122,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <i class="bi bi-tags-fill"></i>
                 </i>
                 <p>
-                  Cargos
+                  Personal
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
@@ -131,14 +131,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <li class="nav-item">
                   <a href="{{url('cargos/create')}}" class="nav-link {{ Request::is('cargos/create*') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon" style="color: #333333;"></i>
-                    <p style="color: #333333;">Nuevo cargo</p>
+                    <p style="color: #333333;">Nuevo personal</p>
                   </a>
                 </li>
                 @endcan
                 <li class="nav-item">
                   <a href="{{url('cargos')}}" class="nav-link {{ Request::is('cargos*') && !Request::is('cargos/create*') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon" style="color: #333333;"></i>
-                    <p style="color: #333333;">Listado de cargos</p>
+                    <p style="color: #333333;">Listado de personal</p>
                   </a>
                 </li>
               </ul>

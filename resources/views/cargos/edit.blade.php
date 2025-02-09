@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
     <div class="content" style="margin-left: 2%">
-        <h1>Actualización del cargo</h1>
+        <h1>Actualización del personal</h1>
         @foreach($errors->all() as $error)
             <div class="alert alert-danger">
                 <li>{{$error}}</li>
@@ -25,7 +25,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="">Nombre del cargo</label><b style="color:red"> *</b>
+                                                <label for="">Nombre del personal</label><b style="color:red"> *</b>
                                                 <input type="text" name="nombre_cargo" value="{{$cargo->nombre_cargo}}" class="form-control" placeholder="Nombre del cargo" required>
                                             </div>
                                         </div>

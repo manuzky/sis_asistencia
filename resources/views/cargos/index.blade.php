@@ -1,17 +1,17 @@
 @extends('layouts.admin')
 @section('content')
     <div class="content" style="margin-left: 2%">
-        <h1>Listado de cargos</h1>
+        <h1>Listado de personal</h1>
 
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-primary shadow">
                     <div class="card-header">
-                        <h3 class="card-title text-center">Cargos registrados</h3>
+                        <h3 class="card-title text-center">Personal registrados</h3>
                         @can('cargos.create')
                         <div class="card-tools">
                             <a href="{{url('/cargos/create')}}" class="btn btn-primary">
-                                <i class="bi bi-person-plus" style="font-size: 112%;"> Agregar nuevo cargo</i>
+                                <i class="bi bi-person-plus" style="font-size: 112%;"> Agregar nuevo personal</i>
                             </a>
                         </div>
                         @endcan
@@ -22,7 +22,7 @@
                             <thead>
                                 <tr>
                                     <th>Nº</th>
-                                    <th>Cargo</th>
+                                    <th>Personal</th>
                                     <th>Descripción</th>
                                     <th>Acción</th>
                                 </tr>
@@ -119,12 +119,12 @@
             "order": [[0, 'desc']],
             "language": {
                 "emptyTable": "No hay información",
-                "info": "Mostrando _START_ a _END_ de _TOTAL_ Cargos",
-                "infoEmpty": "Mostrando 0 a 0 de 0 Cargos",
-                "infoFiltered": "(Filtrado de _MAX_ total Cargos)",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ Personal",
+                "infoEmpty": "Mostrando 0 a 0 de 0 Personal",
+                "infoFiltered": "(Filtrado de _MAX_ total Personal)",
                 "infoPostFix": "",
                 "thousands": ",",
-                "lengthMenu": "Mostrar _MENU_ Cargos",
+                "lengthMenu": "Mostrar _MENU_ Personal",
                 "loadingRecords": "Cargando...",
                 "processing": "Procesando...",
                 "search": "Buscador:",

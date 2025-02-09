@@ -25,10 +25,10 @@
                                     <th>Nombres y apellidos</th>
                                     <th>Cédula</th>
                                     <th>E-mail</th>
+                                    <th>Personal</th>
                                     @can('miembros.toggle')
-                                        <th>Cargo</th>
+                                        <th>Estado</th>
                                     @endcan
-                                    <th>Estado</th>
                                     <th>Acción</th>
                                 </tr>
                             </thead>

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
     <div class="content" style="margin-left: 2%">
-        <h1>Creación de un nuevo cargo</h1>
+        <h1>Creación de un nuevo personal</h1>
         @foreach($errors->all() as $error)
             <div class="alert alert-danger">
                 <li>{{$error}}</li>
@@ -25,13 +25,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Nombre</label><b style="color:red"> *</b>
-                                                <input type="text" name="nombre_cargo" value="{{old('nombre_cargo')}}" class="form-control" placeholder="Ingrese el nombre del cargo" required>
+                                                <input type="text" name="nombre_cargo" value="{{old('nombre_cargo')}}" class="form-control" placeholder="Ingrese el nombre del Personal" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Descripción</label>
-                                                <textarea class="form-control" name="descripcion_cargo" value="{{old('descripcion_cargo')}}" placeholder="Agregue una descripción del cargo"></textarea>
+                                                <textarea class="form-control" name="descripcion_cargo" value="{{old('descripcion_cargo')}}" placeholder="Agregue una descripción del Personal"></textarea>
                                             </div>
                                         </div>
                                     </div>

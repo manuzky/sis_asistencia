@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="card card-primary shadow">
                     <div class="card-header">
-                        <h3 class="card-title text-center">Cargos registrados</h3>
+                        <h3 class="card-title text-center">Roles y permisos registrados</h3>
                         @can('rolesypermisos.create')
                         <div class="card-tools">
                             <a href="{{url('/rolesypermisos/create')}}" class="btn btn-primary">
@@ -118,12 +118,12 @@
             "order": [[0, 'desc']],
             "language": {
                 "emptyTable": "No hay información",
-                "info": "Mostrando _START_ a _END_ de _TOTAL_ Cargos",
-                "infoEmpty": "Mostrando 0 a 0 de 0 Cargos",
-                "infoFiltered": "(Filtrado de _MAX_ total Cargos)",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ Personal",
+                "infoEmpty": "Mostrando 0 a 0 de 0 Personal",
+                "infoFiltered": "(Filtrado de _MAX_ total Personal)",
                 "infoPostFix": "",
                 "thousands": ",",
-                "lengthMenu": "Mostrar _MENU_ Cargos",
+                "lengthMenu": "Mostrar _MENU_ Personal",
                 "loadingRecords": "Cargando...",
                 "processing": "Procesando...",
                 "search": "Buscador:",

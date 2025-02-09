@@ -42,7 +42,7 @@ class CargoController extends Controller
         $request->validate([
             'nombre_cargo' => 'required|unique:cargos',
         ], [
-            'nombre_cargo.unique' => 'El nombre del cargo ya está en uso.',
+            'nombre_cargo.unique' => 'El nombre del personal ya está en uso.',
         ]);
 
         $cargos = new Cargo();
@@ -50,7 +50,7 @@ class CargoController extends Controller
         $cargos->descripcion_cargo = $request->descripcion_cargo;
         
         $cargos->save();
-        return redirect()->route('cargos.index')->with('mensaje', 'Se añadió el cargo correctamente.');
+        return redirect()->route('cargos.index')->with('mensaje', 'Se añadió el personal correctamente.');
     }
 
 /* ---------------------------------------------------------------------------------------------------------------- */
@@ -84,7 +84,7 @@ class CargoController extends Controller
         $cargos->descripcion_cargo = $request->descripcion_cargo;
         
         $cargos->save();
-        return redirect()->route('cargos.index')->with('mensaje', 'Se actualizó el cargo correctamente.');
+        return redirect()->route('cargos.index')->with('mensaje', 'Se actualizó el personal correctamente.');
     }
 
 /* ---------------------------------------------------------------------------------------------------------------- */

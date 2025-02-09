@@ -46,7 +46,7 @@
         <img src="{{ public_path('images/encabezado.png') }}" alt="Encabezado" width="100%" height="10%">
     </div>
     
-    <h2 style="text-align: center;">ASISTENCIA PERSONAL: {{ strtoupper($cargo) }}</h2>
+    <h2 style="text-align: center;">ASISTENCIA DE PERSONAL: {{ strtoupper($cargo) }}</h2>
 
     <div class="details">
         <table style="width: 100%; text-align: center;">

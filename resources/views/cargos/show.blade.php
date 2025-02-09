@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
     <div class="content" style="margin-left: 2%">
-        <h1>Cargo: {{$cargo->nombre_cargo}}</h1>
+        <h1>Personal: {{$cargo->nombre_cargo}}</h1>
 
         <br>
         <div class="row">
@@ -18,7 +18,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="">Nombre del cargo</label>
+                                                <label for="">Nombre del personal</label>
                                                 <input type="text" name="nombre_cargo" value="{{$cargo->nombre_cargo}}" class="form-control" disabled>
                                             </div>
                                         </div>

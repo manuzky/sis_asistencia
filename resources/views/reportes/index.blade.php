@@ -14,7 +14,7 @@
                         <div class="table-responsive">
                             <div class="text-center mt-2">
                                 <button id="btn-general" class="btn btn-info mx-2">Reporte General</button>
-                                <button id="btn-cargo" class="btn btn-success mx-2">Reporte por Cargo</button>
+                                <button id="btn-cargo" class="btn btn-success mx-2">Reporte por Personal</button>
                                 {{-- <button id="btn-pnf" class="btn btn-primary mx-2">Reporte por PNF</button> --}}
                             </div>
 
@@ -122,7 +122,7 @@
                             {{-- IMPRIMIR REPORTE POR CARGOS --}}
                             <div id="section-cargo" class="report-section row" style="display: none;">
                                 <div class="col-md-12 mt-4">
-                                    <h4 class="text-center">Seleccionar por cargo</h4>
+                                    <h4 class="text-center">Seleccionar por personal</h4>
                                     <div class="row">
                                         @php
                                             use App\Models\Cargo;
@@ -175,7 +175,7 @@
 
                                 <!-- Reporte por fecha y cargo -->
                                 <div class="col-md-12 mt-4">
-                                    <h4 class="text-center">Reporte de un cargo por fecha</h4>
+                                    <h4 class="text-center">Reporte de un personal por fecha</h4>
                                 </div>
                                 <div class="col-md-12 mt-2">
                                     <div class="info-box" style="height: 100%">
@@ -188,7 +188,7 @@
                                             <form action="{{ url('reportes/pdf_fechas_cargo') }}" method="GET">
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <label for="">Seleccionar Cargo</label>
+                                                        <label for="">Seleccionar Personal</label>
                                                         <select name="cargo" class="form-control">
                                                             @foreach ($cargos as $cargo)
                                                                 @if ($cargo->nombre_cargo != 'Desarrollador')

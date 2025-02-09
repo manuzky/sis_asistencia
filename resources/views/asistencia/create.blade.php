@@ -46,7 +46,7 @@
                                     
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="cargo">Cargo</label>
+                                                <label for="cargo">Personal</label>
                                                 <input type="text" id="cargo" class="form-control" disabled>
                                             </div>
                                         </div>

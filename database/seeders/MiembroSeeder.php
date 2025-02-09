@@ -17,7 +17,7 @@ class MiembroSeeder extends Seeder
         // Obtén los cargos específicos
         $cargoDocente = Cargo::where('nombre_cargo', 'Docente')->first();
         $cargoDesarrollador = Cargo::where('nombre_cargo', 'Desarrollador')->first();
-        $cargoMantenimiento = Cargo::where('nombre_cargo', 'Mantenimiento')->first();
+        $cargoObrero = Cargo::where('nombre_cargo', 'Obrero')->first();
 
         Miembro::create([
             'nombre_apellido' => 'José Carrasquel',
@@ -71,7 +71,7 @@ class MiembroSeeder extends Seeder
             'genero' => 'MASCULINO',
             'email' => 'eduardo.liendo27@gmail.com',
             'estado' => '1',
-            'cargo_id' => $cargoMantenimiento->id,
+            'cargo_id' => $cargoObrero->id,
             'foto' => '',
             'fecha_ingreso' => '2024-01-04',
         ]);

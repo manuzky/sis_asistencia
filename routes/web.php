@@ -24,8 +24,8 @@ Route::get('reportes/pdf_fechas_cargo', [ReporteController::class, 'pdf_fechas_c
 Route::get('/home', [HomeController::class, 'index'])->name('home')->name('home');
 Route::get('/miembros/{id}/toggle', [MiembroController::class, 'toggleEstado'])->middleware('can:miembros')->name('miembros.toggle');
 Route::get('/usuarios/toggleActive/{id}', [UserController::class, 'toggleActive'])->name('usuarios.toggleActive');
-Route::get('/reportes/pdf_pnf', [ReporteController::class, 'pdf_pnf'])->name('reportes.pdf_pnf');
-Route::get('/reportes/pdf_fechas_pnf', [ReporteController::class, 'pdf_fechas_pnf'])->name('reportes.pdf_fechas_pnf');
+// Route::get('/reportes/pdf_pnf', [ReporteController::class, 'pdf_pnf'])->name('reportes.pdf_pnf');
+// Route::get('/reportes/pdf_fechas_pnf', [ReporteController::class, 'pdf_fechas_pnf'])->name('reportes.pdf_fechas_pnf');
 
 Auth::routes(['register'=>false]);
 

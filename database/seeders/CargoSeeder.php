@@ -22,12 +22,12 @@ class CargoSeeder extends Seeder
             'descripcion_cargo' => 'Profesores de la universidad.',
         ]);
         Cargo::create( [
-            'nombre_cargo' => 'Mantenimiento',
-            'descripcion_cargo' => 'Personal de limpieza y mantenimiento.',
+            'nombre_cargo' => 'Obrero',
+            'descripcion_cargo' => 'Personal de mantenimiento y obrero.',
         ]);
         Cargo::create( [
-            'nombre_cargo' => 'Administración',
-            'descripcion_cargo' => 'Personal administrativo.',
+            'nombre_cargo' => 'Administrativo',
+            'descripcion_cargo' => 'Personal de administración.',
         ]);
     }
 }

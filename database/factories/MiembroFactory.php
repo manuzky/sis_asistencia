@@ -15,7 +15,7 @@ class MiembroFactory extends Factory
     public function definition(): array
     {
         $prefijosTelefono = ['0424', '0414', '0426', '0416', '0412'];
-        $cargos = ['Desarrollador', 'Docente', 'Mantenimiento', 'Administración'];
+        $cargos = ['Desarrollador', 'Docente', 'Obrero', 'Administrativo'];
         $generos = ['Masculino', 'Femenino'];
 
         // Excluir el cargo "Desarrollador"

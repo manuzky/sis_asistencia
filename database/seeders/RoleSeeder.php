@@ -23,10 +23,10 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'asistencias.edit', 'description' => 'Editar las asistencias'])->syncRoles([$admin]);
         Permission::create(['name' => 'asistencias.destroy', 'description' => 'Borrar las asistencias'])->syncRoles([$admin]);
         
-        Permission::create(['name' => 'cargos', 'description' => 'Ver los cargos'])->syncRoles([$admin]);
-        Permission::create(['name' => 'cargos.create', 'description' => 'Crear un cargo'])->syncRoles([$admin]);
-        Permission::create(['name' => 'cargos.edit', 'description' => 'Editar los cargos'])->syncRoles([$admin]);
-        Permission::create(['name' => 'cargos.destroy', 'description' => 'Borrar los cargos'])->syncRoles([$admin]);
+        Permission::create(['name' => 'cargos', 'description' => 'Ver el personal'])->syncRoles([$admin]);
+        Permission::create(['name' => 'cargos.create', 'description' => 'Crear un personal'])->syncRoles([$admin]);
+        Permission::create(['name' => 'cargos.edit', 'description' => 'Editar el personal'])->syncRoles([$admin]);
+        Permission::create(['name' => 'cargos.destroy', 'description' => 'Borrar el personal'])->syncRoles([$admin]);
         
         Permission::create(['name' => 'miembros', 'description' => 'Ver los miembros'])->syncRoles([$admin]);
         Permission::create(['name' => 'miembros.toggle', 'description' => 'Modificar el estado de los miembros'])->syncRoles([$admin]);

@@ -1,3 +1,7 @@
+<?php
+    $fecha = \Carbon\Carbon::parse(time: "today")->format('d/m/Y');
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

@@ -1,3 +1,7 @@
+<?php
+    $fecha = \Carbon\Carbon::parse(time: "today")->format('d/m/Y');
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -53,7 +57,7 @@
             <tr>
                 <td style="width: 33,3%; text-align: left;"><strong>Rango de Fechas:</strong> Todos</td>
                 <td style="width: 33,3%; text-align: center;"><strong>Turno:</strong> {{ $turno }}</td>
-                <td style="width: 33,3%; text-align: right;"><strong>Fecha de Expedición:</strong> {{ \Carbon\Carbon::parse($fecha)->format('d/m/Y') }}</td>
+                <td style="width: 33,3%; text-align: right;"><strong>Fecha de Expedición:</strong> {{ $fecha }}</td>
             </tr>
         </table>
     </div>

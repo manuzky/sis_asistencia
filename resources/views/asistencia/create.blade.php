@@ -27,7 +27,7 @@
                                                     <option value="" disabled selected>-- MIEMBROS LISTADOS --</option>
                                                     @foreach($miembros as $miembro)
                                                         <option value="{{ $miembro->id }}" 
-                                                                data-cedula="{{ number_format($miembro->cedula, 0, '.', '.') }}" 
+                                                                data-cedula="{{ $miembro->cedula }}" 
                                                                 data-cargo="{{ $miembro->cargo->nombre_cargo }}">
                                                             {{ $miembro->nombre_apellido }}
                                                         </option>
@@ -40,7 +40,14 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="cedula">Cédula</label>
-                                                <input type="text" id="cedula" class="form-control" disabled>
+                                                <select id="cedula" class="form-control">
+                                                    <option value="" disabled selected>-- SELECCIONAR CÉDULA --</option>
+                                                    @foreach($miembros as $miembro)
+                                                        <option value="{{ $miembro->cedula }}" data-id="{{ $miembro->id }}">
+                                                            {{ number_format($miembro->cedula, 0, '.', '.') }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                     
@@ -105,16 +112,24 @@
         {{-- MUESTRA CÉDULA Y CARGO AUTOMÁTICAMENTE --}}
         <script type="text/javascript">
             document.getElementById('miembro_id').addEventListener('change', function() {
-                // Obtener la opción seleccionada
-                var selectedMiembroOption = this.options[this.selectedIndex];
+                var selectedOption = this.options[this.selectedIndex];
+                var cedulaValue = selectedOption.getAttribute('data-cedula');
+                var cargoValue = selectedOption.getAttribute('data-cargo');
                 
-                // Obtener la cédula y el cargo del miembro seleccionado usando los atributos `data`
-                var selectedMiembroCedula = selectedMiembroOption.getAttribute('data-cedula');
-                var selectedMiembroCargo = selectedMiembroOption.getAttribute('data-cargo');
+                document.getElementById('cedula').value = cedulaValue;
+                document.getElementById('cargo').value = cargoValue;
+            });
+        
+            document.getElementById('cedula').addEventListener('change', function() {
+                var selectedOption = this.options[this.selectedIndex];
+                var miembroId = selectedOption.getAttribute('data-id');
+        
+                document.getElementById('miembro_id').value = miembroId;
                 
-                // Actualizar los campos de cédula y cargo con los datos del miembro seleccionado
-                document.getElementById('cedula').value = selectedMiembroCedula;
-                document.getElementById('cargo').value = selectedMiembroCargo;
+                // Obtener el cargo desde el select de miembros
+                var miembroOption = document.querySelector(`#miembro_id option[value="${miembroId}"]`);
+                var cargoValue = miembroOption.getAttribute('data-cargo');
+                document.getElementById('cargo').value = cargoValue;
             });
         </script>
         

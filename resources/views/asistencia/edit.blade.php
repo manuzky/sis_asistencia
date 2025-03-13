@@ -25,12 +25,12 @@
                                                 {{ Form::label('Miembros') }}
                                                 <label for="miembro_id" style="color: red;">*</label>
                                                 <select id="miembro_id" class="form-control @error('miembro_id') is-invalid @enderror" name="miembro_id" required>
-                                                    <option value="" disabled selected>-- MIEMBROS LISTADOS --</option>
+                                                    <option value="" disabled>-- MIEMBROS LISTADOS --</option>
                                                     @foreach($miembros as $miembro)
                                                         <option value="{{ $miembro->id }}" 
-                                                                data-cedula="{{ number_format($miembro->cedula, 0, '.', '.') }}" 
+                                                                data-cedula="{{ $miembro->cedula }}" 
                                                                 data-cargo="{{ $miembro->cargo->nombre_cargo }}"
-                                                                @if($miembro->id == $asistencia->miembro_id) selected @endif>
+                                                                {{ $miembro->id == $asistencia->miembro_id ? 'selected' : '' }}>
                                                             {{ $miembro->nombre_apellido }}
                                                         </option>
                                                     @endforeach
@@ -42,14 +42,22 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="cedula">Cédula</label>
-                                                <input type="text" id="cedula" class="form-control" disabled>
+                                                <select id="cedula" class="form-control">
+                                                    <option value="" disabled>-- SELECCIONAR CÉDULA --</option>
+                                                    @foreach($miembros as $miembro)
+                                                        <option value="{{ $miembro->cedula }}" data-id="{{ $miembro->id }}"
+                                                                {{ $miembro->cedula == $asistencia->miembro->cedula ? 'selected' : '' }}>
+                                                            {{ number_format($miembro->cedula, 0, '.', '.') }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
 
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="cargo">Personal</label>
-                                                <input type="text" id="cargo" class="form-control" disabled>
+                                                <input type="text" id="cargo" class="form-control" disabled value="{{ $asistencia->miembro->cargo->nombre_cargo }}">
                                             </div>
                                         </div>
 
@@ -107,26 +115,34 @@
     {{-- MUESTRA CÉDULA Y CARGO AUTOMÁTICAMENTE --}}
     <script type="text/javascript">
         document.getElementById('miembro_id').addEventListener('change', function() {
-            // Obtener la opción seleccionada
-            var selectedMiembroOption = this.options[this.selectedIndex];
+            var selectedOption = this.options[this.selectedIndex];
+            var cedulaValue = selectedOption.getAttribute('data-cedula');
+            var cargoValue = selectedOption.getAttribute('data-cargo');
             
-            // Obtener la cédula y el cargo del miembro seleccionado usando los atributos `data`
-            var selectedMiembroCedula = selectedMiembroOption.getAttribute('data-cedula');
-            var selectedMiembroCargo = selectedMiembroOption.getAttribute('data-cargo');
-            
-            // Actualizar los campos de cédula y cargo con los datos del miembro seleccionado
-            document.getElementById('cedula').value = selectedMiembroCedula;
-            document.getElementById('cargo').value = selectedMiembroCargo;
+            document.getElementById('cedula').value = cedulaValue;
+            document.getElementById('cargo').value = cargoValue;
         });
 
-        // Cuando se carga la página, si ya hay un miembro seleccionado, actualizar cédula y cargo automáticamente
-        document.addEventListener("DOMContentLoaded", function() {
-            var selectedMiembroOption = document.getElementById('miembro_id').options[document.getElementById('miembro_id').selectedIndex];
-            var selectedMiembroCedula = selectedMiembroOption.getAttribute('data-cedula');
-            var selectedMiembroCargo = selectedMiembroOption.getAttribute('data-cargo');
-            document.getElementById('cedula').value = selectedMiembroCedula;
-            document.getElementById('cargo').value = selectedMiembroCargo;
+        document.getElementById('cedula').addEventListener('change', function() {
+            var selectedOption = this.options[this.selectedIndex];
+            var miembroId = selectedOption.getAttribute('data-id');
+
+            document.getElementById('miembro_id').value = miembroId;
+            
+            // Obtener el cargo desde el select de miembros
+            var miembroOption = document.querySelector(`#miembro_id option[value="${miembroId}"]`);
+            var cargoValue = miembroOption.getAttribute('data-cargo');
+            document.getElementById('cargo').value = cargoValue;
         });
     </script>
+
+        {{-- DATEPICKER EN ESPAÑOL --}}
+        <script type="text/javascript">
+            $(function() {
+                $('#datepicker').datepicker({
+                    language: 'es' // Establecer el idioma en español
+                });
+            });
+        </script>
 </div>
 @endsection

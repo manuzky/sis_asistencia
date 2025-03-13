@@ -14,6 +14,7 @@
         "laravel/ui": "^4.3",
         "laravelcollective/html": "^6.4",
         "realrashid/sweet-alert": "^7.2",
+        "spatie/laravel-backup": "^8.8",
         "spatie/laravel-permission": "^6.3"
     },
     "require-dev": {

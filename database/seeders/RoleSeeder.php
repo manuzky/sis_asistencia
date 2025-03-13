@@ -48,6 +48,8 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'reportes', 'description' => 'Ver los reportes'])->syncRoles([$admin]);
         Permission::create(['name' => 'reportes.asistencias', 'description' => 'Imprimir reportes de asistencias'])->syncRoles([$admin]);
 
+        Permission::create(['name' => 'backup', 'description' => 'Realizar respaldo de la base de datos'])->syncRoles([$admin]);
+
         User::find(1)->assignRole($admin);
     }
 }

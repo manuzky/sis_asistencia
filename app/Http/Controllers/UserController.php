@@ -47,6 +47,7 @@ class UserController extends Controller
     {
         $roles = Role::all();
         $miembros = Miembro::all();
+        $miembros = Miembro::orderBy('nombre_apellido', 'asc')->get();
         return view('usuarios.create', compact('miembros', 'roles'));
     }
 
@@ -108,6 +109,7 @@ class UserController extends Controller
     {
         $roles = Role::all();
         $miembros = Miembro::all();
+        $miembros = Miembro::orderBy('nombre_apellido', 'asc')->get();
         $usuario = User::findOrFail($id);
 
         return view('usuarios.edit', compact('usuario', 'miembros', 'roles'));

@@ -70,7 +70,7 @@
                         <?php $contador_asistencias = $contador_asistencias + 1; ?>
                     @endforeach
                     <h3><?=$contador_asistencias?></h3>
-                    <p>Asistencias ingresadas</p>
+                    <p>Asistencias registradas</p>
                 </div>
                 <div class="icon">
                     <i class="bi bi-calendar2-week"></i>
@@ -82,7 +82,7 @@
 
     </div>
 
-    @can('asistencias.create.index')
+    {{-- @can('asistencias.create.index')
     <!-- Formulario de registro de asistencia -->
     <div class="row">
         <div class="col-lg-6">
@@ -114,7 +114,7 @@
             </form>
         </div>
     </div>
-    @endcan
+    @endcan --}}
 </div>
 
 

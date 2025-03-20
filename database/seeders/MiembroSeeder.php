@@ -15,9 +15,7 @@ class MiembroSeeder extends Seeder
     public function run(): void
     {
         // Obtén los cargos específicos
-        $cargoDocente = Cargo::where('nombre_cargo', 'Docente')->first();
         $cargoDesarrollador = Cargo::where('nombre_cargo', 'Desarrollador')->first();
-        $cargoObrero = Cargo::where('nombre_cargo', 'Obrero')->first();
 
         Miembro::create([
             'nombre_apellido' => 'José Carrasquel',
@@ -28,7 +26,7 @@ class MiembroSeeder extends Seeder
             'genero' => 'MASCULINO',
             'email' => 'manuelc.dev@gmail.com',
             'estado' => '1',
-            'cargo_id' => $cargoDocente->id,
+            'cargo_id' => $cargoDesarrollador->id,
             'foto' => '',
             'fecha_ingreso' => '2024-01-04',
         ]);
@@ -42,7 +40,7 @@ class MiembroSeeder extends Seeder
             'genero' => 'MASCULINO',
             'email' => 'diegoalbino0606@gmail.com',
             'estado' => '1',
-            'cargo_id' => $cargoDocente->id,
+            'cargo_id' => $cargoDesarrollador->id,
             'foto' => '',
             'fecha_ingreso' => '2024-01-04',
         ]);
@@ -56,7 +54,7 @@ class MiembroSeeder extends Seeder
             'genero' => 'MASCULINO',
             'email' => 'guaremacacerescesaraugusto@gmail.com',
             'estado' => '1',
-            'cargo_id' => $cargoDocente->id,
+            'cargo_id' => $cargoDesarrollador->id,
             'foto' => '',
             'fecha_ingreso' => '2024-01-04',
         ]);
@@ -71,7 +69,7 @@ class MiembroSeeder extends Seeder
             'genero' => 'MASCULINO',
             'email' => 'eduardo.liendo27@gmail.com',
             'estado' => '1',
-            'cargo_id' => $cargoObrero->id,
+            'cargo_id' => $cargoDesarrollador->id,
             'foto' => '',
             'fecha_ingreso' => '2024-01-04',
         ]);

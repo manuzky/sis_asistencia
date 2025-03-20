@@ -29,7 +29,7 @@
 
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                {{ Form::label('Miembros') }}
+                                                {{ Form::label('Seleccionar Miembro') }}
                                                 <label for="miembro_id" style="color: red;">*</label>
                                                 <select id="miembro_id" class="form-control @error('miembro_id') is-invalid @enderror" name="miembro_id" required>
                                                     <option value="" disabled>-- MIEMBROS LISTADOS --</option>

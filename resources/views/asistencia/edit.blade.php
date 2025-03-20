@@ -22,6 +22,13 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
+                                                <label for="cedula">Cédula</label>
+                                                <input type="text" id="cedula" class="form-control" name="cedula" value="{{ $asistencia->miembro->cedula }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
                                                 {{ Form::label('Miembros') }}
                                                 <label for="miembro_id" style="color: red;">*</label>
                                                 <select id="miembro_id" class="form-control @error('miembro_id') is-invalid @enderror" name="miembro_id" required>
@@ -36,21 +43,6 @@
                                                     @endforeach
                                                 </select>
                                                 {!! $errors->first('miembro_id', '<div class="invalid-feedback">:message</div>') !!}
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="cedula">Cédula</label>
-                                                <select id="cedula" class="form-control">
-                                                    <option value="" disabled>-- SELECCIONAR CÉDULA --</option>
-                                                    @foreach($miembros as $miembro)
-                                                        <option value="{{ $miembro->cedula }}" data-id="{{ $miembro->id }}"
-                                                                {{ $miembro->cedula == $asistencia->miembro->cedula ? 'selected' : '' }}>
-                                                            {{ number_format($miembro->cedula, 0, '.', '.') }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
                                             </div>
                                         </div>
 
@@ -114,27 +106,46 @@
 <div>
     {{-- MUESTRA CÉDULA Y CARGO AUTOMÁTICAMENTE --}}
     <script type="text/javascript">
+        // Crear un objeto con las cédulas y sus datos
+        var miembros = {
+            @foreach($miembros as $miembro)
+                "{{ $miembro->cedula }}": {
+                    id: "{{ $miembro->id }}",
+                    nombre: "{{ $miembro->nombre_apellido }}",
+                    cargo: "{{ $miembro->cargo->nombre_cargo }}"
+                },
+            @endforeach
+        };
+    
+        // Detectar cuando se escribe en el campo de cédula
+        document.getElementById('cedula').addEventListener('input', function() {
+            var cedulaIngresada = this.value.trim();
+            var selectMiembro = document.getElementById('miembro_id');
+    
+            if (miembros[cedulaIngresada]) {
+                // Rellenar datos automáticamente
+                document.getElementById('cargo').value = miembros[cedulaIngresada].cargo;
+                selectMiembro.value = miembros[cedulaIngresada].id;
+            } else {
+                // Limpiar los campos si la cédula no existe
+                document.getElementById('cargo').value = '';
+                selectMiembro.value = '';
+            }
+        });
+    
+        // Detectar cuando se selecciona un miembro de la lista
         document.getElementById('miembro_id').addEventListener('change', function() {
             var selectedOption = this.options[this.selectedIndex];
-            var cedulaValue = selectedOption.getAttribute('data-cedula');
-            var cargoValue = selectedOption.getAttribute('data-cargo');
-            
-            document.getElementById('cedula').value = cedulaValue;
-            document.getElementById('cargo').value = cargoValue;
+    
+            if (selectedOption.value) {
+                document.getElementById('cedula').value = selectedOption.getAttribute('data-cedula');
+                document.getElementById('cargo').value = selectedOption.getAttribute('data-cargo');
+            } else {
+                document.getElementById('cedula').value = '';
+                document.getElementById('cargo').value = '';
+            }
         });
-
-        document.getElementById('cedula').addEventListener('change', function() {
-            var selectedOption = this.options[this.selectedIndex];
-            var miembroId = selectedOption.getAttribute('data-id');
-
-            document.getElementById('miembro_id').value = miembroId;
-            
-            // Obtener el cargo desde el select de miembros
-            var miembroOption = document.querySelector(`#miembro_id option[value="${miembroId}"]`);
-            var cargoValue = miembroOption.getAttribute('data-cargo');
-            document.getElementById('cargo').value = cargoValue;
-        });
-    </script>
+        </script> 
 
         {{-- DATEPICKER EN ESPAÑOL --}}
         <script type="text/javascript">

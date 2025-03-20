@@ -42,7 +42,6 @@ class AsistenciaController extends Controller
         // Pasamos tanto el nombre como la cédula y el cargo de los miembros
         $miembros = Miembro::all(); // Esto nos dará acceso a todos los datos de los miembros
         $miembros = Miembro::orderBy('nombre_apellido', 'asc')->get();
-        $miembros = Miembro::orderBy('cedula', 'asc')->get();
         return view('asistencia.create', compact('asistencia', 'miembros'));
     }
 
@@ -95,7 +94,6 @@ public function show($id)
         $asistencia = Asistencia::find($id);
         $miembros = Miembro::all();
         $miembros = Miembro::orderBy('nombre_apellido', 'asc')->get();
-        $miembros = Miembro::orderBy('cedula', 'asc')->get();
         return view('asistencia.edit', compact('asistencia', 'miembros'));
     }
 

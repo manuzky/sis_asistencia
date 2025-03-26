@@ -307,6 +307,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 @csrf
             </form>
           </li>
+
+          <li class="nav-item mt-auto"> <!-- mt-auto empuja el botón hacia abajo -->
+            <a href="{{ asset('manual/manual_sistema.pdf') }}" class="nav-link active" 
+               style="background-color: #18b0ec;" download>
+                <i class="nav-icon fas">
+                    <i class="bi bi-file-earmark-pdf"></i>
+                </i>
+                <p>Manual del Sistema</p>
+            </a>
+        </li>
+
+        
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

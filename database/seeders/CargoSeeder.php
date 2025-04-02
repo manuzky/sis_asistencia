@@ -29,5 +29,9 @@ class CargoSeeder extends Seeder
             'nombre_cargo' => 'Administrativo',
             'descripcion_cargo' => 'Personal de administración.',
         ]);
+        Cargo::create( [
+            'nombre_cargo' => 'Directivo',
+            'descripcion_cargo' => 'Personal de directivo de la universidad.',
+        ]);
     }
 }

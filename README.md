@@ -2,19 +2,19 @@
 
 <p align="center">
   <a href="./MANUAL%20DEL%20SISTEMA.pdf">
-    <img src="https://img.shields.io/badge/📘 DESCARGAR MANUAL DE USUARIO-blue?style=for-the-badge&logo=adobeacrobatreader" alt="Descargar Manual"/>
+    <img src="https://img.shields.io/badge/📘%20DESCARGAR%20MANUAL%20DE%20USUARIO-blue?style=for-the-badge&logo=adobeacrobatreader" alt="Descargar Manual"/>
   </a>
 </p>
 
+Este proyecto fue desarrollado en **Laravel** como parte de mi **proyecto de grado universitario**.  
+Además, representa un hito personal importante porque fue **el primer sistema que desarrollé por mi cuenta de principio a fin**.  
 
-Este proyecto fue desarrollado en **Laravel** como mi proyecto final de grado en la universidad.  
-Fue parte de mi **tesis**, y representa un logro importante para mí al poder completar un sistema funcional y bien estructurado.
+El **Sistema de Registro y Control de Asistencias** permite gestionar de manera eficiente el control del personal dentro de una institución.  
 
 ---
 
 ## 🚀 Descripción del Sistema
 
-El **Sistema de Registro y Control de Asistencias** permite gestionar de manera eficiente el control del personal dentro de una institución.  
 Entre sus principales características se encuentran:
 
 - 👤 **Gestión de miembros** con información personal y turnos asignados.  
@@ -26,11 +26,39 @@ Entre sus principales características se encuentran:
 
 ---
 
+## ⚙️ Instalación y Uso
+
+1. Clonar el repositorio:
+   git clone https://github.com/Zakeyo/sis_asistencia
+
+
+2. Instalar dependencias:
+   composer install
+   npm install && npm run dev
+
+3. Configurar el archivo .env con tu base de datos.
+
+4. Ejecutar migraciones y seeders:
+   php artisan migrate --seed
+
+3. Iniciar el servidor de desarrollo:
+   php artisan serve
+
+### 🔑 Credenciales de acceso
+Al ejecutar `php artisan migrate --seed`, el sistema creará automáticamente un **usuario administrador por defecto** con las siguientes credenciales:
+
+- **Correo:** `manuelc.dev@gmail.com`  
+- **Contraseña:** `123456789`  
+
+Estas credenciales se pueden usar para acceder al sistema en el primer inicio de sesión.
+
+---
+
 ## 🖼️ Capturas de Pantalla
 
 ![Login](./screenshots/login.png)  
-![Panel Principal](./screenshots/index.png)
-![Base de Datos](./screenshots/DB.png)
+![Panel Principal](./screenshots/index.png)  
+![Base de Datos](./screenshots/DB.png)  
 
 ---
 
@@ -49,5 +77,5 @@ Entre sus principales características se encuentran:
 ---
 
 ✍️ **Nota Personal:**  
-Este sistema fue desarrollado como parte de mi **proyecto de grado universitario**.  
-Más allá de un trabajo académico, fue un reto personal y profesional que me permitió aplicar mis conocimientos en **Laravel**, **MySQL** y **buenas prácticas de desarrollo web**.
+Este sistema fue desarrollado como parte de mi **proyecto de grado universitario**, pero también fue el **primer proyecto que realicé totalmente por mi cuenta**.  
+Más allá de ser un trabajo académico, fue un reto personal y profesional que me permitió aplicar mis conocimientos en **Laravel**, **MySQL** y **buenas prácticas de desarrollo web**.

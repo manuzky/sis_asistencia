@@ -1,6 +1,11 @@
 # 📌 Sistema de Registro y Control de Asistencias
 
-[![Descargar Manual de Usuario](https://img.shields.io/badge/📘%20Descargar%20Manual-blue)](./MANUAL%20DEL%20SISTEMA.pdf)
+<p align="center">
+  <a href="./MANUAL%20DEL%20SISTEMA.pdf">
+    <img src="https://img.shields.io/badge/📘 DESCARGAR MANUAL DE USUARIO-blue?style=for-the-badge&logo=adobeacrobatreader" alt="Descargar Manual"/>
+  </a>
+</p>
+
 
 Este proyecto fue desarrollado en **Laravel** como mi proyecto final de grado en la universidad.  
 Fue parte de mi **tesis**, y representa un logro importante para mí al poder completar un sistema funcional y bien estructurado.
@@ -23,13 +28,8 @@ Entre sus principales características se encuentran:
 
 ## 🖼️ Capturas de Pantalla
 
-_Aquí puedes colocar imágenes de tu sistema para hacerlo más atractivo._  
-Ejemplo:
-
 ![Login](./screenshots/login.png)  
-![Panel Principal](./screenshots/index.png)  
-
-*(Crea una carpeta `screenshots/` en tu repo y sube ahí las imágenes).*
+![Panel Principal](./screenshots/index.png)
 
 ---
 

@@ -30,6 +30,7 @@ Entre sus principales características se encuentran:
 
 ![Login](./screenshots/login.png)  
 ![Panel Principal](./screenshots/index.png)
+![Base de Datos](./screenshots/DB.png)
 
 ---
 

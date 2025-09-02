@@ -28,20 +28,20 @@ Entre sus principales características se encuentran:
 
 ## ⚙️ Instalación y Uso
 
-1. Clonar el repositorio:
+1. **Clonar el repositorio:** →
    git clone https://github.com/Zakeyo/sis_asistencia
 
 
-2. Instalar dependencias:
+2. **Instalar dependencias:** →
    composer install
    npm install && npm run dev
 
-3. Configurar el archivo .env con tu base de datos.
+3. **Configurar el archivo .env con tu base de datos.**
 
-4. Ejecutar migraciones y seeders:
+4. **Ejecutar migraciones y seeders:** →
    php artisan migrate --seed
 
-3. Iniciar el servidor de desarrollo:
+5. **Iniciar el servidor de desarrollo:** →
    php artisan serve
 
 ### 🔑 Credenciales de acceso

@@ -19,8 +19,8 @@ class MiembroSeeder extends Seeder
 
         Miembro::create([
             'nombre_apellido' => 'José Carrasquel',
-            'cedula' => '30205553',
-            'direccion' => 'Por ahí en la calle',
+            'cedula' => '123456778',
+            'direccion' => 'Anywhere',
             'telefono' => '04248534449',
             'fecha_nacimiento' => '2000-10-17',
             'genero' => 'MASCULINO',

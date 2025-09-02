@@ -27,7 +27,7 @@ _Aquí puedes colocar imágenes de tu sistema para hacerlo más atractivo._
 Ejemplo:
 
 ![Login](./screenshots/login.png)  
-![Panel Principal](./screenshots/dashboard.png)  
+![Panel Principal](./screenshots/index.png)  
 
 *(Crea una carpeta `screenshots/` en tu repo y sube ahí las imágenes).*
 

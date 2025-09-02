@@ -33,7 +33,7 @@ Entre sus principales características se encuentran:
 
 
 2. **Instalar dependencias:** →
-   composer install
+   composer install &&
    npm install && npm run dev
 
 3. **Configurar el archivo .env con tu base de datos.**

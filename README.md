@@ -32,7 +32,7 @@ Its main features include:
 ## ⚙️ Installation and Usage
 
 1. **Clone the repository:** →  
-   `git clone https://github.com/Zakeyo/sis_asistencia`
+   `git clone https://github.com/manuzky/sys_attendance`
 
 2. **Install dependencies:** →  
    `composer install && npm install && npm run dev`

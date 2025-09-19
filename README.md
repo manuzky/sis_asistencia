@@ -1,81 +1,83 @@
-# 📌 Sistema de Registro y Control de Asistencias
+# 📌 Attendance Registration and Control System
 
 <p align="center">
-  <a href="./MANUAL%20DEL%20SISTEMA.pdf">
-    <img src="https://img.shields.io/badge/📘%20DESCARGAR%20MANUAL%20DE%20USUARIO-blue?style=for-the-badge&logo=adobeacrobatreader" alt="Descargar Manual"/>
+  <a href="./SYSTEM%20USER%20MANUAL.pdf">
+    <img src="https://img.shields.io/badge/📘%20DOWNLOAD%20USER%20MANUAL-blue?style=for-the-badge&logo=adobeacrobatreader" alt="Download Manual"/>
   </a>
 </p>
 
-Este proyecto fue desarrollado en **Laravel** como parte de mi **proyecto de grado universitario**.  
-Además, representa un hito personal importante porque fue **el primer sistema que desarrollé por mi cuenta de principio a fin**.  
+**IMPORTANT❗❗:** Since this project was developed for my university, the **codebase, comments, database, and user manual are entirely in Spanish**.
 
-El **Sistema de Registro y Control de Asistencias** permite gestionar de manera eficiente el control del personal dentro de una institución.  
+This project was developed in **Laravel** as part of my **university graduation project**.  
+It also represents an important milestone, as it was the **first complete system I built entirely on my own**.  
+
+The **Attendance Registration and Control System** enables efficient management of staff attendance within an institution.  
+
 
 ---
 
-## 🚀 Descripción del Sistema
+## 🚀 System Overview
 
-Entre sus principales características se encuentran:
+Its main features include:
 
-- 👤 **Gestión de miembros** con información personal y turnos asignados.  
-- ⏱️ **Registro de asistencias** con hora de entrada y salida.  
-- 🧑‍💻 **Administración de usuarios** con roles y permisos personalizados.  
-- 📊 **Generación de reportes en PDF** por rango de fechas o tipo de personal.  
-- 💾 **Respaldo de base de datos** con un solo clic.  
-- 🔐 **Buenas prácticas de seguridad** para proteger la información.  
-
----
-
-## ⚙️ Instalación y Uso
-
-1. **Clonar el repositorio:** →
-   git clone https://github.com/Zakeyo/sis_asistencia
-
-
-2. **Instalar dependencias:** →
-   composer install &&
-   npm install && npm run dev
-
-3. **Configurar el archivo .env con tu base de datos.**
-
-4. **Ejecutar migraciones y seeders:** →
-   php artisan migrate --seed
-
-5. **Iniciar el servidor de desarrollo:** →
-   php artisan serve
-
-### 🔑 Credenciales de acceso
-Al ejecutar `php artisan migrate --seed`, el sistema creará automáticamente un **usuario administrador por defecto** con las siguientes credenciales:
-
-- **Correo:** `manuelc.dev@gmail.com`  
-- **Contraseña:** `123456789`  
-
-Estas credenciales se pueden usar para acceder al sistema en el primer inicio de sesión.
+- 👤 **Member management** with personal information and assigned shifts.  
+- ⏱️ **Attendance tracking** with check-in and check-out times.  
+- 🧑‍💻 **User management** with customized roles and permissions.  
+- 📊 **PDF report generation** by date range or staff type.  
+- 💾 **One-click database backup**.  
+- 🔐 **Security best practices** to protect information.  
 
 ---
 
-## 🖼️ Capturas de Pantalla
+## ⚙️ Installation and Usage
+
+1. **Clone the repository:** →  
+   `git clone https://github.com/Zakeyo/sis_asistencia`
+
+2. **Install dependencies:** →  
+   `composer install && npm install && npm run dev`
+
+3. **Configure the `.env` file with your database.**
+
+4. **Run migrations and seeders:** →  
+   `php artisan migrate --seed`
+
+5. **Start the development server:** →  
+   `php artisan serve`
+
+
+### 🔑 Access Credentials
+When running `php artisan migrate --seed`, the system will automatically create a **default administrator user** with the following credentials:
+
+- **Email:** `manuelc.dev@gmail.com`  
+- **Password:** `123456789`  
+
+These credentials can be used to access the system on the first login.
+
+---
+
+## 🖼️ Screenshots
 
 ![Login](./screenshots/login.png)  
-![Panel Principal](./screenshots/index.png)  
-![Base de Datos](./screenshots/DB.png)  
+![Main Dashboard](./screenshots/index.png)  
+![Database](./screenshots/DB.png)  
 
 ---
 
-## 📖 Manual de Usuario (Resumen)
+## 📖 User Manual (Summary)
 
-- **Acceso y autenticación** → Login con correo y contraseña.  
-- **Panel principal** → Accesos rápidos a usuarios, miembros y asistencias.  
-- **Asistencias** → Registro y consulta de entradas y salidas.  
-- **Usuarios** → Creación, edición y habilitación/deshabilitación de cuentas.  
-- **Roles y permisos** → Configuración de accesos personalizados.  
-- **Reportes** → Exportación en PDF con filtros avanzados.  
-- **Respaldo de datos** → Copia de seguridad de la base de datos.  
+- **Access and authentication** → Login with email and password.  
+- **Main dashboard** → Quick access to users, members, and attendance.  
+- **Attendance** → Record and view check-ins and check-outs.  
+- **Users** → Create, edit, and enable/disable accounts.  
+- **Roles and permissions** → Configure customized access levels.  
+- **Reports** → Export to PDF with advanced filters.  
+- **Data backup** → Database backup.  
 
-> Para más detalle consulta el [Manual completo](./MANUAL%20DEL%20SISTEMA.pdf).
+> For more details, see the [Full Manual](./SYSTEM%20USER%20MANUAL.pdf).
 
 ---
 
-✍️ **Nota Personal:**  
-Este sistema fue desarrollado como parte de mi **proyecto de grado universitario**, pero también fue el **primer proyecto que realicé totalmente por mi cuenta**.  
-Más allá de ser un trabajo académico, fue un reto personal y profesional que me permitió aplicar mis conocimientos en **Laravel**, **MySQL** y **buenas prácticas de desarrollo web**.
+✍️ **Personal Note:**  
+Beyond being an academic assignment, this project was the **first one I fully developed on my own**.  
+It became a **personal and professional challenge** that allowed me to apply my knowledge in **Laravel**, **MySQL**, and **web development best practices**, while gaining valuable experience completing a full system independently.  

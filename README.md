@@ -63,7 +63,7 @@ These credentials can be used to access the system on the first login.
 | Index (Login & Dashboard) | Database |
 |---------------------------|----------|
 | ![Index](./screenshots/SS2/index.gif) | ![DB](./screenshots/DB.png) |
-| Attendance (Asistencias) | Reports |
+| Attendance | Reports |
 | ![Attendance](./screenshots/SS2/attendance.gif) | ![Reports](./screenshots/SS2/reports.gif) |
 
 

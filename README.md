@@ -6,12 +6,11 @@
   </a>
 </p>
 
-**IMPORTANT❗❗:** Since this project was developed for my university, the **codebase, comments, database, and user manual are entirely in Spanish**.
+**IMPORTANT❗❗:** Since this project was developed by me for my university, the **codebase, comments and database are entirely in SPANISH**.
 
 This project was developed in **Laravel** as part of my **university graduation project**.  
-It also represents an important milestone, as it was the **first complete system I built entirely on my own**.  
 
-The **Attendance Registration and Control System** enables efficient management of staff attendance within an institution.  
+The **Attendance Registration and Control System** enables efficient management of staff attendance within an institution.
 
 
 ---
@@ -37,12 +36,15 @@ Its main features include:
 2. **Install dependencies:** →  
    `composer install && npm install && npm run dev`
 
-3. **Configure the `.env` file with your database.**
+3. **Generate a New Key:** →  
+   `php artisan key:generate`
 
-4. **Run migrations and seeders:** →  
+4. **Configure the `.env` file with your database.**
+
+5. **Run migrations and seeders:** →  
    `php artisan migrate --seed`
 
-5. **Start the development server:** →  
+6. **Start the development server:** →  
    `php artisan serve`
 
 
@@ -56,11 +58,15 @@ These credentials can be used to access the system on the first login.
 
 ---
 
-## 🖼️ Screenshots
+## 🖼️ System Screenshots (Highlights)
 
-![Login](./screenshots/login.png)  
-![Main Dashboard](./screenshots/index.png)  
-![Database](./screenshots/DB.png)  
+| Index (Login & Dashboard) | Database |
+|---------------------------|----------|
+| ![Index](./screenshots/SS2/index.gif) | ![DB](./screenshots/DB.png) |
+| Attendance (Asistencias) | Reports |
+| ![Attendance](./screenshots/SS2/attendance.gif) | ![Reports](./screenshots/SS2/reports.gif) |
+
+
 
 ---
 
@@ -79,5 +85,6 @@ These credentials can be used to access the system on the first login.
 ---
 
 ✍️ **Personal Note:**  
-Beyond being an academic assignment, this project was the **first one I fully developed on my own**.  
-It became a **personal and professional challenge** that allowed me to apply my knowledge in **Laravel**, **MySQL**, and **web development best practices**, while gaining valuable experience completing a full system independently.  
+Beyond being an academic assignment, this project became a **personal and professional challenge**.  
+It was also the **first complete system I built entirely on my own, solo solín solito**.  
+Developing it allowed me to apply my knowledge in **Laravel**, **MySQL**, and **web development best practices**, while gaining valuable experience completing a full system independently.

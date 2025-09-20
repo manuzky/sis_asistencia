@@ -31,6 +31,6 @@ class MiembroSeeder extends Seeder
             'fecha_ingreso' => '2024-01-04',
         ]);
 
-        // Miembro::factory(64)->create();
+        Miembro::factory(64)->create();
     }
 }

@@ -1,7 +1,7 @@
 # 📌 Attendance Registration and Control System
 
 <p align="center">
-  <a href="./SYSTEM%20USER%20MANUAL.pdf">
+  <a href="./public/manual/manual_english.pdf">
     <img src="https://img.shields.io/badge/📘%20DOWNLOAD%20USER%20MANUAL-blue?style=for-the-badge&logo=adobeacrobatreader" alt="Download Manual"/>
   </a>
 </p>
@@ -74,7 +74,7 @@ These credentials can be used to access the system on the first login.
 - **Reports** → Export to PDF with advanced filters.  
 - **Data backup** → Database backup.  
 
-> For more details, see the [Full Manual](./SYSTEM%20USER%20MANUAL.pdf).
+> For more details, see the [Full Manual](./public/manual/manual_english.pdf).
 
 ---
 
